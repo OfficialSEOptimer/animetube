@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creators - NamiTube</title>
+    <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHE6pMgjbJ6YDLaMAtDUZCs6Zhkvxl0_fQnb0c0ZCmJOYRB_4N8dQ0ZWosBq_sZPK2wFel2E43Z2meo25JL3i7IZYkJ35FZ7lZ_BZfwlWofAKGhF1gWpFsxofeGUr87Peu6s7xtgvJMnrbtNnd4vJPtB7uG3L_wJ9tT8PKRCh-PXSxlyY9Ufn8OAzDY_Y/s320/NamiTube%20Original%20Favicon.png" type="image/png">
+    <style>
+        :root {
+            --bg: #050505;
+            --purple: #8b5cf6;
+            --purple2: #a855f7;
+            --text: #f1f0f5;
+            --text2: #c5c0d5;
+            --text3: #9a94b0;
+            --glass: rgba(20, 5, 30, 0.75);
+            --radius: 16px;
+            --transition: 0.3s ease;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background: rgba(5,5,5,0.85);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(139,92,246,0.15);
+        }
+        .header-logo img {
+            height: 40px;
+            filter: drop-shadow(0 0 12px rgba(168,85,247,0.5));
+            border-radius: 6px;
+        }
+        .back-btn {
+            background: rgba(139,92,246,0.12);
+            border: 1px solid rgba(139,92,246,0.25);
+            color: #fff;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+            text-align: center;
+        }
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(139,92,246,0.2);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin: 20px 0;
+        }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--purple), var(--purple2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 15px;
+            box-shadow: 0 0 30px rgba(168,85,247,0.5);
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        .input-group input,
+        .input-group textarea {
+            background: rgba(20,5,30,0.8);
+            border: 1px solid rgba(139,92,246,0.3);
+            color: #fff;
+            padding: 12px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            outline: none;
+        }
+        .input-group input:focus,
+        .input-group textarea:focus {
+            border-color: var(--purple);
+            box-shadow: 0 0 20px rgba(168,85,247,0.3);
+        }
+        .btn {
+            background: var(--purple);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            box-shadow: 0 4px 20px rgba(139,92,246,0.4);
+        }
+        .btn:hover { background: var(--purple2); }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .social-links a {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(139,92,246,0.1);
+            border: 1px solid rgba(139,92,246,0.2);
+            color: var(--text2);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .social-links a:hover {
+            background: var(--purple);
+            color: #fff;
+            box-shadow: 0 0 25px rgba(168,85,247,0.5);
+        }
+        .footer {
+            background: rgba(10,5,18,0.9);
+            border-top: 1px solid rgba(139,92,246,0.2);
+            padding: 50px 20px 30px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .footer-banner img { height: 48px; filter: drop-shadow(0 0 18px rgba(168,85,247,0.6)); border-radius: 6px; }
+        .footer-social { display: flex; justify-content: center; gap: 18px; margin: 20px 0; }
+        .footer-social a { width: 42px; height: 42px; border-radius: 50%; background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.2); color: var(--text2); text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+        .footer-disclaimer { max-width: 700px; margin: 0 auto 20px; font-size: 0.75rem; color: var(--text3); }
+        .footer-copyright { font-size: 0.8rem; color: var(--text3); }
+        .footer-copyright span { color: var(--purple2); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="back-btn">←</a>
+        <div style="flex:1; display:flex; justify-content:center;">
+            <a href="index.html" class="header-logo"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube"></a>
+        </div>
+        <div style="width:38px;"></div>
+    </header>
+    <div class="container">
+        <h1 style="font-size:2.5rem; font-weight:800; margin-bottom:10px;">✨ Meet the Creators</h1>
+        <div class="glass-card">
+            <div class="avatar">🎬</div>
+            <h2 style="font-size:1.8rem;">NamiTube Team</h2>
+            <p style="color:var(--text2); margin:8px 0;">We are a small group of animation lovers building a premium, ad‑free streaming experience. Our mission is to bring the best of anime, cartoons, and animated films to you in a beautiful, fast interface.</p>
+            <div class="social-links">
+                <a href="#" title="Twitter">𝕏</a>
+                <a href="#" title="Discord">💬</a>
+                <a href="#" title="GitHub">🐙</a>
+                <a href="#" title="Instagram">📷</a>
+            </div>
+        </div>
+        <div class="glass-card">
+            <h2 style="margin-bottom:15px;">📬 Contact Us</h2>
+            <div class="input-group">
+                <input type="text" placeholder="Your name" id="name">
+                <input type="email" placeholder="Email address" id="email">
+                <textarea rows="4" placeholder="Your message..." id="message"></textarea>
+                <button class="btn" onclick="showToast('Message sent (demo)')">Send Message</button>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-banner"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube"></div>
+        <div class="footer-social">📘 𝕏 📷 💬 ✈️ 🐙</div>
+        <p class="footer-disclaimer">This website does not host any video content... All trademarks belong to their respective owners.</p>
+        <p class="footer-copyright">© 2026 <span>NamiTube</span>. All Rights Reserved. Powered by TMDB API</p>
+    </footer>
+    <script>
+        function showToast(msg) {
+            const t = document.createElement('div');
+            t.style.position='fixed'; t.style.bottom='30px'; t.style.left='50%';
+            t.style.transform='translateX(-50%)'; t.style.background='var(--purple)';
+            t.style.color='#fff'; t.style.padding='12px 24px'; t.style.borderRadius='30px';
+            t.style.fontWeight='600'; t.style.zIndex='3000';
+            t.textContent = msg;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 2500);
+        }
+    </script>
+</body>
+</html>
