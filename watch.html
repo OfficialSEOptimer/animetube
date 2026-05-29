@@ -242,7 +242,8 @@
         </div>
         <div class="player-controls">
             <div class="server-group">
-                <button class="server-btn active" id="srvVidSrc" onclick="switchServer('vidsrc')">VidSrc</button>
+                <button class="server-btn active" id="srvVidRock" onclick="switchServer('vidrock')">VidRock</button>
+                <button class="server-btn" id="srvVidSrc" onclick="switchServer('vidsrc')">VidSrc</button>
                 <button class="server-btn" id="srvVidEasy" onclick="switchServer('videasy')">VidEasy</button>
                 <button class="server-btn" id="srvVidStorm" onclick="switchServer('vidstorm')">VidStorm</button>
                 <button class="server-btn" id="srvVidAPI" onclick="switchServer('vidapi')">VidAPI</button>
@@ -341,15 +342,30 @@
         const isTV = mediaType === 'tv';
         let currentSeason = parseInt(params.get('s')) || 1;
         let currentEpisode = parseInt(params.get('e')) || 1;
-        let currentServer = 'vidsrc';
+        let currentServer = 'vidrock'; // default to VidRock as requested
         let tvData = null;
         let seasonData = null;
 
         function getEmbedUrl() {
+            const server = currentServer;
             if (isTV) {
-                return `https://vidsrc.to/embed/tv/${mediaId}/${currentSeason}/${currentEpisode}`;
+                switch(server) {
+                    case 'vidrock': return `https://vidrock.ru/tv/${mediaId}/${currentSeason}/${currentEpisode}`;
+                    case 'vidsrc': return `https://vidsrc.to/embed/tv/${mediaId}/${currentSeason}/${currentEpisode}`;
+                    case 'videasy': return `https://videasy.net/embed/tv/${mediaId}/${currentSeason}/${currentEpisode}`;
+                    case 'vidstorm': return `https://vidstorm.cc/embed/tv/${mediaId}/${currentSeason}/${currentEpisode}`;
+                    case 'vidapi': return `https://vidapi.xyz/embed/tv/${mediaId}/${currentSeason}/${currentEpisode}`;
+                    default: return `https://vidsrc.to/embed/tv/${mediaId}/${currentSeason}/${currentEpisode}`;
+                }
             } else {
-                return `https://vidsrc.to/embed/movie/${mediaId}`;
+                switch(server) {
+                    case 'vidrock': return `https://vidrock.ru/movie/${mediaId}`;
+                    case 'vidsrc': return `https://vidsrc.to/embed/movie/${mediaId}`;
+                    case 'videasy': return `https://videasy.net/embed/movie/${mediaId}`;
+                    case 'vidstorm': return `https://vidstorm.cc/embed/movie/${mediaId}`;
+                    case 'vidapi': return `https://vidapi.xyz/embed/movie/${mediaId}`;
+                    default: return `https://vidsrc.to/embed/movie/${mediaId}`;
+                }
             }
         }
 
@@ -367,7 +383,7 @@
         function switchServer(server) {
             currentServer = server;
             document.querySelectorAll('.server-btn').forEach(btn => btn.classList.remove('active'));
-            const idMap = { 'vidsrc': 'srvVidSrc', 'videasy': 'srvVidEasy', 'vidstorm': 'srvVidStorm', 'vidapi': 'srvVidAPI' };
+            const idMap = { 'vidrock': 'srvVidRock', 'vidsrc': 'srvVidSrc', 'videasy': 'srvVidEasy', 'vidstorm': 'srvVidStorm', 'vidapi': 'srvVidAPI' };
             if (idMap[server]) document.getElementById(idMap[server]).classList.add('active');
             loadPlayer();
         }
