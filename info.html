@@ -91,12 +91,18 @@
             align-items: center;
             min-width: 0;
         }
+        .header-logo a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         .header-logo img {
             max-height: 52px;
             width: auto;
             object-fit: contain;
             filter: drop-shadow(0 0 30px rgba(139, 92, 246, .35));
             border-radius: 4px;
+            transition: filter .3s;
         }
         .header-logo img:hover {
             filter: drop-shadow(0 0 50px rgba(139, 92, 246, .6));
@@ -172,6 +178,9 @@
         .drawer-logo {
             text-align: center;
             margin-bottom: 30px;
+        }
+        .drawer-logo a {
+            display: inline-block;
         }
         .drawer-logo img {
             max-height: 44px;
@@ -341,11 +350,18 @@
             justify-content: center;
             margin-bottom: 24px;
         }
+        .footer-banner a {
+            display: inline-block;
+        }
         .footer-banner img {
             max-height: 48px;
             width: auto;
             filter: drop-shadow(0 0 30px rgba(139, 92, 246, .25));
             border-radius: 4px;
+            transition: filter .3s;
+        }
+        .footer-banner img:hover {
+            filter: drop-shadow(0 0 50px rgba(139, 92, 246, .6));
         }
         .footer-socials {
             display: flex;
@@ -565,12 +581,12 @@
             transform: scale(1.04);
             box-shadow: 0 0 60px rgba(139, 92, 246, .35);
         }
-        .backdrop-overlay .info .actions .watchlist {
+        .backdrop-overlay .info .actions .trailer-btn {
             background: rgba(255, 255, 255, .06);
             color: #fff;
             border: 1px solid rgba(139, 92, 246, .15);
         }
-        .backdrop-overlay .info .actions .watchlist:hover {
+        .backdrop-overlay .info .actions .trailer-btn:hover {
             background: rgba(139, 92, 246, .12);
         }
         .backdrop-overlay .info .actions .share {
@@ -796,22 +812,69 @@
             color: #8b5cf6;
         }
 
-        /* Trailer */
-        .trailer-wrap {
-            position: relative;
+        /* ----- TRAILER OVERLAY ----- */
+        .trailer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: .4s;
+        }
+        .trailer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .trailer-overlay .trailer-close {
+            position: absolute;
+            top: 20px;
+            right: 28px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 36px;
+            cursor: pointer;
+            transition: .3s;
+            padding: 8px;
+        }
+        .trailer-overlay .trailer-close:hover {
+            color: #a855f7;
+            transform: rotate(90deg);
+        }
+        .trailer-overlay .trailer-wrap {
             width: 100%;
-            max-width: 800px;
+            max-width: 960px;
             aspect-ratio: 16/9;
             background: #0a0a0f;
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
-            margin-bottom: 30px;
-            border: 1px solid rgba(139, 92, 246, .08);
+            box-shadow: 0 0 80px rgba(139, 92, 246, .15);
+            border: 1px solid rgba(139, 92, 246, .1);
         }
-        .trailer-wrap iframe {
+        .trailer-overlay .trailer-wrap iframe {
             width: 100%;
             height: 100%;
             border: none;
+        }
+        .trailer-overlay .no-trailer {
+            text-align: center;
+            color: #888;
+            font-size: 18px;
+            padding: 40px;
+        }
+        .trailer-overlay .no-trailer i {
+            font-size: 48px;
+            color: #8b5cf6;
+            display: block;
+            margin-bottom: 16px;
         }
 
         .loading-placeholder {
@@ -852,6 +915,14 @@
             .episode-list {
                 grid-template-columns: 1fr;
             }
+            .trailer-overlay .trailer-close {
+                top: 12px;
+                right: 16px;
+                font-size: 28px;
+            }
+            .trailer-overlay {
+                padding: 20px 12px;
+            }
         }
     </style>
 </head>
@@ -864,7 +935,9 @@
                 <i class="fas fa-bars"></i>
             </button>
             <div class="header-logo">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube" />
+                <a href="index.html">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube" />
+                </a>
             </div>
             <button class="header-search" id="searchBtn" aria-label="Search">
                 <i class="fas fa-search"></i>
@@ -877,7 +950,9 @@
     <div class="drawer" id="drawer">
         <button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button>
         <div class="drawer-logo">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube" />
+            <a href="index.html">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube" />
+            </a>
         </div>
         <nav class="drawer-nav">
             <a href="index.html"><i class="fas fa-house"></i> Home</a>
@@ -894,6 +969,16 @@
             <input type="text" id="searchInput" placeholder="Search animation &amp; anime..." autofocus />
         </div>
         <div class="search-results" id="searchResults"></div>
+    </div>
+
+    <!-- ===== TRAILER OVERLAY ===== -->
+    <div class="trailer-overlay" id="trailerOverlay">
+        <button class="trailer-close" id="trailerClose"><i class="fas fa-times"></i></button>
+        <div class="trailer-wrap" id="trailerWrap">
+            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#666;font-size:18px;">
+                <i class="fas fa-spinner fa-spin" style="font-size:32px;color:#8b5cf6;margin-right:12px;"></i> Loading...
+            </div>
+        </div>
     </div>
 
     <!-- ===== MAIN ===== -->
@@ -920,7 +1005,9 @@
     <footer>
         <div class="footer-inner">
             <div class="footer-banner">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube" />
+                <a href="index.html">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube" />
+                </a>
             </div>
             <div class="footer-socials">
                 <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -1051,6 +1138,42 @@
         }
 
         // ============================================================
+        //  TRAILER OVERLAY
+        // ============================================================
+        const trailerOverlay = document.getElementById('trailerOverlay');
+        const trailerClose = document.getElementById('trailerClose');
+        const trailerWrap = document.getElementById('trailerWrap');
+
+        function openTrailer(videoKey) {
+            trailerWrap.innerHTML = `
+                <iframe src="https://www.youtube.com/embed/${videoKey}?autoplay=1" allowfullscreen loading="lazy"></iframe>
+            `;
+            trailerOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTrailer() {
+            trailerOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+            // Reset after transition
+            setTimeout(() => {
+                trailerWrap.innerHTML = `
+                    <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#666;font-size:18px;">
+                        <i class="fas fa-spinner fa-spin" style="font-size:32px;color:#8b5cf6;margin-right:12px;"></i> Loading...
+                    </div>
+                `;
+            }, 400);
+        }
+
+        trailerClose.addEventListener('click', closeTrailer);
+        trailerOverlay.addEventListener('click', function(e) {
+            if (e.target === this) closeTrailer();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && trailerOverlay.classList.contains('active')) closeTrailer();
+        });
+
+        // ============================================================
         //  INFO LOADER
         // ============================================================
         async function loadInfo() {
@@ -1077,6 +1200,11 @@
                 const year = yearFromDate(data.release_date || data.first_air_date);
                 const runtime = data.runtime || data.episode_run_time?.[0] || 0;
 
+                // Find trailer
+                const videos = data.videos?.results || [];
+                const trailer = videos.find(v => v.type === 'Trailer' && v.site === 'YouTube');
+                const trailerKey = trailer ? trailer.key : null;
+
                 const backdropHtml = `
                     <img src="${backdrop}" alt="${title}" loading="lazy" />
                     <div class="backdrop-overlay">
@@ -1094,7 +1222,7 @@
                             </div>
                             <div class="actions">
                                 <a href="watch.html?id=${id}&type=${type}" class="watch"><i class="fas fa-play"></i> Watch Now</a>
-                                <button class="watchlist" id="watchlistBtn"><i class="fas fa-bookmark"></i> Add to Watchlist</button>
+                                ${trailerKey ? `<button class="trailer-btn" id="trailerBtn"><i class="fas fa-video"></i> Trailer</button>` : ''}
                                 <button class="share" onclick="navigator.share ? navigator.share({title:'${title}',url:window.location.href}) : alert('Share this page!')"><i class="fas fa-share-alt"></i> Share</button>
                                 <button class="back" onclick="history.back()"><i class="fas fa-arrow-left"></i> Back</button>
                             </div>
@@ -1102,6 +1230,12 @@
                     </div>
                 `;
                 document.getElementById('backdropSection').innerHTML = backdropHtml;
+
+                // Attach trailer button event
+                const trailerBtn = document.getElementById('trailerBtn');
+                if (trailerBtn && trailerKey) {
+                    trailerBtn.addEventListener('click', () => openTrailer(trailerKey));
+                }
 
                 // ----- DETAILS -----
                 const genres = (data.genres || []).map(g => g.name).join(', ');
@@ -1139,18 +1273,6 @@
                     });
                     castHtml += '</div>';
                     detailsHtml += castHtml;
-                }
-
-                // ----- TRAILER -----
-                const videos = data.videos?.results || [];
-                const trailer = videos.find(v => v.type === 'Trailer' && v.site === 'YouTube');
-                if (trailer) {
-                    detailsHtml += `
-                        <div class="section-title"><i class="fas fa-video"></i> Trailer</div>
-                        <div class="trailer-wrap">
-                            <iframe src="https://www.youtube.com/embed/${trailer.key}" allowfullscreen loading="lazy"></iframe>
-                        </div>
-                    `;
                 }
 
                 // ----- RECOMMENDATIONS -----
@@ -1242,7 +1364,6 @@
                         }
                     }
 
-                    // Activate first season
                     if (seasonBtns.length) {
                         seasonBtns.forEach(btn => btn.classList.remove('active'));
                         seasonBtns[0].classList.add('active');
@@ -1255,31 +1376,6 @@
                             });
                         });
                     }
-                }
-
-                // ----- WATCHLIST BUTTON -----
-                const wlBtn = document.getElementById('watchlistBtn');
-                if (wlBtn) {
-                    let watchlist = JSON.parse(localStorage.getItem('nami_watchlist') || '[]');
-                    const isInList = watchlist.some(item => item.id === id && item.type === type);
-                    if (isInList) {
-                        wlBtn.innerHTML = '<i class="fas fa-check"></i> In Watchlist';
-                        wlBtn.style.background = 'rgba(139,92,246,.2)';
-                    }
-                    wlBtn.addEventListener('click', function() {
-                        let wl = JSON.parse(localStorage.getItem('nami_watchlist') || '[]');
-                        const idx = wl.findIndex(item => item.id === id && item.type === type);
-                        if (idx > -1) {
-                            wl.splice(idx, 1);
-                            this.innerHTML = '<i class="fas fa-bookmark"></i> Add to Watchlist';
-                            this.style.background = 'rgba(255,255,255,.06)';
-                        } else {
-                            wl.push({ id, type, title, poster });
-                            this.innerHTML = '<i class="fas fa-check"></i> In Watchlist';
-                            this.style.background = 'rgba(139,92,246,.2)';
-                        }
-                        localStorage.setItem('nami_watchlist', JSON.stringify(wl));
-                    });
                 }
 
             } catch (e) {
