@@ -1,2121 +1,912 @@
-
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NamiTube - Anime & Animation Streaming</title>
-  <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHE6pMgjbJ6YDLaMAtDUZCs6Zhkvxl0_fQnb0c0ZCmJOYRB_4N8dQ0ZWosBq_sZPK2wFel2E43Z2meo25JL3i7IZYkJ35FZ7lZ_BZfwlWofAKGhF1gWpFsxofeGUr87Peu6s7xtgvJMnrbtNnd4vJPtB7uG3L_wJ9tT8PKRCh-PXSxlyY9Ufn8OAzDY_Y/s320/NamiTube%20Original%20Favicon.png" type="image/png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>NamiTube - Cinematic Anime Streaming</title>
+  <link rel="icon" type="image/png" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHE6pMgjbJ6YDLaMAtDUZCs6Zhkvxl0_fQnb0c0ZCmJOYRB_4N8dQ0ZWosBq_sZPK2wFel2E43Z2meo25JL3i7IZYkJ35FZ7lZ_BZfwlWofAKGhF1gWpFsxofeGUr87Peu6s7xtgvJMnrbtNnd4vJPtB7uG3L_wJ9tT8PKRCh-PXSxlyY9Ufn8OAzDY_Y/s320/NamiTube%20Original%20Favicon.png">
   <style>
+    /* RESET & CORE VARIABLES */
     :root {
-      --bg-dark: #050505;
-      --bg-card: rgba(18, 0, 24, 0.65);
-      --bg-card-hover: rgba(139, 92, 246, 0.15);
-      --primary: #8b5cf6;
-      --primary-glow: rgba(168, 85, 247, 0.6);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      --font-family: 'Inter', -apple-system, sans-serif;
+      --bg-base: #07050d;
+      --bg-surface: rgba(20, 15, 35, 0.65);
+      --bg-surface-solid: #120e22;
+      --accent: #8b5cf6;
+      --accent-glow: rgba(139, 92, 246, 0.4);
+      --accent-secondary: #ec4899;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-glow: rgba(139, 92, 246, 0.15);
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     html, body {
-      background-color: var(--bg-dark);
+      background-color: var(--bg-base);
       color: var(--text-main);
-      font-family: var(--font-family);
+      font-family: var(--font-stack);
       overflow-x: hidden;
       max-width: 100%;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      scroll-behavior: smooth;
     }
     a { color: inherit; text-decoration: none; }
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: #050505; }
-    ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #a855f7; }
+    button { background: none; border: none; font-family: inherit; color: inherit; cursor: pointer; }
 
-    /* Premium Sticky Header */
-    .navbar {
-      position: sticky;
+    /* LAYOUT PATTERNS */
+    .container {
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    @media (max-width: 768px) { .container { padding: 0 1rem; } }
+
+    /* STICKY HEADER */
+    header {
+      position: fixed;
       top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
       z-index: 1000;
-      background: rgba(5, 5, 5, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+      background: rgba(7, 5, 13, 0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-glow);
+      display: flex;
+      align-items: center;
+      transition: var(--transition-smooth);
+    }
+    header.scrolled {
+      background: rgba(7, 5, 13, 0.95);
+      height: 60px;
+    }
+    .header-inner {
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.75rem 2rem;
-      height: 70px;
     }
-    .nav-left, .nav-right { display: flex; align-items: center; gap: 1.5rem; }
-    .nav-banner {
-      height: 48px;
+    @media (max-width: 768px) { .header-inner { padding: 0 1rem; } }
+    
+    .header-left { display: flex; align-items: center; gap: 1.5rem; }
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 24px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--text-main);
+      transition: var(--transition-smooth);
+    }
+    .header-logo img {
+      height: 40px;
       object-fit: contain;
-      filter: drop-shadow(0 0 8px var(--primary-glow));
-      transition: var(--transition);
+      display: block;
+      transition: var(--transition-smooth);
     }
-    .nav-banner:hover { transform: scale(1.03); filter: drop-shadow(0 0 15px #a855f7); }
-    .menu-btn, .search-btn, .close-search, .close-sidebar {
-      background: none; border: none; color: var(--text-main); font-size: 1.4rem;
-      cursor: pointer; transition: var(--transition); display: flex; align-items: center;
-      justify-content: center; width: 40px; height: 40px; border-radius: 50%;
+    @media (max-width: 768px) {
+      .header-logo img { height: 32px; }
     }
-    .menu-btn:hover, .search-btn:hover, .close-search:hover, .close-sidebar:hover {
-      color: var(--primary); background: rgba(139, 92, 246, 0.1); box-shadow: 0 0 15px var(--primary-glow);
+    
+    .header-nav { display: flex; align-items: center; gap: 2rem; }
+    @media (max-width: 1024px) { .header-nav { display: none; } }
+    .nav-link {
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      position: relative;
+      opacity: 0.8;
+      transition: var(--transition-smooth);
     }
-    .desktop-menu { display: flex; gap: 2rem; font-weight: 500; font-size: 0.95rem; }
-    .desktop-menu a { position: relative; padding: 0.25rem 0; transition: var(--transition); }
-    .desktop-menu a::after {
-      content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
-      background: var(--primary); transition: var(--transition); box-shadow: 0 0 8px var(--primary-glow);
+    .nav-link:hover, .nav-link.active {
+      opacity: 1;
+      color: var(--accent);
     }
-    .desktop-menu a:hover { color: var(--primary); }
-    .desktop-menu a:hover::after { width: 100%; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: var(--transition-smooth);
+    }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-    /* Navigation Drawer */
+    .header-right { display: flex; align-items: center; gap: 1rem; }
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-smooth);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .icon-btn:hover {
+      background: var(--accent-glow);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* SIDEBAR */
     .sidebar {
-      position: fixed; top: 0; left: -280px; width: 280px; height: 100vh;
-      background: rgba(18, 0, 24, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      z-index: 1100; border-right: 1px solid rgba(139, 92, 246, 0.2); padding: 2rem;
-      display: flex; flex-direction: column; gap: 2rem; transition: var(--transition);
+      position: fixed;
+      top: 0;
+      left: -320px;
+      width: 300px;
+      height: 100%;
+      background: rgba(10, 8, 18, 0.95);
+      backdrop-filter: blur(30px);
+      z-index: 1001;
+      box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      transition: var(--transition-smooth);
+      border-right: 1px solid var(--border-glow);
     }
-    .sidebar.active { left: 0; box-shadow: 10px 0 30px rgba(139, 92, 246, 0.15); }
-    .sidebar-header { display: flex; justify-content: space-between; align-items: center; }
-    .sidebar-header h3 {
-      font-size: 1.5rem; font-weight: 700;
-      background: linear-gradient(to right, #ffffff, var(--primary));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    .sidebar.active { left: 0; }
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    .sidebar-links { display: flex; flex-direction: column; gap: 1.5rem; }
-    .sidebar-links a {
-      font-size: 1.1rem; display: flex; align-items: center; gap: 1rem;
-      padding: 0.75rem 1rem; border-radius: 8px; transition: var(--transition);
-    }
-    .sidebar-links a:hover { background: rgba(139, 92, 246, 0.15); color: var(--primary); transform: translateX(5px); }
+    .sidebar-logo img { height: 35px; }
+    .close-btn { font-size: 1.5rem; opacity: 0.8; }
+    .sidebar-nav { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1rem; }
+    .sidebar-link { font-size: 1.1rem; display: flex; align-items: center; gap: 1rem; }
     .sidebar-overlay {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px); z-index: 1050; opacity: 0; pointer-events: none; transition: var(--transition);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition-smooth);
     }
     .sidebar-overlay.active { opacity: 1; pointer-events: auto; }
 
-    /* Global Search Overlay */
-    .search-overlay {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(5, 5, 5, 0.98);
-      backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); z-index: 2000;
-      opacity: 0; pointer-events: none; transition: var(--transition); padding: 4rem 2rem;
-      display: flex; flex-direction: column; align-items: center;
-    }
-    .search-overlay.active { opacity: 1; pointer-events: auto; }
-    .close-search { position: absolute; top: 1.5rem; right: 2rem; }
-    .search-container { width: 100%; max-width: 800px; display: flex; flex-direction: column; gap: 2rem; }
-    .search-container input {
-      width: 100%; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(139, 92, 246, 0.3);
-      padding: 1rem 1.5rem; font-size: 1.25rem; border-radius: 50px; color: #fff; outline: none;
-      transition: var(--transition); box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-    }
-    .search-container input:focus { border-color: var(--primary); box-shadow: 0 0 20px var(--primary-glow); }
-    .search-results-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.5rem;
-      overflow-y: auto; max-height: 60vh; padding-right: 0.5rem;
-    }
-    .search-item {
-      background: var(--bg-card); border: 1px solid rgba(139, 92, 246, 0.1);
-      border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: var(--transition);
-    }
-    .search-item img { width: 100%; aspect-ratio: 2/3; object-fit: cover; transition: var(--transition); }
-    .search-item:hover img { transform: scale(1.05); }
-    .search-item:hover { border-color: var(--primary); box-shadow: 0 5px 15px rgba(139, 92, 246, 0.2); }
-    .search-item-info { padding: 0.75rem; }
-    .search-item-info h4 { font-size: 0.95rem; margin-bottom: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .search-item-info p { font-size: 0.8rem; color: var(--text-muted); }
-
-    /* Cinematic Hero Slider */
-    .hero {
-      position: relative; height: 70vh; width: 100%; overflow: hidden;
-      display: flex; align-items: center; border-bottom: 2px solid rgba(139, 92, 246, 0.15);
+    /* HERO SLIDER */
+    .hero-container {
+      width: 100%;
+      height: 85vh;
+      min-height: 500px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 0;
     }
     .hero-slide {
-      position: absolute; inset: 0; opacity: 0; transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
-      display: flex; align-items: center; background-size: cover; background-position: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+      background-size: cover;
+      background-position: center;
     }
-    .hero-slide.active { opacity: 1; }
-    .hero-slide::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(0deg, var(--bg-dark) 0%, rgba(5,5,5,0.7) 50%, rgba(5,5,5,0.3) 100%);
+    .hero-slide.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(0deg, var(--bg-base) 5%, rgba(7, 5, 13, 0.4) 60%, rgba(7, 5, 13, 0.8) 100%),
+                  linear-gradient(90deg, var(--bg-base) 0%, rgba(7, 5, 13, 0.6) 40%, transparent 100%);
     }
     .hero-content {
-      position: relative; z-index: 10; max-width: 800px; padding: 0 4rem;
-      display: flex; flex-direction: column; gap: 1.25rem;
+      position: absolute;
+      bottom: 12%;
+      left: 5%;
+      right: 5%;
+      max-width: 650px;
+      z-index: 10;
     }
-    .hero-tag {
-      align-self: flex-start; background: var(--primary); color: #fff;
-      font-size: 0.8rem; font-weight: 700; padding: 0.35rem 1rem; border-radius: 50px;
-      box-shadow: 0 0 10px var(--primary-glow); text-transform: uppercase; letter-spacing: 1px;
+    .hero-genres { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .badge {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    .hero-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.1; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
-    .hero-meta { display: flex; align-items: center; gap: 1.5rem; font-size: 0.95rem; color: var(--text-muted); }
-    .hero-meta span { display: flex; align-items: center; gap: 0.35rem; }
-    .rating-star { color: #f59e0b; }
-    .hero-overview { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.6; color: #d1d5db; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-    .hero-buttons { display: flex; gap: 1rem; }
+    .badge.score {
+      background: rgba(139, 92, 246, 0.2);
+      border-color: var(--accent);
+      color: var(--text-main);
+    }
+    .hero-title {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .hero-synopsis {
+      font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.8rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .hero-actions { display: flex; gap: 1rem; align-items: center; }
     .btn {
-      display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1.75rem;
-      font-size: 1rem; font-weight: 600; border-radius: 8px; transition: var(--transition); cursor: pointer; border: none;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: var(--transition-smooth);
     }
-    .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 15px var(--primary-glow); }
-    .btn-primary:hover { background: #a855f7; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(168,85,247,0.8); }
-    .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; backdrop-filter: blur(8px); }
-    .btn-secondary:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 15px var(--accent-glow);
+    }
+    .btn-primary:hover {
+      background: #7c3aed;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-2px);
+    }
 
-    /* Homepage Carousels Setup */
-    .carousel-section { margin: 3rem 0; padding: 0 4rem; position: relative; }
-    .carousel-section h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; color: #fff; }
-    .carousel-section h3 i { color: var(--primary); text-shadow: 0 0 8px var(--primary-glow); }
-    .carousel-container-wrapper { position: relative; display: flex; align-items: center; }
-    .carousel-container { display: flex; gap: 1.25rem; overflow-x: auto; scroll-behavior: smooth; padding: 0.5rem 0; width: 100%; scroll-snap-type: x mandatory; }
-    .carousel-container::-webkit-scrollbar { display: none; }
+    /* SLIDER NAV & DOTS */
+    .hero-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 15;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(7, 5, 13, 0.6);
+      border: 1px solid var(--border-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-smooth);
+    }
+    .hero-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .hero-btn-prev { left: 2%; }
+    .hero-btn-next { right: 2%; }
+    .hero-dots {
+      position: absolute;
+      bottom: 5%;
+      right: 5%;
+      display: flex;
+      gap: 8px;
+      z-index: 15;
+    }
+    .hero-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transition: var(--transition-smooth);
+    }
+    .hero-dot.active {
+      width: 24px;
+      border-radius: 4px;
+      background: var(--accent);
+    }
+
+    /* CONTENT ROWS */
+    .section-row {
+      margin-bottom: 3.5rem;
+      position: relative;
+    }
+    .row-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 1.25rem;
+    }
+    .row-title {
+      font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+      font-weight: 700;
+      position: relative;
+      padding-left: 12px;
+    }
+    .row-title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 15%;
+      bottom: 15%;
+      width: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    .slider-arrows { display: flex; gap: 8px; }
+    .slider-arrow {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-smooth);
+    }
+    .slider-arrow:hover {
+      background: var(--accent-glow);
+      border-color: var(--accent);
+    }
     
-    /* Carousel Cards UI styling */
-    .media-card {
-      min-width: 180px; max-width: 180px; aspect-ratio: 2/3; background: var(--bg-card);
-      border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.08); position: relative;
-      overflow: hidden; cursor: pointer; transition: var(--transition); scroll-snap-align: start;
+    .slider-viewport {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      display: flex;
+      gap: 1.25rem;
+      padding: 0.5rem 0 1.5rem 0;
+      scrollbar-width: none; /* Firefox */
     }
-    .media-card img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
-    .media-card:hover { border-color: var(--primary); transform: translateY(-5px) scale(1.02); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3); }
-    .media-card:hover img { transform: scale(1.05); }
-    .card-info {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: linear-gradient(to top, rgba(5,5,5,1) 30%, rgba(5,5,5,0.8) 70%, rgba(5,5,5,0));
-      padding: 1.5rem 0.75rem 0.75rem 0.75rem; display: flex; flex-direction: column; gap: 0.25rem;
+    .slider-viewport::-webkit-scrollbar { display: none; } /* Chrome, Safari */
+    
+    /* CARDS */
+    .anime-card {
+      flex: 0 0 180px;
+      scroll-snap-align: start;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glow);
+      transition: var(--transition-smooth);
+      position: relative;
     }
-    .card-title { font-size: 0.9rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .card-meta { font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; justify-content: space-between; }
-    .badge { background: var(--primary); color: #fff; padding: 1px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
-    .card-rating { color: #f59e0b; font-weight: 600; display: flex; align-items: center; gap: 2px; }
+    @media (max-width: 480px) { .anime-card { flex: 0 0 140px; } }
+    .anime-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--accent);
+      box-shadow: 0 10px 25px rgba(139, 92, 246, 0.25);
+    }
+    .card-poster {
+      position: relative;
+      aspect-ratio: 2/3;
+      overflow: hidden;
+      background: rgba(255,255,255,0.02);
+    }
+    .card-poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .anime-card:hover .card-poster img { transform: scale(1.08); }
+    .card-meta {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+    .card-score {
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      background: rgba(139, 92, 246, 0.85);
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .card-info { padding: 10px; }
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 4px;
+    }
+    .card-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
 
-    .carousel-btn {
-      position: absolute; top: 50%; transform: translateY(-50%); background: rgba(18, 0, 24, 0.85);
-      backdrop-filter: blur(8px); border: 1px solid rgba(139, 92, 246, 0.3); color: #fff;
-      width: 45px; height: 45px; border-radius: 50%; cursor: pointer; z-index: 10;
-      display: flex; align-items: center; justify-content: center; transition: var(--transition);
+    /* FULLSCREEN SEARCH OVERLAY */
+    .search-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(7, 5, 13, 0.97);
+      backdrop-filter: blur(25px);
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition-smooth);
+      padding: 2rem;
     }
-    .carousel-btn:hover { background: var(--primary); box-shadow: 0 0 15px var(--primary-glow); border-color: #fff; }
-    .carousel-btn.left-btn { left: -22px; }
-    .carousel-btn.right-btn { right: -22px; }
+    .search-overlay.active { opacity: 1; pointer-events: auto; }
+    .search-header-box {
+      width: 100%;
+      max-width: 800px;
+      margin: 2rem auto;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 18px 50px 18px 24px;
+      font-size: 1.2rem;
+      color: #fff;
+      outline: none;
+      transition: var(--transition-smooth);
+    }
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+    }
+    .search-close {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+      opacity: 0.6;
+    }
+    .search-results-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      max-height: 65vh;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1.5rem;
+      padding-bottom: 2rem;
+    }
 
-    /* Animated Genres Quick Links Grid */
-    .genres-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem; }
-    .genre-tag-card {
-      background: linear-gradient(135deg, rgba(18,0,24,0.7) 0%, rgba(139,92,246,0.1) 100%);
-      border: 1px solid rgba(139,92,246,0.15); border-radius: 12px; padding: 1.5rem 1rem;
-      text-align: center; font-weight: 600; font-size: 1rem; cursor: pointer; transition: var(--transition);
+    /* SKELETON LOADERS */
+    .skeleton {
+      background: linear-gradient(90deg, rgba(255,255,255,0.02) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.02) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-load 1.5s infinite;
     }
-    .genre-tag-card:hover {
-      border-color: var(--primary); box-shadow: 0 5px 20px rgba(139, 92, 246, 0.25);
-      transform: translateY(-3px); background: rgba(139,92,246,0.15);
+    @keyframes skeleton-load {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
     }
 
-    /* Footer styling */
-    .footer {
-      background: #040206; border-top: 1px solid rgba(139, 92, 246, 0.15);
-      padding: 3rem 2rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
-      margin-top: auto; text-align: center;
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border-glow);
+      background: #040208;
+      padding: 3rem 0;
+      margin-top: 5rem;
     }
-    .footer-banner-container { margin-bottom: 0.5rem; }
-    .footer-banner { height: 50px; object-fit: contain; filter: drop-shadow(0 0 8px var(--primary-glow)); }
-    .social-links { display: flex; gap: 1.5rem; }
-    .social-links a {
-      font-size: 1.5rem; color: var(--text-muted); transition: var(--transition);
-      display: flex; align-items: center; justify-content: center; width: 45px; height: 45px;
-      border-radius: 50%; background: rgba(255,255,255,0.02); border: 1px solid rgba(139, 92, 246, 0.05);
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      text-align: center;
     }
-    .social-links a:hover {
-      color: var(--primary); transform: scale(1.15) translateY(-3px);
-      box-shadow: 0 0 15px var(--primary-glow); border-color: var(--primary); background: rgba(139, 92, 246, 0.1);
-    }
-    .disclaimer { font-size: 0.8rem; color: #6b7280; max-width: 800px; line-height: 1.6; }
+    .footer-logo img { height: 35px; }
+    .footer-nav { display: flex; gap: 2rem; }
+    .disclaimer { font-size: 0.8rem; color: var(--text-muted); max-width: 600px; line-height: 1.5; }
     .copyright { font-size: 0.85rem; color: var(--text-muted); }
-
-    /* Skeleton Loading UI */
-    .skeleton { background: linear-gradient(90deg, #120018 25%, #230b30 50%, #120018 75%); background-size: 200% 100%; animation: loadingSkeleton 1.5s infinite; }
-    @keyframes loadingSkeleton { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-
-    /* Responsive queries */
-    @media (max-width: 1024px) {
-      .hero-content { padding: 0 2rem; }
-      .carousel-section { padding: 0 2rem; }
-    }
-    @media (max-width: 768px) {
-      .desktop-menu { display: none; }
-      .navbar { padding: 0.75rem 1rem; }
-      .nav-banner { height: 36px; }
-      .hero { height: 60vh; }
-      .hero-content { padding: 0 1rem; }
-      .carousel-section { padding: 0 1rem; }
-      .carousel-btn { display: none; }
-    }
   </style>
 </head>
 <body>
 
-  <!-- Premium sticky navigation header bar -->
-  <header class="navbar">
-    <div class="nav-left">
-      <button class="menu-btn" aria-label="Open Navigation Menu"><i class="fa-solid fa-bars"></i></button>
-    </div>
-    <div class="nav-center">
-      <a href="index.html">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube Original logo banner" class="nav-banner">
-      </a>
-    </div>
-    <div class="nav-right">
-      <nav class="desktop-menu">
-        <a href="index.html">Home</a>
-        <a href="discover.html">Discover</a>
-        <a href="donate.html">Donate</a>
-        <a href="creator.html">Creator</a>
+  <!-- HEADER -->
+  <header id="main-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <button class="hamburger" onclick="toggleSidebar(true)">
+          <span></span><span></span><span></span>
+        </button>
+        <a href="index.html" class="header-logo">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube">
+        </a>
+      </div>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="discover.html" class="nav-link">Discover</a>
+        <a href="schedule.html" class="nav-link">Schedule</a>
+        <a href="donate.html" class="nav-link">Donate</a>
       </nav>
-      <button class="search-btn" aria-label="Open Fullscreen Search Menu"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <div class="header-right">
+        <button class="icon-btn" onclick="toggleSearch(true)">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- Sidebar Navigation Drawer -->
-  <div class="sidebar" id="sidebar">
+  <!-- MOBILE SIDEBAR -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar(false)"></div>
+  <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
-      <h3>Menu</h3>
-      <button class="close-sidebar"><i class="fa-solid fa-xmark"></i></button>
+      <div class="sidebar-logo"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube"></div>
+      <button class="close-btn" onclick="toggleSidebar(false)">&times;</button>
     </div>
-    <nav class="sidebar-links">
-      <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
-      <a href="discover.html"><i class="fa-solid fa-compass"></i> Discover</a>
-      <a href="donate.html"><i class="fa-solid fa-heart"></i> Donate</a>
-      <a href="creator.html"><i class="fa-solid fa-user"></i> Creator</a>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="sidebar-link" style="color:var(--accent);">Home</a>
+      <a href="discover.html" class="sidebar-link">Discover</a>
+      <a href="schedule.html" class="sidebar-link">Schedule</a>
+      <a href="donate.html" class="sidebar-link">Donate</a>
     </nav>
-  </div>
-  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  </aside>
 
-  <!-- Global Fullscreen Search Overlay -->
+  <!-- FULLSCREEN SEARCH -->
   <div class="search-overlay" id="search-overlay">
-    <button class="close-search" aria-label="Close Fullscreen Search Overlay"><i class="fa-solid fa-xmark"></i></button>
-    <div class="search-container">
-      <input type="text" id="search-input" placeholder="Search animation, anime, cartoons..." autocomplete="off">
-      <div id="search-results" class="search-results-grid"></div>
+    <div class="search-header-box">
+      <input type="text" class="search-input" id="search-field" placeholder="Search anime, movies, genres..." autocomplete="off">
+      <button class="search-close" onclick="toggleSearch(false)">&times;</button>
     </div>
+    <div class="search-results-grid" id="search-results"></div>
   </div>
 
-  <!-- Main Hero slider wrapper -->
-  <section class="hero" id="hero-slider"></section>
-
-  <!-- Homepage Carousel widgets sections -->
-  <section class="carousel-section" id="continue-section" style="display: none;">
-    <h3><i class="fa-solid fa-clock-rotate-left"></i> Continue Watching</h3>
-    <div class="carousel-container-wrapper">
-      <div class="carousel-container" id="continue-carousel"></div>
-    </div>
+  <!-- HERO SLIDER -->
+  <section class="hero-container" id="hero-slider">
+    <!-- Sliders loaded dynamically -->
+    <button class="hero-btn hero-btn-prev" onclick="moveHero(-1)">&#10094;</button>
+    <button class="hero-btn hero-btn-next" onclick="moveHero(1)">&#10095;</button>
+    <div class="hero-dots" id="hero-dots"></div>
   </section>
 
-  <section class="carousel-section">
-    <h3><i class="fa-solid fa-film"></i> Popular Anime Movies</h3>
-    <div class="carousel-container-wrapper">
-      <button class="carousel-btn left-btn" aria-label="Scroll left"><i class="fa-solid fa-chevron-left"></i></button>
-      <div class="carousel-container" id="popular-movies"></div>
-      <button class="carousel-btn right-btn" aria-label="Scroll right"><i class="fa-solid fa-chevron-right"></i></button>
-    </div>
-  </section>
-
-  <section class="carousel-section">
-    <h3><i class="fa-solid fa-tv"></i> Popular Anime Series</h3>
-    <div class="carousel-container-wrapper">
-      <button class="carousel-btn left-btn" aria-label="Scroll left"><i class="fa-solid fa-chevron-left"></i></button>
-      <div class="carousel-container" id="popular-series"></div>
-      <button class="carousel-btn right-btn" aria-label="Scroll right"><i class="fa-solid fa-chevron-right"></i></button>
-    </div>
-  </section>
-
-  <section class="carousel-section">
-    <h3><i class="fa-solid fa-bolt"></i> Airing Today</h3>
-    <div class="carousel-container-wrapper">
-      <button class="carousel-btn left-btn" aria-label="Scroll left"><i class="fa-solid fa-chevron-left"></i></button>
-      <div class="carousel-container" id="airing-today"></div>
-      <button class="carousel-btn right-btn" aria-label="Scroll right"><i class="fa-solid fa-chevron-right"></i></button>
-    </div>
-  </section>
-
-  <section class="carousel-section">
-    <h3><i class="fa-solid fa-star"></i> Top Rated</h3>
-    <div class="carousel-container-wrapper">
-      <button class="carousel-btn left-btn" aria-label="Scroll left"><i class="fa-solid fa-chevron-left"></i></button>
-      <div class="carousel-container" id="top-rated"></div>
-      <button class="carousel-btn right-btn" aria-label="Scroll right"><i class="fa-solid fa-chevron-right"></i></button>
-    </div>
-  </section>
-
-  <section class="carousel-section">
-    <h3><i class="fa-solid fa-calendar-plus"></i> Recently Added</h3>
-    <div class="carousel-container-wrapper">
-      <button class="carousel-btn left-btn" aria-label="Scroll left"><i class="fa-solid fa-chevron-left"></i></button>
-      <div class="carousel-container" id="recently-added"></div>
-      <button class="carousel-btn right-btn" aria-label="Scroll right"><i class="fa-solid fa-chevron-right"></i></button>
-    </div>
-  </section>
-
-  <section class="carousel-section" id="recently-watched-section" style="display: none;">
-    <h3><i class="fa-solid fa-history"></i> Recently Watched</h3>
-    <div class="carousel-container-wrapper">
-      <div class="carousel-container" id="recently-watched"></div>
-    </div>
-  </section>
-
-  <section class="carousel-section">
-    <h3><i class="fa-solid fa-circle-nodes"></i> Featured Genres</h3>
-    <div class="genres-grid">
-      <div class="genre-tag-card" onclick="window.location.href='discover.html?genre=28'"><i class="fa-solid fa-gun"></i> Action</div>
-      <div class="genre-tag-card" onclick="window.location.href='discover.html?genre=12'"><i class="fa-solid fa-compass"></i> Adventure</div>
-      <div class="genre-tag-card" onclick="window.location.href='discover.html?genre=35'"><i class="fa-solid fa-face-laugh-squint"></i> Comedy</div>
-      <div class="genre-tag-card" onclick="window.location.href='discover.html?genre=14'"><i class="fa-solid fa-wand-magic-sparkles"></i> Fantasy</div>
-      <div class="genre-tag-card" onclick="window.location.href='discover.html?genre=878'"><i class="fa-solid fa-user-astronaut"></i> Sci-Fi</div>
-    </div>
-  </section>
-
-  <!-- Complete professional streaming footer block -->
-  <footer class="footer">
-    <div class="footer-banner-container">
-      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube Footer Logo" class="footer-banner">
-    </div>
-    <div class="social-links">
-      <a href="#" aria-label="Facebook Link"><i class="fa-brands fa-facebook"></i></a>
-      <a href="#" aria-label="X Twitter Link"><i class="fa-brands fa-x-twitter"></i></a>
-      <a href="#" aria-label="Instagram Link"><i class="fa-brands fa-instagram"></i></a>
-      <a href="#" aria-label="Discord Link"><i class="fa-brands fa-discord"></i></a>
-      <a href="#" aria-label="Telegram Link"><i class="fa-brands fa-telegram"></i></a>
-      <a href="#" aria-label="GitHub Link"><i class="fa-brands fa-github"></i></a>
-    </div>
-    <p class="disclaimer">
-      This website does not host any video content on its servers. All media content is embedded from third-party providers. We do not store or upload any videos. All trademarks, logos, and content belong to their respective owners.
-    </p>
-    <p class="copyright">
-      &copy; 2026 NamiTube. All Rights Reserved. Powered by TMDB API.
-    </p>
-  </footer>
-
-  <script>
-    const TMDB_API_KEY = "e10da2e2cbb23ea7ebfb64c3a188b64a";
-    const TMDB_BASE_URL = "https://api.themoviedb.org/3";
-
-    // Application cache engine implementation
-    async function fetchWithCache(url, cacheTime = 300000) {
-      const cached = localStorage.getItem(url);
-      const cachedTime = localStorage.getItem(url + '_time');
-      if (cached && cachedTime && (Date.now() - cachedTime < cacheTime)) {
-        return JSON.parse(cached);
-      }
-      const res = await fetch(url);
-      const data = await res.json();
-      try {
-        localStorage.setItem(url, JSON.stringify(data));
-        localStorage.setItem(url + '_time', Date.now().toString());
-      } catch (e) { /* LocalStorage Full Safety */ }
-      return data;
-    }
-
-    // Universal navigation drawer & modal triggers
-    const menuBtn = document.querySelector('.menu-btn');
-    const sidebar = document.getElementById('sidebar');
-    const sidebarOverlay = document.getElementById('sidebar-overlay');
-    const closeSidebarBtn = document.querySelector('.close-sidebar');
-
-    function toggleSidebar(open) {
-      sidebar.classList.toggle('active', open);
-      sidebarOverlay.classList.toggle('active', open);
-    }
-    menuBtn.addEventListener('click', () => toggleSidebar(true));
-    closeSidebarBtn.addEventListener('click', () => toggleSidebar(false));
-    sidebarOverlay.addEventListener('click', () => toggleSidebar(false));
-
-    // Fullscreen Netflix-style Global search overlay implementation
-    const searchBtn = document.querySelector('.search-btn');
-    const searchOverlay = document.getElementById('search-overlay');
-    const closeSearchBtn = document.querySelector('.close-search');
-    const searchInput = document.getElementById('search-input');
-    const searchResults = document.getElementById('search-results');
-
-    searchBtn.addEventListener('click', () => {
-      searchOverlay.classList.add('active');
-      searchInput.focus();
-      document.body.style.overflow = 'hidden';
-    });
-    closeSearchBtn.addEventListener('click', () => {
-      searchOverlay.classList.remove('active');
-      document.body.style.overflow = 'auto';
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        searchOverlay.classList.remove('active');
-        toggleSidebar(false);
-        document.body.style.overflow = 'auto';
-      }
-    });
-
-    let searchTimeout = null;
-    searchInput.addEventListener('input', (e) => {
-      clearTimeout(searchTimeout);
-      const query = e.target.value.trim();
-      if (query.length < 2) { searchResults.innerHTML = ''; return; }
-      searchTimeout = setTimeout(() => executeSearch(query), 300);
-    });
-
-    async function executeSearch(query) {
-      searchResults.innerHTML = '<div class="spinner"></div>';
-      try {
-        const data = await fetchWithCache(`${TMDB_BASE_URL}/search/multi?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}`);
-        if (data.results) {
-          const filtered = data.results.filter(item => 
-            (item.media_type === 'movie' || item.media_type === 'tv') && 
-            item.genre_ids && item.genre_ids.includes(16)
-          );
-          renderResults(filtered);
-        } else {
-          searchResults.innerHTML = '<p class="no-results">No animated matches found.</p>';
-        }
-      } catch (err) {
-        searchResults.innerHTML = '<p class="no-results">Error executing search.</p>';
-      }
-    }
-
-    function renderResults(items) {
-      if (items.length === 0) {
-        searchResults.innerHTML = '<p class="no-results">No animated matches found.</p>';
-        return;
-      }
-      searchResults.innerHTML = items.map(item => {
-        const title = item.title || item.name || 'Untitled';
-        const date = item.release_date || item.first_air_date || '';
-        const year = date ? new Date(date).getFullYear() : 'N/A';
-        const poster = item.poster_path ? `https://image.tmdb.org/t/p/w200${item.poster_path}` : 'https://via.placeholder.com/200x300?text=No+Poster';
-        return `
-          <a href="info.html?id=${item.id}&type=${item.media_type}" class="search-item">
-            <img src="${poster}" alt="${title}" loading="lazy">
-            <div class="search-item-info">
-              <h4>${title}</h4>
-              <p>${item.media_type.toUpperCase()} &bull; ${year}</p>
-            </div>
-          </a>
-        `;
-      }).join('');
-    }
-
-    // Dynamic Cinematic Hero slider script
-    let currentSlide = 0;
-    async function loadHeroSlider() {
-      const sliderContainer = document.getElementById('hero-slider');
-      try {
-        const data = await fetchWithCache(`${TMDB_BASE_URL}/discover/tv?api_key=${TMDB_API_KEY}&with_genres=16&sort_by=popularity.desc`);
-        const items = data.results.slice(0, 5);
-        
-        sliderContainer.innerHTML = items.map((item, index) => {
-          const backdrop = `https://image.tmdb.org/t/p/original${item.backdrop_path}`;
-          const title = item.name || item.original_name;
-          const year = item.first_air_date ? new Date(item.first_air_date).getFullYear() : 'N/A';
-          const rating = item.vote_average ? item.vote_average.toFixed(1) : 'N/A';
-          
-          return `
-            <div class="hero-slide ${index === 0 ? 'active' : ''}" style="background-image: url('${backdrop}')">
-              <div class="hero-content">
-                <span class="hero-tag">FEATURED SERIES</span>
-                <h1 class="hero-title">${title}</h1>
-                <div class="hero-meta">
-                  <span class="card-rating"><i class="fa-solid fa-star rating-star"></i> ${rating}</span>
-                  <span><i class="fa-solid fa-calendar"></i> ${year}</span>
-                  <span class="badge">TV Series</span>
-                </div>
-                <p class="hero-overview">${item.overview || 'Experience this masterclass dynamic animation project directly on NamiTube.'}</p>
-                <div class="hero-buttons">
-                  <a href="watch.html?id=${item.id}&type=tv&season=1&episode=1" class="btn btn-primary"><i class="fa-solid fa-play"></i> Watch Now</a>
-                  <a href="info.html?id=${item.id}&type=tv" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> More Info</a>
-                </div>
-              </div>
-            </div>
-          `;
-        }).join('');
-
-        setInterval(() => {
-          const slides = document.querySelectorAll('.hero-slide');
-          if (slides.length === 0) return;
-          slides[currentSlide].classList.remove('active');
-          currentSlide = (currentSlide + 1) % slides.length;
-          slides[currentSlide].classList.add('active');
-        }, 7000);
-
-      } catch (err) {
-        sliderContainer.innerHTML = '<div style="padding: 4rem; text-align: center;">Error rendering showcase slides.</div>';
-      }
-    }
-
-    // Carousel Renderer Engine with strict Animation ID validation
-    async function populateCarousel(endpoint, elementId, defaultType) {
-      const container = document.getElementById(elementId);
-      container.innerHTML = Array(6).fill().map(() => `<div class="media-card skeleton"></div>`).join('');
-      try {
-        const data = await fetchWithCache(`${TMDB_BASE_URL}/${endpoint}`);
-        let items = data.results || [];
-        // Secondary filtering to assert genre ID 16
-        items = items.filter(item => item.genre_ids && item.genre_ids.includes(16));
-        
-        if (items.length === 0) {
-          container.closest('.carousel-section').style.display = 'none';
-          return;
-        }
-
-        container.innerHTML = items.map(item => {
-          const title = item.title || item.name || 'Untitled';
-          const date = item.release_date || item.first_air_date || '';
-          const year = date ? new Date(date).getFullYear() : 'N/A';
-          const rating = item.vote_average ? item.vote_average.toFixed(1) : 'N/A';
-          const poster = item.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : 'https://via.placeholder.com/342x513?text=No+Poster';
-          const type = defaultType || (item.release_date ? 'movie' : 'tv');
-          
-          return `
-            <div class="media-card" onclick="window.location.href='info.html?id=${item.id}&type=${type}'">
-              <img src="${poster}" alt="${title}" loading="lazy">
-              <div class="card-info">
-                <span class="card-title">${title}</span>
-                <div class="card-meta">
-                  <span class="card-rating"><i class="fa-solid fa-star"></i> ${rating}</span>
-                  <span class="badge">${type}</span>
-                </div>
-              </div>
-            </div>
-          `;
-        }).join('');
-
-      } catch (err) {
-        container.closest('.carousel-section').style.display = 'none';
-      }
-    }
-
-    // Interactive Drag / Buttons logic setup
-    function initCarousels() {
-      document.querySelectorAll('.carousel-section').forEach(section => {
-        const container = section.querySelector('.carousel-container');
-        const leftBtn = section.querySelector('.left-btn');
-        const rightBtn = section.querySelector('.right-btn');
-        if (!container || !leftBtn || !rightBtn) return;
-
-        leftBtn.addEventListener('click', () => { container.scrollLeft -= 500; });
-        rightBtn.addEventListener('click', () => { container.scrollLeft += 500; });
-      });
-    }
-
-    // Build Watched widget blocks from Storage Engine
-    function loadWatchedCarousels() {
-      const continueContainer = document.getElementById('continue-carousel');
-      const watchedContainer = document.getElementById('recently-watched');
-      
-      const history = JSON.parse(localStorage.getItem('namitube_watched') || '[]');
-      const continueProgress = JSON.parse(localStorage.getItem('namitube_continue') || '[]');
-
-      if (history.length > 0) {
-        document.getElementById('recently-watched-section').style.display = 'block';
-        watchedContainer.innerHTML = history.map(item => `
-          <div class="media-card" onclick="window.location.href='info.html?id=${item.id}&type=${item.type}'">
-            <img src="${item.poster}" alt="${item.title}" loading="lazy">
-            <div class="card-info">
-              <span class="card-title">${item.title}</span>
-              <div class="card-meta">
-                <span class="badge">${item.type}</span>
-              </div>
-            </div>
-          </div>
-        `).join('');
-      }
-
-      if (continueProgress.length > 0) {
-        document.getElementById('continue-section').style.display = 'block';
-        continueContainer.innerHTML = continueProgress.map(item => {
-          const detailStr = item.type === 'tv' ? `S${item.season} E${item.episode}` : 'Movie';
-          return `
-            <div class="media-card" onclick="window.location.href='watch.html?id=${item.id}&type=${item.type}&season=${item.season || 1}&episode=${item.episode || 1}'">
-              <img src="${item.poster}" alt="${item.title}" loading="lazy">
-              <div class="card-info">
-                <span class="card-title">${item.title}</span>
-                <div class="card-meta">
-                  <span class="badge" style="background:#a855f7;">${detailStr}</span>
-                </div>
-              </div>
-            </div>
-          `;
-        }).join('');
-      }
-    }
-
-    // Promise execution initialization
-    window.addEventListener('DOMContentLoaded', () => {
-      loadHeroSlider();
-      
-      Promise.allSettled([
-        populateCarousel('discover/movie?api_key=' + TMDB_API_KEY + '&with_genres=16&sort_by=popularity.desc', 'popular-movies', 'movie'),
-        populateCarousel('discover/tv?api_key=' + TMDB_API_KEY + '&with_genres=16&sort_by=popularity.desc', 'popular-series', 'tv'),
-        populateCarousel('tv/airing_today?api_key=' + TMDB_API_KEY, 'airing-today', 'tv'),
-        populateCarousel('discover/movie?api_key=' + TMDB_API_KEY + '&with_genres=16&sort_by=vote_average.desc&vote_count.gte=150', 'top-rated'),
-        populateCarousel('discover/tv?api_key=' + TMDB_API_KEY + '&with_genres=16&sort_by=first_air_date.desc', 'recently-added', 'tv')
-      ]).then(() => {
-        initCarousels();
-      });
-
-      loadWatchedCarousels();
-    });
-  </script>
-</body>
-</html>
-
-2. discover.html (Discover & Search)
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Discover - NamiTube</title>
-  <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHE6pMgjbJ6YDLaMAtDUZCs6Zhkvxl0_fQnb0c0ZCmJOYRB_4N8dQ0ZWosBq_sZPK2wFel2E43Z2meo25JL3i7IZYkJ35FZ7lZ_BZfwlWofAKGhF1gWpFsxofeGUr87Peu6s7xtgvJMnrbtNnd4vJPtB7uG3L_wJ9tT8PKRCh-PXSxlyY9Ufn8OAzDY_Y/s320/NamiTube%20Original%20Favicon.png" type="image/png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-dark: #050505;
-      --bg-card: rgba(18, 0, 24, 0.65);
-      --bg-card-hover: rgba(139, 92, 246, 0.15);
-      --primary: #8b5cf6;
-      --primary-glow: rgba(168, 85, 247, 0.6);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      --font-family: 'Inter', -apple-system, sans-serif;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      background-color: var(--bg-dark); color: var(--text-main); font-family: var(--font-family);
-      overflow-x: hidden; max-width: 100%; min-height: 100vh; display: flex; flex-direction: column;
-    }
-    a { color: inherit; text-decoration: none; }
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: #050505; }
-    ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
-
-    /* Core Nav Elements */
-    .navbar {
-      position: sticky; top: 0; z-index: 1000; background: rgba(5, 5, 5, 0.85);
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(139, 92, 246, 0.15); display: flex;
-      align-items: center; justify-content: space-between; padding: 0.75rem 2rem; height: 70px;
-    }
-    .nav-left, .nav-right { display: flex; align-items: center; gap: 1.5rem; }
-    .nav-banner { height: 48px; object-fit: contain; filter: drop-shadow(0 0 8px var(--primary-glow)); }
-    .menu-btn, .search-btn, .close-search, .close-sidebar {
-      background: none; border: none; color: var(--text-main); font-size: 1.4rem;
-      cursor: pointer; transition: var(--transition); display: flex; align-items: center;
-      justify-content: center; width: 40px; height: 40px; border-radius: 50%;
-    }
-    .menu-btn:hover, .search-btn:hover, .close-search:hover, .close-sidebar:hover {
-      color: var(--primary); background: rgba(139, 92, 246, 0.1); box-shadow: 0 0 15px var(--primary-glow);
-    }
-    .desktop-menu { display: flex; gap: 2rem; font-weight: 500; font-size: 0.95rem; }
-    .desktop-menu a { position: relative; padding: 0.25rem 0; transition: var(--transition); }
-    .desktop-menu a::after {
-      content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
-      background: var(--primary); transition: var(--transition); box-shadow: 0 0 8px var(--primary-glow);
-    }
-    .desktop-menu a:hover { color: var(--primary); }
-    .desktop-menu a:hover::after { width: 100%; }
-
-    /* Nav Sidebar */
-    .sidebar {
-      position: fixed; top: 0; left: -280px; width: 280px; height: 100vh;
-      background: rgba(18, 0, 24, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      z-index: 1100; border-right: 1px solid rgba(139, 92, 246, 0.2); padding: 2rem;
-      display: flex; flex-direction: column; gap: 2rem; transition: var(--transition);
-    }
-    .sidebar.active { left: 0; box-shadow: 10px 0 30px rgba(139, 92, 246, 0.15); }
-    .sidebar-header { display: flex; justify-content: space-between; align-items: center; }
-    .sidebar-header h3 { font-size: 1.5rem; font-weight: 700; background: linear-gradient(to right, #ffffff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .sidebar-links { display: flex; flex-direction: column; gap: 1.5rem; }
-    .sidebar-links a { font-size: 1.1rem; display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1rem; border-radius: 8px; transition: var(--transition); }
-    .sidebar-links a:hover { background: rgba(139, 92, 246, 0.15); color: var(--primary); transform: translateX(5px); }
-    .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); z-index: 1050; opacity: 0; pointer-events: none; transition: var(--transition); }
-    .sidebar-overlay.active { opacity: 1; pointer-events: auto; }
-
-    /* Core Discover Interface Layout */
-    .discover-container { padding: 2rem 4rem; flex: 1; display: flex; flex-direction: column; gap: 2rem; }
-    .page-title { font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #fff 0%, var(--primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    
-    /* Filtering Dashboard block */
-    .filter-panel {
-      background: rgba(18, 0, 24, 0.45); border: 1px solid rgba(139,92,246,0.15);
-      border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(10px);
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.25rem;
-    }
-    .filter-group { display: flex; flex-direction: column; gap: 0.5rem; }
-    .filter-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-    .filter-group select, .filter-group input {
-      background: rgba(5,5,5,0.8); border: 1px solid rgba(139,92,246,0.25);
-      color: #fff; padding: 0.75rem 1rem; border-radius: 8px; outline: none; font-size: 0.95rem;
-      transition: var(--transition);
-    }
-    .filter-group select:focus, .filter-group input:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
-
-    /* Search Input Overlay container inside Discover */
-    .local-search-group { grid-column: 1 / -1; }
-    .local-search-input-wrapper { position: relative; width: 100%; }
-    .local-search-input-wrapper i { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
-    .local-search-input-wrapper input { width: 100%; padding-left: 2.75rem !important; }
-
-    /* Catalog Content Grid */
-    .catalog-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.5rem; min-height: 400px;
-    }
-    .media-card {
-      background: var(--bg-card); border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.08);
-      position: relative; overflow: hidden; cursor: pointer; transition: var(--transition); aspect-ratio: 2/3;
-    }
-    .media-card img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
-    .media-card:hover { border-color: var(--primary); transform: translateY(-5px) scale(1.02); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3); }
-    .media-card:hover img { transform: scale(1.05); }
-    .card-info {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: linear-gradient(to top, rgba(5,5,5,1) 30%, rgba(5,5,5,0.8) 70%, rgba(5,5,5,0));
-      padding: 1.5rem 0.75rem 0.75rem 0.75rem; display: flex; flex-direction: column; gap: 0.25rem;
-    }
-    .card-title { font-size: 0.9rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .card-meta { font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; justify-content: space-between; }
-    .badge { background: var(--primary); color: #fff; padding: 1px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
-    .card-rating { color: #f59e0b; font-weight: 600; display: flex; align-items: center; gap: 2px; }
-
-    /* Infinite Scroll Sentinel indicator triggers */
-    .sentinel { height: 60px; display: flex; align-items: center; justify-content: center; margin-top: 2rem; }
-    .spinner { border: 4px solid rgba(255,255,255,0.1); border-left-color: var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* Footer styling */
-    .footer {
-      background: #040206; border-top: 1px solid rgba(139, 92, 246, 0.15);
-      padding: 3rem 2rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
-      margin-top: auto; text-align: center;
-    }
-    .footer-banner-container { margin-bottom: 0.5rem; }
-    .footer-banner { height: 50px; object-fit: contain; filter: drop-shadow(0 0 8px var(--primary-glow)); }
-    .social-links { display: flex; gap: 1.5rem; }
-    .social-links a {
-      font-size: 1.5rem; color: var(--text-muted); transition: var(--transition);
-      display: flex; align-items: center; justify-content: center; width: 45px; height: 45px;
-      border-radius: 50%; background: rgba(255,255,255,0.02); border: 1px solid rgba(139, 92, 246, 0.05);
-    }
-    .social-links a:hover {
-      color: var(--primary); transform: scale(1.15) translateY(-3px);
-      box-shadow: 0 0 15px var(--primary-glow); border-color: var(--primary); background: rgba(139, 92, 246, 0.1);
-    }
-    .disclaimer { font-size: 0.8rem; color: #6b7280; max-width: 800px; line-height: 1.6; }
-    .copyright { font-size: 0.85rem; color: var(--text-muted); }
-
-    /* Skeleton Loading placeholder layout */
-    .skeleton { background: linear-gradient(90deg, #120018 25%, #230b30 50%, #120018 75%); background-size: 200% 100%; animation: loadingSkeleton 1.5s infinite; }
-    @keyframes loadingSkeleton { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-
-    @media (max-width: 768px) {
-      .discover-container { padding: 1.5rem; }
-      .navbar { padding: 0.75rem 1rem; }
-      .desktop-menu { display: none; }
-      .filter-panel { grid-template-columns: 1fr; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Core Sticky Header block -->
-  <header class="navbar">
-    <div class="nav-left">
-      <button class="menu-btn" aria-label="Open Navigation Menu"><i class="fa-solid fa-bars"></i></button>
-    </div>
-    <div class="nav-center">
-      <a href="index.html">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube Original logo banner" class="nav-banner">
-      </a>
-    </div>
-    <div class="nav-right">
-      <nav class="desktop-menu">
-        <a href="index.html">Home</a>
-        <a href="discover.html">Discover</a>
-        <a href="donate.html">Donate</a>
-        <a href="creator.html">Creator</a>
-      </nav>
-      <button class="search-btn" aria-label="Open Fullscreen Search Menu"><i class="fa-solid fa-magnifying-glass"></i></button>
-    </div>
-  </header>
-
-  <!-- Sidebar menu -->
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <h3>Menu</h3>
-      <button class="close-sidebar"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <nav class="sidebar-links">
-      <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
-      <a href="discover.html"><i class="fa-solid fa-compass"></i> Discover</a>
-      <a href="donate.html"><i class="fa-solid fa-heart"></i> Donate</a>
-      <a href="creator.html"><i class="fa-solid fa-user"></i> Creator</a>
-    </nav>
-  </div>
-  <div class="sidebar-overlay" id="sidebar-overlay"></div>
-
-  <!-- Discover main workspace -->
-  <main class="discover-container">
-    <h1 class="page-title">Discover Animation Catalog</h1>
-
-    <!-- Filter Dashboard elements -->
-    <div class="filter-panel">
-      <div class="filter-group local-search-group">
-        <label>Query Search</label>
-        <div class="local-search-input-wrapper">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <input type="text" id="local-search" placeholder="Type name, keywords or studio tags..." autocomplete="off">
+  <!-- MAIN ROWS -->
+  <main class="container" style="margin-top: 3rem;">
+    <!-- ROW 1 -->
+    <div class="section-row" id="row-trending">
+      <div class="row-header">
+        <h2 class="row-title">Trending Now</h2>
+        <div class="slider-arrows">
+          <button class="slider-arrow" onclick="slideRow('trending-viewport', -1)">&#10094;</button>
+          <button class="slider-arrow" onclick="slideRow('trending-viewport', 1)">&#10095;</button>
         </div>
       </div>
-      <div class="filter-group">
-        <label>Media Format</label>
-        <select id="filter-type">
-          <option value="all">All Formats</option>
-          <option value="movie">Movies</option>
-          <option value="tv">TV Series</option>
-        </select>
-      </div>
-      <div class="filter-group">
-        <label>Sub-Genre</label>
-        <select id="filter-genre">
-          <option value="16">All Animation</option>
-          <option value="28">Action</option>
-          <option value="12">Adventure</option>
-          <option value="35">Comedy</option>
-          <option value="14">Fantasy</option>
-          <option value="878">Sci-Fi</option>
-        </select>
-      </div>
-      <div class="filter-group">
-        <label>Release Year</label>
-        <input type="number" id="filter-year" placeholder="e.g. 2024" min="1950" max="2026">
-      </div>
-      <div class="filter-group">
-        <label>Sorting Metric</label>
-        <select id="filter-sort">
-          <option value="popularity.desc">Most Popular</option>
-          <option value="vote_average.desc">Highest Rated</option>
-          <option value="first_air_date.desc">Recently Released</option>
-        </select>
-      </div>
+      <div class="slider-viewport" id="trending-viewport"></div>
     </div>
 
-    <!-- Active Media Display Grid -->
-    <div class="catalog-grid" id="catalog-grid"></div>
+    <!-- ROW 2 -->
+    <div class="section-row" id="row-popular">
+      <div class="row-header">
+        <h2 class="row-title">Popular Series</h2>
+        <div class="slider-arrows">
+          <button class="slider-arrow" onclick="slideRow('popular-viewport', -1)">&#10094;</button>
+          <button class="slider-arrow" onclick="slideRow('popular-viewport', 1)">&#10095;</button>
+        </div>
+      </div>
+      <div class="slider-viewport" id="popular-viewport"></div>
+    </div>
 
-    <!-- Scroll target detector sentinel -->
-    <div class="sentinel" id="sentinel">
-      <div class="spinner"></div>
+    <!-- ROW 3 -->
+    <div class="section-row" id="row-movies">
+      <div class="row-header">
+        <h2 class="row-title">Cinematic Movies</h2>
+        <div class="slider-arrows">
+          <button class="slider-arrow" onclick="slideRow('movies-viewport', -1)">&#10094;</button>
+          <button class="slider-arrow" onclick="slideRow('movies-viewport', 1)">&#10095;</button>
+        </div>
+      </div>
+      <div class="slider-viewport" id="movies-viewport"></div>
     </div>
   </main>
 
-  <footer class="footer">
-    <div class="footer-banner-container">
-      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube Footer Logo" class="footer-banner">
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-logo">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube">
+      </div>
+      <div class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="discover.html">Discover</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="donate.html">Donate</a>
+      </div>
+      <p class="disclaimer">Disclaimer: This site does not store any files on its server. All contents are provided by non-affiliated third parties.</p>
+      <p class="copyright">&copy; 2026 NamiTube. All Rights Reserved.</p>
     </div>
-    <div class="social-links">
-      <a href="#" aria-label="Facebook Link"><i class="fa-brands fa-facebook"></i></a>
-      <a href="#" aria-label="X Twitter Link"><i class="fa-brands fa-x-twitter"></i></a>
-      <a href="#" aria-label="Instagram Link"><i class="fa-brands fa-instagram"></i></a>
-      <a href="#" aria-label="Discord Link"><i class="fa-brands fa-discord"></i></a>
-      <a href="#" aria-label="Telegram Link"><i class="fa-brands fa-telegram"></i></a>
-      <a href="#" aria-label="GitHub Link"><i class="fa-brands fa-github"></i></a>
-    </div>
-    <p class="disclaimer">
-      This website does not host any video content on its servers. All media content is embedded from third-party providers. We do not store or upload any videos. All trademarks, logos, and content belong to their respective owners.
-    </p>
-    <p class="copyright">
-      &copy; 2026 NamiTube. All Rights Reserved. Powered by TMDB API.
-    </p>
   </footer>
 
   <script>
-    const TMDB_API_KEY = "e10da2e2cbb23ea7ebfb64c3a188b64a";
-    const TMDB_BASE_URL = "https://api.themoviedb.org/3";
+    /* CORE GRAPHQL CLIENT */
+    const ANILIST_ENDPOINT = 'https://graphql.anilist.co';
 
-    // Dynamic drawer implementation
-    const menuBtn = document.querySelector('.menu-btn');
-    const sidebar = document.getElementById('sidebar');
-    const sidebarOverlay = document.getElementById('sidebar-overlay');
-    const closeSidebarBtn = document.querySelector('.close-sidebar');
-
-    function toggleSidebar(open) {
-      sidebar.classList.toggle('active', open);
-      sidebarOverlay.classList.toggle('active', open);
+    async function fetchAniList(query, variables = {}) {
+      const response = await fetch(ANILIST_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ query, variables })
+      });
+      const resData = await response.json();
+      if (!response.ok) throw new Error(resData.errors?.[0]?.message || 'GraphQL fetch failed');
+      return resData.data;
     }
-    menuBtn.addEventListener('click', () => toggleSidebar(true));
-    closeSidebarBtn.addEventListener('click', () => toggleSidebar(false));
-    sidebarOverlay.addEventListener('click', () => toggleSidebar(false));
 
-    // Discover Grid & Pagination States
-    let page = 1;
-    let loading = false;
-    let hasMore = true;
-    let currentQuery = "";
-
-    const catalogGrid = document.getElementById('catalog-grid');
-    const sentinel = document.getElementById('sentinel');
-
-    const filterType = document.getElementById('filter-type');
-    const filterGenre = document.getElementById('filter-genre');
-    const filterYear = document.getElementById('filter-year');
-    const filterSort = document.getElementById('filter-sort');
-    const localSearch = document.getElementById('local-search');
-
-    // Generate Discover list fetch logic
-    async function loadCatalog(reset = false) {
-      if (loading) return;
-      loading = true;
-      sentinel.style.visibility = 'visible';
-
-      if (reset) {
-        page = 1;
-        catalogGrid.innerHTML = Array(12).fill().map(() => `<div class="media-card skeleton"></div>`).join('');
-        hasMore = true;
+    /* VIEW CONTROLLERS */
+    function toggleSidebar(open) {
+      document.getElementById('sidebar').classList.toggle('active', open);
+      document.getElementById('sidebar-overlay').classList.toggle('active', open);
+    }
+    
+    function toggleSearch(open) {
+      document.getElementById('search-overlay').classList.toggle('active', open);
+      if (open) {
+        document.getElementById('search-field').focus();
       }
+    }
+
+    // Header effect on scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('main-header').classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    /* HERO SLIDER SYSTEM */
+    let currentHeroIndex = 0;
+    let heroSlides = [];
+    let heroTimer = null;
+
+    function moveHero(direction) {
+      if (!heroSlides.length) return;
+      currentHeroIndex = (currentHeroIndex + direction + heroSlides.length) % heroSlides.length;
+      updateHeroActiveState();
+      resetHeroTimer();
+    }
+
+    function setHero(index) {
+      currentHeroIndex = index;
+      updateHeroActiveState();
+      resetHeroTimer();
+    }
+
+    function updateHeroActiveState() {
+      const slides = document.querySelectorAll('.hero-slide');
+      const dots = document.querySelectorAll('.hero-dot');
+      slides.forEach((s, idx) => s.classList.toggle('active', idx === currentHeroIndex));
+      dots.forEach((d, idx) => d.classList.toggle('active', idx === currentHeroIndex));
+    }
+
+    function resetHeroTimer() {
+      clearInterval(heroTimer);
+      heroTimer = setInterval(() => moveHero(1), 7000);
+    }
+
+    /* SLIDER NAVIGATION FOR ROWS */
+    function slideRow(viewportId, direction) {
+      const el = document.getElementById(viewportId);
+      if (!el) return;
+      const cardWidth = el.firstElementChild ? el.firstElementChild.offsetWidth + 20 : 200;
+      el.scrollBy({ left: direction * cardWidth * 3, behavior: 'smooth' });
+    }
+
+    /* TEMPLATE COMPILERS */
+    function makeCard(media) {
+      const score = media.averageScore ? (media.averageScore / 10).toFixed(1) : '?.?';
+      const year = media.seasonYear || '';
+      const episodes = media.episodes ? `${media.episodes} Ep` : 'Airing';
+      return `
+        <div class="anime-card" onclick="window.location.href='anime.html?id=${media.id}'">
+          <div class="card-poster">
+            <img src="${media.coverImage.large}" alt="${media.title.romaji}" loading="lazy">
+            <div class="card-meta">
+              <span class="card-score">${score}</span>
+            </div>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">${media.title.romaji}</h3>
+            <div class="card-subtitle">
+              <span>${year}</span>
+              <span>${episodes}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* INITIALIZATION & FETCHES */
+    const queries = {
+      homepage: `
+        query {
+          trending: Page(page: 1, perPage: 12) {
+            media(type: ANIME, sort: TRENDING_DESC) {
+              id
+              title { romaji english }
+              coverImage { large extraLarge }
+              bannerImage
+              averageScore
+              episodes
+              seasonYear
+              genres
+              description
+            }
+          }
+          popular: Page(page: 1, perPage: 12) {
+            media(type: ANIME, sort: POPULARITY_DESC) {
+              id
+              title { romaji }
+              coverImage { large }
+              averageScore
+              episodes
+              seasonYear
+            }
+          }
+          movies: Page(page: 1, perPage: 12) {
+            media(type: ANIME, format: MOVIE, sort: POPULARITY_DESC) {
+              id
+              title { romaji }
+              coverImage { large }
+              averageScore
+              episodes
+              seasonYear
+            }
+          }
+        }
+      `
+    };
+
+    async function init() {
+      // Build Skeleton loaders
+      const skeletonHTML = Array(8).fill(`
+        <div class="anime-card skeleton" style="height: 270px; border-radius: 12px; opacity:0.35;"></div>
+      `).join('');
+      document.getElementById('trending-viewport').innerHTML = skeletonHTML;
+      document.getElementById('popular-viewport').innerHTML = skeletonHTML;
+      document.getElementById('movies-viewport').innerHTML = skeletonHTML;
 
       try {
-        let endpoint = "";
-        let params = `api_key=${TMDB_API_KEY}&page=${page}`;
-
-        const type = filterType.value;
-        const genre = filterGenre.value;
-        const year = filterYear.value;
-        const sort = filterSort.value;
-        const searchVal = localSearch.value.trim();
-
-        if (searchVal) {
-          endpoint = "search/multi";
-          params += `&query=${encodeURIComponent(searchVal)}`;
-        } else {
-          endpoint = type === "all" ? "discover/tv" : `discover/${type}`;
-          // Add Genre 16 if not using custom subgenres. If custom, append custom.
-          if (genre === "16") {
-            params += `&with_genres=16`;
-          } else {
-            params += `&with_genres=16,${genre}`;
-          }
-          if (year) {
-            params += type === "movie" ? `&primary_release_year=${year}` : `&first_air_date_year=${year}`;
-          }
-          params += `&sort_by=${sort}`;
-        }
-
-        const res = await fetch(`${TMDB_BASE_URL}/${endpoint}?${params}`);
-        const data = await res.json();
+        const data = await fetchAniList(queries.homepage);
         
-        let results = data.results || [];
+        // Render Hero Slider
+        heroSlides = data.trending.media.slice(0, 10);
+        const heroSlider = document.getElementById('hero-slider');
+        const dotsContainer = document.getElementById('hero-dots');
         
-        // Ensure rigorous validation of Animation Genre ID 16 across endpoints
-        results = results.filter(item => {
-          const validMedia = (item.media_type === 'movie' || item.media_type === 'tv' || !item.media_type);
-          return validMedia && item.genre_ids && item.genre_ids.includes(16);
+        let heroSlidesHTML = '';
+        let dotsHTML = '';
+        
+        heroSlides.forEach((media, idx) => {
+          const bg = media.bannerImage || media.coverImage.extraLarge || '';
+          const score = media.averageScore ? (media.averageScore / 10).toFixed(1) : '?.?';
+          const title = media.title.english || media.title.romaji;
+          const cleanDesc = media.description ? media.description.replace(/<[^>]*>/g, '') : 'No synopsis available.';
+          const genresHTML = media.genres.slice(0, 3).map(g => `<span class="badge">${g}</span>`).join('');
+
+          heroSlidesHTML += `
+            <div class="hero-slide ${idx === 0 ? 'active' : ''}" style="background-image: url('${bg}');">
+              <div class="hero-overlay"></div>
+              <div class="hero-content">
+                <div class="hero-genres">
+                  <span class="badge score">${score} ★</span>
+                  ${genresHTML}
+                </div>
+                <h1 class="hero-title">${title}</h1>
+                <p class="hero-synopsis">${cleanDesc}</p>
+                <div class="hero-actions">
+                  <a href="watch.html?id=${media.id}&ep=1" class="btn btn-primary">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    Watch Now
+                  </a>
+                  <a href="anime.html?id=${media.id}" class="btn btn-secondary">Details</a>
+                </div>
+              </div>
+            </div>
+          `;
+          dotsHTML += `<button class="hero-dot ${idx === 0 ? 'active' : ''}" onclick="setHero(${idx})"></button>`;
         });
 
-        if (results.length === 0) {
-          hasMore = false;
-          if (reset) catalogGrid.innerHTML = '<p class="no-results" style="grid-column:1/-1;">No matching animation titles discovered.</p>';
-        } else {
-          if (reset) catalogGrid.innerHTML = "";
-          renderCatalogItems(results);
-          page++;
-        }
-      } catch (err) {
-        console.error(err);
-      } finally {
-        loading = false;
-        sentinel.style.visibility = hasMore ? 'visible' : 'hidden';
-      }
-    }
+        // Prepend slider elements
+        heroSlider.insertAdjacentHTML('afterbegin', heroSlidesHTML);
+        dotsContainer.innerHTML = dotsHTML;
+        resetHeroTimer();
 
-    function renderCatalogItems(items) {
-      const fragment = document.createDocumentFragment();
-      items.forEach(item => {
-        const type = item.media_type || (filterType.value !== "all" ? filterType.value : (item.release_date ? "movie" : "tv"));
-        const title = item.title || item.name || 'Untitled';
-        const date = item.release_date || item.first_air_date || '';
-        const year = date ? new Date(date).getFullYear() : 'N/A';
-        const rating = item.vote_average ? item.vote_average.toFixed(1) : 'N/A';
-        const poster = item.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : 'https://via.placeholder.com/342x513?text=No+Poster';
+        // Render Row 1: Trending
+        const trendingHTML = data.trending.media.map(item => makeCard(item)).join('');
+        document.getElementById('trending-viewport').innerHTML = trendingHTML;
 
-        const card = document.createElement('div');
-        card.className = "media-card";
-        card.setAttribute('onclick', `window.location.href='info.html?id=${item.id}&type=${type}'`);
-        card.innerHTML = `
-          <img src="${poster}" alt="${title}" loading="lazy">
-          <div class="card-info">
-            <span class="card-title">${title}</span>
-            <div class="card-meta">
-              <span class="card-rating"><i class="fa-solid fa-star"></i> ${rating}</span>
-              <span class="badge">${type}</span>
-            </div>
-          </div>
-        `;
-        fragment.appendChild(card);
-      });
-      catalogGrid.appendChild(fragment);
-    }
+        // Render Row 2: Popular
+        const popularHTML = data.popular.media.map(item => makeCard(item)).join('');
+        document.getElementById('popular-viewport').innerHTML = popularHTML;
 
-    // Dynamic filtering execution with debounce on local query search
-    let inputDebounce = null;
-    function triggerFilterReset() {
-      loadCatalog(true);
-    }
-    
-    filterType.addEventListener('change', triggerFilterReset);
-    filterGenre.addEventListener('change', triggerFilterReset);
-    filterYear.addEventListener('input', triggerFilterReset);
-    filterSort.addEventListener('change', triggerFilterReset);
-    localSearch.addEventListener('input', () => {
-      clearTimeout(inputDebounce);
-      inputDebounce = setTimeout(triggerFilterReset, 400);
-    });
-
-    // Initialize IntersectionObserver for Infinite Scroll Mechanics
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && hasMore && !loading) {
-        loadCatalog();
-      }
-    }, { rootMargin: '200px' });
-
-    window.addEventListener('DOMContentLoaded', () => {
-      // Dynamic routing parse parameter support for Tag links from Home
-      const params = new URLSearchParams(window.location.search);
-      const genreParam = params.get('genre');
-      if (genreParam) {
-        filterGenre.value = genreParam;
-      }
-      
-      loadCatalog(true);
-      observer.observe(sentinel);
-    });
-  </script>
-</body>
-</html>
-
-3. info.html (Detailed Media Information)
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Information - NamiTube</title>
-  <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHE6pMgjbJ6YDLaMAtDUZCs6Zhkvxl0_fQnb0c0ZCmJOYRB_4N8dQ0ZWosBq_sZPK2wFel2E43Z2meo25JL3i7IZYkJ35FZ7lZ_BZfwlWofAKGhF1gWpFsxofeGUr87Peu6s7xtgvJMnrbtNnd4vJPtB7uG3L_wJ9tT8PKRCh-PXSxlyY9Ufn8OAzDY_Y/s320/NamiTube%20Original%20Favicon.png" type="image/png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-dark: #050505;
-      --bg-card: rgba(18, 0, 24, 0.65);
-      --primary: #8b5cf6;
-      --primary-glow: rgba(168, 85, 247, 0.6);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Inter', sans-serif; overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
-    a { color: inherit; text-decoration: none; }
-
-    /* Core Nav Block */
-    .navbar {
-      position: sticky; top: 0; z-index: 1000; background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(139, 92, 246, 0.15); display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 2rem; height: 70px;
-    }
-    .nav-banner { height: 48px; object-fit: contain; filter: drop-shadow(0 0 8px var(--primary-glow)); }
-    .desktop-menu { display: flex; gap: 2rem; font-weight: 500; font-size: 0.95rem; }
-    .desktop-menu a { position: relative; padding: 0.25rem 0; transition: var(--transition); }
-    .desktop-menu a:hover { color: var(--primary); }
-    .menu-btn, .search-btn { background: none; border: none; color: var(--text-main); font-size: 1.4rem; cursor: pointer; }
-
-    /* Info Page Large Header Backdrop */
-    .backdrop-container {
-      position: relative; height: 55vh; width: 100%; background-size: cover; background-position: center;
-      display: flex; align-items: flex-end; border-bottom: 2px solid rgba(139, 92, 246, 0.15);
-    }
-    .backdrop-container::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(0deg, var(--bg-dark) 0%, rgba(5,5,5,0.7) 60%, rgba(5,5,5,0.2) 100%);
-    }
-
-    /* Primary Profile Grid */
-    .detail-grid { position: relative; z-index: 10; width: 100%; max-width: 1400px; margin: -100px auto 3rem auto; padding: 0 4rem; display: grid; grid-template-columns: 280px 1fr; gap: 3rem; }
-    .poster-block { display: flex; flex-direction: column; gap: 1.5rem; }
-    .info-poster { width: 100%; aspect-ratio: 2/3; object-fit: cover; border-radius: 16px; border: 2px solid rgba(139, 92, 246, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
-    .watchlist-btn {
-      width: 100%; padding: 1rem; border-radius: 8px; font-weight: 600; cursor: pointer; border: 1px solid var(--primary);
-      background: rgba(139, 92, 246, 0.1); color: #fff; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-    }
-    .watchlist-btn:hover { background: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
-    .watchlist-btn.active { background: #10b981; border-color: #10b981; }
-
-    /* Metadata Block */
-    .info-main { display: flex; flex-direction: column; gap: 1.5rem; padding-top: 100px; }
-    .info-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.1; }
-    .info-tagline { font-style: italic; color: var(--text-muted); font-size: 1.1rem; }
-    .metadata-strip { display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.95rem; border-bottom: 1px solid rgba(139,92,246,0.15); padding-bottom: 1.5rem; }
-    .metadata-strip span { display: flex; align-items: center; gap: 0.4rem; }
-    .meta-star { color: #f59e0b; }
-    .info-overview { font-size: 1.1rem; line-height: 1.7; color: #d1d5db; }
-    
-    /* Interactive Season Dashboard */
-    .tv-seasons-block { background: rgba(18, 0, 24, 0.4); border: 1px solid rgba(139,92,246,0.15); border-radius: 16px; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
-    .seasons-header { display: flex; justify-content: space-between; align-items: center; }
-    .seasons-header select { background: rgba(5,5,5,0.8); border: 1px solid var(--primary); color: #fff; padding: 0.75rem 1.5rem; border-radius: 8px; outline: none; font-size: 1rem; }
-    .episodes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; }
-    .episode-card {
-      background: rgba(18, 0, 24, 0.6); border: 1px solid rgba(139,92,246,0.1); border-radius: 12px;
-      overflow: hidden; cursor: pointer; transition: var(--transition); display: flex; flex-direction: column;
-    }
-    .episode-card:hover { border-color: var(--primary); box-shadow: 0 5px 15px rgba(139,92,246,0.25); transform: translateY(-3px); }
-    .episode-thumbnail { position: relative; aspect-ratio: 16/10; overflow: hidden; }
-    .episode-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
-    .episode-play-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: var(--transition); }
-    .episode-card:hover .episode-play-overlay { opacity: 1; }
-    .episode-play-overlay i { font-size: 2rem; color: #fff; filter: drop-shadow(0 0 8px var(--primary-glow)); }
-    .episode-info { padding: 1rem; display: flex; flex-direction: column; gap: 0.25rem; }
-    .episode-info h4 { font-size: 0.95rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .episode-info p { font-size: 0.8rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
-    /* Cast / Recommendation Slider */
-    .slider-section { margin-top: 3rem; }
-    .slider-section h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.25rem; }
-    .slider-container { display: flex; gap: 1.25rem; overflow-x: auto; padding-bottom: 0.5rem; }
-    .cast-card { min-width: 130px; max-width: 130px; text-align: center; display: flex; flex-direction: column; gap: 0.5rem; }
-    .cast-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 50%; border: 2px solid rgba(139,92,246,0.2); }
-    .cast-card h5 { font-size: 0.9rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .cast-card span { font-size: 0.75rem; color: var(--text-muted); }
-
-    .footer {
-      background: #040206; border-top: 1px solid rgba(139, 92, 246, 0.15);
-      padding: 3rem 2rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
-      margin-top: auto; text-align: center;
-    }
-    .footer-banner { height: 50px; object-fit: contain; }
-
-    @media (max-width: 1024px) {
-      .detail-grid { padding: 0 2rem; }
-    }
-    @media (max-width: 768px) {
-      .navbar { padding: 0.75rem 1rem; }
-      .detail-grid { grid-template-columns: 1fr; margin-top: -150px; padding: 0 1rem; gap: 1.5rem; }
-      .poster-block { width: 200px; margin: 0 auto; }
-      .info-main { padding-top: 0; text-align: center; }
-      .metadata-strip { justify-content: center; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Core Sticky Header block -->
-  <header class="navbar">
-    <div class="nav-left">
-      <button class="menu-btn" onclick="window.history.back()" aria-label="Go Back"><i class="fa-solid fa-arrow-left"></i></button>
-    </div>
-    <div class="nav-center">
-      <a href="index.html">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube Original logo banner" class="nav-banner">
-      </a>
-    </div>
-    <div class="nav-right">
-      <button class="search-btn" onclick="window.location.href='discover.html'" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
-    </div>
-  </header>
-
-  <!-- Large Backdrop Visual -->
-  <section class="backdrop-container" id="info-backdrop"></section>
-
-  <!-- Detailed Dashboard Content Work Grid -->
-  <main class="detail-grid">
-    <div class="poster-block">
-      <img src="https://via.placeholder.com/342x513?text=NamiTube" alt="Poster Display" class="info-poster" id="info-poster">
-      <button class="watchlist-btn" id="watchlist-toggle"><i class="fa-regular fa-bookmark"></i> Add to Watchlist</button>
-      <button class="watchlist-btn" id="watch-now-btn" style="background:var(--primary); font-size:1.1rem; border:none;"><i class="fa-solid fa-play"></i> Watch Now</button>
-    </div>
-
-    <div class="info-main">
-      <h1 class="info-title" id="info-title">Loading Title...</h1>
-      <p class="info-tagline" id="info-tagline"></p>
-      
-      <div class="metadata-strip" id="info-metadata">
-        <!-- Script Loaded Metadata -->
-      </div>
-
-      <p class="info-overview" id="info-overview">Fetching media overview...</p>
-
-      <!-- TV Interactive Seasons UI (Default hidden for movies) -->
-      <div class="tv-seasons-block" id="tv-seasons-container" style="display: none;">
-        <div class="seasons-header">
-          <h3>Episodes</h3>
-          <select id="season-selector"></select>
-        </div>
-        <div class="episodes-grid" id="episodes-grid"></div>
-      </div>
-
-      <!-- Casting Section Carousel -->
-      <div class="slider-section" id="cast-section">
-        <h3>Primary Character Voices</h3>
-        <div class="slider-container" id="cast-container"></div>
-      </div>
-
-      <!-- Filtered Recommended Content Carousel -->
-      <div class="slider-section" id="rec-section">
-        <h3>You May Also Like</h3>
-        <div class="slider-container" id="rec-container"></div>
-      </div>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-banner-container">
-      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube Footer Logo" class="footer-banner">
-    </div>
-    <p class="copyright">
-      &copy; 2026 NamiTube. All Rights Reserved. Powered by TMDB API.
-    </p>
-  </footer>
-
-  <script>
-    const TMDB_API_KEY = "e10da2e2cbb23ea7ebfb64c3a188b64a";
-    const TMDB_BASE_URL = "https://api.themoviedb.org/3";
-
-    // Route Parser Engine
-    const params = new URLSearchParams(window.location.search);
-    const mediaId = params.get('id');
-    const mediaType = params.get('type') || 'movie';
-
-    let globalItem = null;
-
-    async function loadMediaDetails() {
-      if (!mediaId) { window.location.href = "index.html"; return; }
-      
-      try {
-        const details = await fetch(`${TMDB_BASE_URL}/${mediaType}/${mediaId}?api_key=${TMDB_API_KEY}&append_to_response=credits,recommendations`);
-        const item = await details.json();
-        globalItem = item;
-
-        // Populate core design blocks
-        document.getElementById('info-backdrop').style.backgroundImage = `url('https://image.tmdb.org/t/p/original${item.backdrop_path}')`;
-        document.getElementById('info-poster').src = item.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : 'https://via.placeholder.com/342x513?text=No+Poster';
-        document.getElementById('info-title').textContent = item.title || item.name || 'Untitled';
-        document.getElementById('info-tagline').textContent = item.tagline || "";
-        document.getElementById('info-overview').textContent = item.overview || "This incredible animation project detail list is curated right here on NamiTube.";
-
-        // Set Watch now link parameter
-        const watchBtn = document.getElementById('watch-now-btn');
-        if (mediaType === 'tv') {
-          watchBtn.setAttribute('onclick', `window.location.href='watch.html?id=${mediaId}&type=tv&season=1&episode=1'`);
-        } else {
-          watchBtn.setAttribute('onclick', `window.location.href='watch.html?id=${mediaId}&type=movie'`);
-        }
-
-        // Render Metadata line block
-        const releaseYear = item.release_date || item.first_air_date ? new Date(item.release_date || item.first_air_date).getFullYear() : 'N/A';
-        const rating = item.vote_average ? item.vote_average.toFixed(1) : 'N/A';
-        const genresList = item.genres ? item.genres.map(g => g.name).slice(0, 3).join(', ') : 'Animation';
-        const runTime = mediaType === 'movie' ? `${item.runtime || 'N/A'} mins` : `${item.number_of_seasons || 'N/A'} Seasons`;
-
-        document.getElementById('info-metadata').innerHTML = `
-          <span><i class="fa-solid fa-star meta-star"></i> ${rating}</span>
-          <span><i class="fa-solid fa-clock"></i> ${runTime}</span>
-          <span><i class="fa-solid fa-calendar"></i> ${releaseYear}</span>
-          <span><i class="fa-solid fa-folder-open"></i> ${genresList}</span>
-        `;
-
-        // Local Storage Watchlist Toggle setup
-        setupWatchlist(item);
-
-        // Conditional implementation of Season Dashboard blocks
-        if (mediaType === 'tv') {
-          document.getElementById('tv-seasons-container').style.display = 'block';
-          populateSeasonDropdown(item.seasons);
-        }
-
-        // Populate dynamic lists
-        populateCredits(item.credits);
-        populateRecommendations(item.recommendations);
-        addToWatchedHistory(item);
+        // Render Row 3: Movies
+        const moviesHTML = data.movies.media.map(item => makeCard(item)).join('');
+        document.getElementById('movies-viewport').innerHTML = moviesHTML;
 
       } catch (err) {
-        console.error(err);
+        console.error("Initialization failed:", err);
       }
     }
 
-    // Season Dropdown selector logic execution
-    function populateSeasonDropdown(seasons) {
-      const selector = document.getElementById('season-selector');
-      // Filter specials season 0 if users don't need specials, keeping it clean
-      const validSeasons = seasons.filter(s => s.season_number > 0);
-      
-      selector.innerHTML = validSeasons.map(s => `<option value="${s.season_number}">${s.name}</option>`).join('');
-      selector.addEventListener('change', (e) => loadEpisodes(e.target.value));
-      
-      if (validSeasons.length > 0) loadEpisodes(validSeasons[0].season_number);
-    }
+    /* DEBOUNCED SEARCH EXECUTION */
+    const searchField = document.getElementById('search-field');
+    const searchResults = document.getElementById('search-results');
+    let searchDebounceTimer;
 
-    async function loadEpisodes(seasonNumber) {
-      const container = document.getElementById('episodes-grid');
-      container.innerHTML = Array(4).fill().map(() => `<div class="episode-card skeleton" style="height: 150px;"></div>`).join('');
+    searchField.addEventListener('input', (e) => {
+      clearTimeout(searchDebounceTimer);
+      const queryStr = e.target.value.trim();
+      if (!queryStr) {
+        searchResults.innerHTML = '';
+        return;
+      }
       
-      try {
-        const res = await fetch(`${TMDB_BASE_URL}/tv/${mediaId}/season/${seasonNumber}?api_key=${TMDB_API_KEY}`);
-        const data = await res.json();
-        
-        container.innerHTML = data.episodes.map(ep => {
-          const thumb = ep.still_path ? `https://image.tmdb.org/t/p/w300${ep.still_path}` : 'https://via.placeholder.com/300x180?text=NamiTube';
-          return `
-            <div class="episode-card" onclick="window.location.href='watch.html?id=${mediaId}&type=tv&season=${seasonNumber}&episode=${ep.episode_number}'">
-              <div class="episode-thumbnail">
-                <img src="${thumb}" alt="${ep.name}" loading="lazy">
-                <div class="episode-play-overlay"><i class="fa-solid fa-play"></i></div>
-              </div>
-              <div class="episode-info">
-                <h4>E${ep.episode_number} &bull; ${ep.name || 'Episode Name'}</h4>
-                <p>${ep.overview || 'Watch this incredible episode on NamiTube servers.'}</p>
-              </div>
-            </div>
+      searchDebounceTimer = setTimeout(async () => {
+        searchResults.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color:var(--text-muted);">Searching...</div>`;
+        try {
+          const graphQuery = `
+            query($query: String) {
+              Page(page: 1, perPage: 18) {
+                media(search: $query, type: ANIME, sort: POPULARITY_DESC) {
+                  id
+                  title { romaji }
+                  coverImage { large }
+                  averageScore
+                  episodes
+                  seasonYear
+                }
+              }
+            }
           `;
-        }).join('');
-      } catch (err) {
-        container.innerHTML = '<p style="grid-column:1/-1;">Error loading season details.</p>';
-      }
-    }
-
-    // Populate Dynamic Casting visual circles
-    function populateCredits(credits) {
-      const container = document.getElementById('cast-container');
-      if (!credits || !credits.cast || credits.cast.length === 0) {
-        document.getElementById('cast-section').style.display = 'none';
-        return;
-      }
-      container.innerHTML = credits.cast.slice(0, 10).map(c => {
-        const img = c.profile_path ? `https://image.tmdb.org/t/p/w185${c.profile_path}` : 'https://via.placeholder.com/185x185?text=Cast';
-        return `
-          <div class="cast-card">
-            <img src="${img}" alt="${c.name}" loading="lazy">
-            <h5>${c.name}</h5>
-            <span>${c.character}</span>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // Populate TMDB Recommendation system with rigor validation on Animation genre ID 16
-    function populateRecommendations(recommendations) {
-      const container = document.getElementById('rec-container');
-      if (!recommendations || !recommendations.results) {
-        document.getElementById('rec-section').style.display = 'none';
-        return;
-      }
-      const filtered = recommendations.results.filter(item => item.genre_ids && item.genre_ids.includes(16)).slice(0, 10);
-      
-      if (filtered.length === 0) {
-        document.getElementById('rec-section').style.display = 'none';
-        return;
-      }
-
-      container.innerHTML = filtered.map(item => {
-        const title = item.title || item.name || 'Untitled';
-        const poster = item.poster_path ? `https://image.tmdb.org/t/p/w185${item.poster_path}` : 'https://via.placeholder.com/185x278?text=No+Poster';
-        return `
-          <div class="media-card" style="min-width: 130px; max-width: 130px;" onclick="window.location.href='info.html?id=${item.id}&type=${mediaType}'">
-            <img src="${poster}" alt="${title}" loading="lazy">
-            <div class="card-info" style="padding:0.5rem;">
-              <span class="card-title" style="font-size:0.8rem;">${title}</span>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // Storage watch engine tracking
-    function setupWatchlist(item) {
-      const btn = document.getElementById('watchlist-toggle');
-      let watchlist = JSON.parse(localStorage.getItem('namitube_watchlist') || '[]');
-      
-      let isAdded = watchlist.some(x => x.id === item.id.toString());
-      updateButtonState(isAdded);
-
-      btn.addEventListener('click', () => {
-        watchlist = JSON.parse(localStorage.getItem('namitube_watchlist') || '[]');
-        if (isAdded) {
-          watchlist = watchlist.filter(x => x.id !== item.id.toString());
-        } else {
-          watchlist.push({
-            id: item.id.toString(),
-            type: mediaType,
-            title: item.title || item.name,
-            poster: item.poster_path ? `https://image.tmdb.org/t/p/w185${item.poster_path}` : 'https://via.placeholder.com/185x278?text=NamiTube'
-          });
+          const data = await fetchAniList(graphQuery, { query: queryStr });
+          if (!data.Page.media.length) {
+            searchResults.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color:var(--text-muted);">No results found for "${queryStr}"</div>`;
+            return;
+          }
+          searchResults.innerHTML = data.Page.media.map(item => makeCard(item)).join('');
+        } catch (err) {
+          searchResults.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: #ef4444;">Search Failed. Try again later.</div>`;
         }
-        localStorage.setItem('namitube_watchlist', JSON.stringify(watchlist));
-        isAdded = !isAdded;
-        updateButtonState(isAdded);
-      });
+      }, 500);
+    });
 
-      function updateButtonState(added) {
-        if (added) {
-          btn.innerHTML = `<i class="fa-solid fa-check"></i> On Watchlist`;
-          btn.classList.add('active');
-        } else {
-          btn.innerHTML = `<i class="fa-regular fa-bookmark"></i> Add to Watchlist`;
-          btn.classList.remove('active');
-        }
-      }
-    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') toggleSearch(false);
+    });
 
-    function addToWatchedHistory(item) {
-      let history = JSON.parse(localStorage.getItem('namitube_watched') || '[]');
-      history = history.filter(x => x.id !== item.id.toString());
-      history.unshift({
-        id: item.id.toString(),
-        type: mediaType,
-        title: item.title || item.name,
-        poster: item.poster_path ? `https://image.tmdb.org/t/p/w185${item.poster_path}` : 'https://via.placeholder.com/185x278?text=NamiTube'
-      });
-      localStorage.setItem('namitube_watched', JSON.stringify(history.slice(0, 15)));
-    }
-
-    window.addEventListener('DOMContentLoaded', loadMediaDetails);
+    // Start
+    init();
   </script>
-</body>
-</html>
-
-4. watch.html (Streaming Player & Controls)
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Watch Animation - NamiTube</title>
-  <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHE6pMgjbJ6YDLaMAtDUZCs6Zhkvxl0_fQnb0c0ZCmJOYRB_4N8dQ0ZWosBq_sZPK2wFel2E43Z2meo25JL3i7IZYkJ35FZ7lZ_BZfwlWofAKGhF1gWpFsxofeGUr87Peu6s7xtgvJMnrbtNnd4vJPtB7uG3L_wJ9tT8PKRCh-PXSxlyY9Ufn8OAzDY_Y/s320/NamiTube%20Original%20Favicon.png" type="image/png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-dark: #050505;
-      --bg-card: rgba(18, 0, 24, 0.65);
-      --primary: #8b5cf6;
-      --primary-glow: rgba(168, 85, 247, 0.6);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
-    a { color: inherit; text-decoration: none; }
-
-    /* Nav Block */
-    .navbar {
-      position: sticky; top: 0; z-index: 1000; background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(139, 92, 246, 0.15); display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 2rem; height: 70px;
-    }
-    .nav-banner { height: 48px; object-fit: contain; }
-    .menu-btn { background: none; border: none; color: var(--text-main); font-size: 1.4rem; cursor: pointer; }
-
-    /* Video Player Layout container blocks */
-    .player-section { width: 100%; max-width: 1400px; margin: 2rem auto; padding: 0 4rem; display: grid; grid-template-columns: 1fr 350px; gap: 2rem; }
-    .player-main { display: flex; flex-direction: column; gap: 1.5rem; }
-    
-    .iframe-wrapper { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 16px; overflow: hidden; border: 1px solid rgba(139,92,246,0.3); box-shadow: 0 10px 30px rgba(139,92,246,0.15); }
-    .iframe-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-
-    /* Server switcher blocks */
-    .server-panel { display: flex; flex-wrap: wrap; gap: 0.75rem; background: rgba(18, 0, 24, 0.5); padding: 1rem; border-radius: 12px; border: 1px solid rgba(139,92,246,0.15); }
-    .server-title { font-weight: 600; font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; width: 100%; margin-bottom: 0.25rem; }
-    .server-btn {
-      background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.25rem;
-      border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: var(--transition);
-    }
-    .server-btn:hover { background: rgba(139,92,246,0.15); border-color: var(--primary); }
-    .server-btn.active { background: var(--primary); border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
-
-    /* Episode Selector Sidebar panel */
-    .episodes-sidebar { background: rgba(18,0,24,0.45); border: 1px solid rgba(139,92,246,0.15); border-radius: 16px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; max-height: 650px; overflow-y: auto; }
-    .sidebar-title { font-size: 1.2rem; font-weight: 700; border-bottom: 1px solid rgba(139,92,246,0.15); padding-bottom: 0.75rem; display: flex; align-items: center; justify-content: space-between; }
-    .sidebar-title select { background: rgba(5,5,5,0.8); border: 1px solid var(--primary); color: #fff; padding: 0.4rem 0.75rem; border-radius: 6px; outline: none; font-size: 0.85rem; }
-    .sidebar-episodes-list { display: flex; flex-direction: column; gap: 0.75rem; }
-    .sidebar-ep-card {
-      display: flex; gap: 0.75rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 8px; padding: 0.5rem; cursor: pointer; transition: var(--transition);
-    }
-    .sidebar-ep-card:hover { background: rgba(139,92,246,0.1); border-color: var(--primary); }
-    .sidebar-ep-card.active { background: rgba(139,92,246,0.2); border-color: var(--primary); box-shadow: inset 0 0 8px rgba(139,92,246,0.3); }
-    .sidebar-ep-thumb { width: 100px; aspect-ratio: 16/10; object-fit: cover; border-radius: 4px; }
-    .sidebar-ep-info { display: flex; flex-direction: column; justify-content: center; gap: 0.15rem; }
-    .sidebar-ep-info h5 { font-size: 0.85rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 170px; }
-    .sidebar-ep-info p { font-size: 0.75rem; color: var(--text-muted); }
-
-    /* Metadata details */
-    .show-details { background: rgba(18, 0, 24, 0.3); border: 1px solid rgba(139,92,246,0.1); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
-    .show-details h2 { font-size: 1.75rem; font-weight: 800; }
-    .show-details h4 { font-size: 1.1rem; color: var(--primary); }
-    .show-details p { font-size: 1rem; color: #d1d5db; line-height: 1.6; }
-
-    /* Previous/Next buttons panel */
-    .controls-strip { display: flex; justify-content: space-between; align-items: center; }
-    .ctrl-btn {
-      background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1);
-      padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: var(--transition);
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .ctrl-btn:hover:not(:disabled) { background: var(--primary); border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
-    .ctrl-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-    .footer {
-      background: #040206; border-top: 1px solid rgba(139, 92, 246, 0.15);
-      padding: 3rem 2rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
-      margin-top: auto; text-align: center;
-    }
-    .footer-banner { height: 50px; object-fit: contain; }
-
-    @media (max-width: 1024px) {
-      .player-section { grid-template-columns: 1fr; padding: 0 2rem; }
-    }
-    @media (max-width: 768px) {
-      .navbar { padding: 0.75rem 1rem; }
-      .player-section { padding: 0 1rem; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Core Sticky Header block -->
-  <header class="navbar">
-    <div class="nav-left">
-      <button class="menu-btn" onclick="window.history.back()" aria-label="Go Back"><i class="fa-solid fa-arrow-left"></i></button>
-    </div>
-    <div class="nav-center">
-      <a href="index.html">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube Original logo banner" class="nav-banner">
-      </a>
-    </div>
-    <div class="nav-right">
-      <button class="menu-btn" onclick="window.location.href='index.html'" aria-label="Home"><i class="fa-solid fa-house"></i></button>
-    </div>
-  </header>
-
-  <!-- Complete Video Streaming Workspace -->
-  <main class="player-section">
-    <div class="player-main">
-      <div class="iframe-wrapper">
-        <iframe id="stream-player" allowfullscreen src="" referrerpolicy="no-referrer"></iframe>
-      </div>
-
-      <div class="controls-strip">
-        <button class="ctrl-btn" id="prev-ep-btn"><i class="fa-solid fa-backward"></i> Previous</button>
-        <button class="ctrl-btn" id="next-ep-btn">Next <i class="fa-solid fa-forward"></i></button>
-      </div>
-
-      <!-- Live Stream Server Swapper -->
-      <div class="server-panel">
-        <div class="server-title">Switch Mirror Servers</div>
-        <button class="server-btn active" data-server="vidsrc">Server VidSrc</button>
-        <button class="server-btn" data-server="vidlink">Server VidLink</button>
-        <button class="server-btn" data-server="videasy">Server VidEasy</button>
-        <button class="server-btn" data-server="multiembed">Server MultiEmbed</button>
-      </div>
-
-      <!-- Show Info Section Below Player -->
-      <div class="show-details">
-        <h2 id="show-title">Fetching Title...</h2>
-        <h4 id="show-current-ep"></h4>
-        <p id="show-overview">Overview loading...</p>
-      </div>
-    </div>
-
-    <!-- Episode Guide Sidebar (Hidden on Movies) -->
-    <div class="episodes-sidebar" id="episodes-sidebar-container" style="display: none;">
-      <div class="sidebar-title">
-        <span>Episode Index</span>
-        <select id="sidebar-season-selector"></select>
-      </div>
-      <div class="sidebar-episodes-list" id="sidebar-episodes-list"></div>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-banner-container">
-      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube Footer Logo" class="footer-banner">
-    </div>
-    <p class="disclaimer">
-      This website does not host any video content on its servers. All media content is embedded from third-party providers. We do not store or upload any videos. All trademarks, logos, and content belong to their respective owners.
-    </p>
-    <p class="copyright">
-      &copy; 2026 NamiTube. All Rights Reserved. Powered by TMDB API.
-    </p>
-  </footer>
-
-  <script>
-    const TMDB_API_KEY = "e10da2e2cbb23ea7ebfb64c3a188b64a";
-    const TMDB_BASE_URL = "https://api.themoviedb.org/3";
-
-    // Parse player routes
-    const params = new URLSearchParams(window.location.search);
-    const mediaId = params.get('id');
-    const mediaType = params.get('type') || 'movie';
-    
-    let activeSeason = parseInt(params.get('season')) || 1;
-    let activeEpisode = parseInt(params.get('episode')) || 1;
-    let currentServer = "vidsrc";
-    let mediaData = null;
-    let episodesList = [];
-
-    // Core Stream Routing Engine switcher
-    function getStreamUrl() {
-      if (mediaType === 'movie') {
-        switch (currentServer) {
-          case 'vidsrc': return `https://vidsrc.to/embed/movie/${mediaId}`;
-          case 'vidlink': return `https://vidlink.pro/embed/movie/${mediaId}`;
-          case 'videasy': return `https://videasy.net/embed/movie/${mediaId}`;
-          case 'multiembed': return `https://multiembed.mov/?video_id=${mediaId}`;
-          default: return `https://vidsrc.to/embed/movie/${mediaId}`;
-        }
-      } else {
-        switch (currentServer) {
-          case 'vidsrc': return `https://vidsrc.to/embed/tv/${mediaId}/${activeSeason}/${activeEpisode}`;
-          case 'vidlink': return `https://vidlink.pro/embed/tv/${mediaId}/${activeSeason}/${activeEpisode}`;
-          case 'videasy': return `https://videasy.net/embed/tv/${mediaId}/${activeSeason}/${activeEpisode}`;
-          case 'multiembed': return `https://multiembed.mov/?video_id=${mediaId}&s=${activeSeason}&e=${activeEpisode}`;
-          default: return `https://vidsrc.to/embed/tv/${mediaId}/${activeSeason}/${activeEpisode}`;
-        }
-      }
-    }
-
-    function updatePlayer() {
-      document.getElementById('stream-player').src = getStreamUrl();
-      if (mediaType === 'tv') {
-        document.getElementById('show-current-ep').textContent = `Season ${activeSeason} - Episode ${activeEpisode}`;
-        saveProgress();
-      } else {
-        document.getElementById('show-current-ep').style.display = 'none';
-      }
-      toggleControlsState();
-    }
-
-    // Server Buttons click listener
-    document.querySelectorAll('.server-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        document.querySelector('.server-btn.active').classList.remove('active');
-        e.target.classList.add('active');
-        currentServer = e.target.dataset.server;
-        updatePlayer();
-      });
-    });
-
-    // Load active series/movie detail profiles
-    async function initPlayerWorkspace() {
-      if (!mediaId) { window.location.href = "index.html"; return; }
-      
-      try {
-        const details = await fetch(`${TMDB_BASE_URL}/${mediaType}/${mediaId}?api_key=${TMDB_API_KEY}`);
-        mediaData = await details.json();
-
-        document.getElementById('show-title').textContent = mediaData.title || mediaData.name || 'Untitled';
-        document.getElementById('show-overview').textContent = mediaData.overview || "Stream this spectacular animation masterpiece directly on NamiTube.";
-
-        if (mediaType === 'tv') {
-          document.getElementById('episodes-sidebar-container').style.display = 'block';
-          populateSeasonDropdown(mediaData.seasons);
-        } else {
-          // Hide navigation controls for movies
-          document.querySelector('.controls-strip').style.display = 'none';
-        }
-
-        updatePlayer();
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    // Series episodes list logic
-    function populateSeasonDropdown(seasons) {
-      const selector = document.getElementById('sidebar-season-selector');
-      const validSeasons = seasons.filter(s => s.season_number > 0);
-      
-      selector.innerHTML = validSeasons.map(s => `<option value="${s.season_number}">Season ${s.season_number}</option>`).join('');
-      selector.value = activeSeason;
-      
-      selector.addEventListener('change', (e) => {
-        activeSeason = parseInt(e.target.value);
-        activeEpisode = 1; // Reset to Ep 1 on Season Switch
-        loadSeasonEpisodes();
-      });
-
-      loadSeasonEpisodes();
-    }
-
-    async function loadSeasonEpisodes() {
-      const container = document.getElementById('sidebar-episodes-list');
-      container.innerHTML = Array(3).fill().map(() => `<div class="sidebar-ep-card skeleton" style="height: 60px;"></div>`).join('');
-      
-      try {
-        const res = await fetch(`${TMDB_BASE_URL}/tv/${mediaId}/season/${activeSeason}?api_key=${TMDB_API_KEY}`);
-        const data = await res.json();
-        episodesList = data.episodes;
-
-        container.innerHTML = episodesList.map(ep => {
-          const thumb = ep.still_path ? `https://image.tmdb.org/t/p/w200${ep.still_path}` : 'https://via.placeholder.com/200x120?text=NamiTube';
-          const isActive = ep.episode_number === activeEpisode;
-          return `
-            <div class="sidebar-ep-card ${isActive ? 'active' : ''}" onclick="playEpisode(${ep.episode_number})">
-              <img src="${thumb}" alt="${ep.name}" class="sidebar-ep-thumb" loading="lazy">
-              <div class="sidebar-ep-info">
-                <h5>E${ep.episode_number} - ${ep.name}</h5>
-                <p>Episode Details</p>
-              </div>
-            </div>
-          `;
-        }).join('');
-
-        toggleControlsState();
-      } catch (err) {
-        container.innerHTML = '<p>Error loading episodes.</p>';
-      }
-    }
-
-    function playEpisode(epNum) {
-      activeEpisode = epNum;
-      document.querySelectorAll('.sidebar-ep-card').forEach((card, idx) => {
-        card.classList.toggle('active', (idx + 1) === epNum);
-      });
-      updatePlayer();
-    }
-
-    // Interactive button strip triggers
-    const prevBtn = document.getElementById('prev-ep-btn');
-    const nextBtn = document.getElementById('next-ep-btn');
-
-    prevBtn.addEventListener('click', () => {
-      if (activeEpisode > 1) playEpisode(activeEpisode - 1);
-    });
-    nextBtn.addEventListener('click', () => {
-      if (activeEpisode < episodesList.length) playEpisode(activeEpisode + 1);
-    });
-
-    function toggleControlsState() {
-      if (mediaType === 'movie') return;
-      prevBtn.disabled = (activeEpisode === 1);
-      nextBtn.disabled = (episodesList.length > 0 && activeEpisode === episodesList.length);
-    }
-
-    // LocalStorage continue progress system
-    function saveProgress() {
-      if (!mediaData) return;
-      let progress = JSON.parse(localStorage.getItem('namitube_continue') || '[]');
-      progress = progress.filter(x => x.id !== mediaId);
-      progress.unshift({
-        id: mediaId,
-        type: mediaType,
-        title: mediaData.name || mediaData.title,
-        season: activeSeason,
-        episode: activeEpisode,
-        poster: mediaData.poster_path ? `https://image.tmdb.org/t/p/w185${mediaData.poster_path}` : 'https://via.placeholder.com/185x278?text=NamiTube'
-      });
-      localStorage.setItem('namitube_continue', JSON.stringify(progress.slice(0, 10)));
-    }
-
-    window.addEventListener('DOMContentLoaded', initPlayerWorkspace);
-  </script>
-</body>
-</html>
-
-5. donate.html (Support & Donate)
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Donate - NamiTube</title>
-  <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHE6pMgjbJ6YDLaMAtDUZCs6Zhkvxl0_fQnb0c0ZCmJOYRB_4N8dQ0ZWosBq_sZPK2wFel2E43Z2meo25JL3i7IZYkJ35FZ7lZ_BZfwlWofAKGhF1gWpFsxofeGUr87Peu6s7xtgvJMnrbtNnd4vJPtB7uG3L_wJ9tT8PKRCh-PXSxlyY9Ufn8OAzDY_Y/s320/NamiTube%20Original%20Favicon.png" type="image/png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-dark: #050505;
-      --bg-card: rgba(18, 0, 24, 0.65);
-      --primary: #8b5cf6;
-      --primary-glow: rgba(168, 85, 247, 0.6);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
-    a { color: inherit; text-decoration: none; }
-
-    /* Nav Block */
-    .navbar {
-      position: sticky; top: 0; z-index: 1000; background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(139, 92, 246, 0.15); display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 2rem; height: 70px;
-    }
-    .nav-banner { height: 48px; object-fit: contain; }
-    .desktop-menu { display: flex; gap: 2rem; font-weight: 500; font-size: 0.95rem; }
-    .desktop-menu a { position: relative; padding: 0.25rem 0; transition: var(--transition); }
-    .desktop-menu a:hover { color: var(--primary); }
-    .menu-btn { background: none; border: none; color: var(--text-main); font-size: 1.4rem; cursor: pointer; }
-
-    /* Work container layout */
-    .support-main { max-width: 1000px; margin: 3rem auto; padding: 0 2rem; display: flex; flex-direction: column; gap: 3rem; align-items: center; text-align: center; }
-    .support-header h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; background: linear-gradient(135deg, #fff 0%, var(--primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .support-header p { font-size: 1.1rem; color: var(--text-muted); margin-top: 0.5rem; max-width: 600px; line-height: 1.6; }
-
-    /* Premium tier grid layout */
-    .tier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; width: 100%; }
-    .tier-card {
-      background: rgba(18,0,24,0.5); border: 1px solid rgba(139,92,246,0.15); border-radius: 16px;
-      padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 1.5rem; backdrop-filter: blur(10px);
-      transition: var(--transition); position: relative; overflow: hidden;
-    }
-    .tier-card.popular { border-color: var(--primary); box-shadow: 0 0 20px rgba(139,92,246,0.2); }
-    .tier-card.popular::before {
-      content: 'RECOMMENDED'; position: absolute; top: 1.5rem; right: -2.5rem; background: var(--primary);
-      color: #fff; font-size: 0.65rem; font-weight: 800; padding: 0.25rem 2.5rem; transform: rotate(45deg);
-    }
-    .tier-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(139,92,246,0.15); }
-    
-    .tier-name { font-size: 1.4rem; font-weight: 700; color: #fff; }
-    .tier-price { font-size: 2.5rem; font-weight: 800; color: var(--primary); }
-    .tier-price span { font-size: 1rem; color: var(--text-muted); font-weight: 500; }
-    
-    .tier-features { display: flex; flex-direction: column; gap: 0.75rem; text-align: left; }
-    .tier-features li { display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: #d1d5db; list-style: none; }
-    .tier-features li i { color: #10b981; }
-
-    .support-btn {
-      background: var(--primary); color: #fff; border: none; padding: 1rem; border-radius: 8px;
-      font-weight: 700; font-size: 1rem; cursor: pointer; transition: var(--transition);
-      box-shadow: 0 4px 15px var(--primary-glow);
-    }
-    .support-btn:hover { background: #a855f7; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(168,85,247,0.8); }
-
-    .footer {
-      background: #040206; border-top: 1px solid rgba(139, 92, 246, 0.15);
-      padding: 3rem 2rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
-      margin-top: auto; text-align: center;
-    }
-    .footer-banner { height: 50px; object-fit: contain; }
-  </style>
-</head>
-<body>
-
-  <!-- Sticky Navbar -->
-  <header class="navbar">
-    <div class="nav-left"></div>
-    <div class="nav-center">
-      <a href="index.html">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube Logo" class="nav-banner">
-      </a>
-    </div>
-    <div class="nav-right">
-      <nav class="desktop-menu">
-        <a href="index.html">Home</a>
-        <a href="discover.html">Discover</a>
-        <a href="donate.html">Donate</a>
-        <a href="creator.html">Creator</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Main Support dashboard -->
-  <main class="support-main">
-    <section class="support-header">
-      <h1>Support NamiTube Evolution</h1>
-      <p>Help us maintain robust streaming architecture, dynamic data lookup speeds, and premium servers with a completely voluntary support pledge. Unlock VIP perks immediately.</p>
-    </section>
-
-    <!-- Pledging Cards Container -->
-    <div class="tier-grid">
-      <div class="tier-card">
-        <h3 class="tier-name">Supporter</h3>
-        <div class="tier-price">$2.99 <span>/mo</span></div>
-        <ul class="tier-features">
-          <li><i class="fa-solid fa-check"></i> Unlock Bronze Supporter Badge</li>
-          <li><i class="fa-solid fa-check"></i> Standard Premium Server Slots</li>
-          <li><i class="fa-solid fa-check"></i> Discord Supporter Group Tier</li>
-        </ul>
-        <button class="support-btn" onclick="alert('Thank you for choosing NamiTube. Supporter tier activation integration coming soon.')">Select Supporter</button>
-      </div>
-
-      <div class="tier-card popular">
-        <h3 class="tier-name">VIP Otaku</h3>
-        <div class="tier-price">$5.99 <span>/mo</span></div>
-        <ul class="tier-features">
-          <li><i class="fa-solid fa-check"></i> Unlock VIP Otaku Shiny Badge</li>
-          <li><i class="fa-solid fa-check"></i> Priority High-Speed Stream Buffers</li>
-          <li><i class="fa-solid fa-check"></i> Access to Request Catalog</li>
-          <li><i class="fa-solid fa-check"></i> VIP Premium Discord Lounge</li>
-        </ul>
-        <button class="support-btn" onclick="alert('Thank you for choosing NamiTube. VIP Otaku tier activation integration coming soon.')">Select VIP Otaku</button>
-      </div>
-
-      <div class="tier-card">
-        <h3 class="tier-name">Champion</h3>
-        <div class="tier-price">$12.99 <span>/mo</span></div>
-        <ul class="tier-features">
-          <li><i class="fa-solid fa-check"></i> Ultimate Champion Badge</li>
-          <li><i class="fa-solid fa-check"></i> Ultra Fast Dedicated Server Streams</li>
-          <li><i class="fa-solid fa-check"></i> Beta Access to New Features</li>
-          <li><i class="fa-solid fa-check"></i> Direct Developer Feedback line</li>
-        </ul>
-        <button class="support-btn" onclick="alert('Thank you for choosing NamiTube. Champion tier activation integration coming soon.')">Select Champion</button>
-      </div>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-banner-container">
-      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube Footer Logo" class="footer-banner">
-    </div>
-    <p class="copyright">
-      &copy; 2026 NamiTube. All Rights Reserved. Powered by TMDB API.
-    </p>
-  </footer>
-</body>
-</html>
-
-6. creator.html (Creator & Mission Details)
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Creator & Mission - NamiTube</title>
-  <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHE6pMgjbJ6YDLaMAtDUZCs6Zhkvxl0_fQnb0c0ZCmJOYRB_4N8dQ0ZWosBq_sZPK2wFel2E43Z2meo25JL3i7IZYkJ35FZ7lZ_BZfwlWofAKGhF1gWpFsxofeGUr87Peu6s7xtgvJMnrbtNnd4vJPtB7uG3L_wJ9tT8PKRCh-PXSxlyY9Ufn8OAzDY_Y/s320/NamiTube%20Original%20Favicon.png" type="image/png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-dark: #050505;
-      --bg-card: rgba(18, 0, 24, 0.65);
-      --primary: #8b5cf6;
-      --primary-glow: rgba(168, 85, 247, 0.6);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
-    a { color: inherit; text-decoration: none; }
-
-    /* Nav Block */
-    .navbar {
-      position: sticky; top: 0; z-index: 1000; background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(139, 92, 246, 0.15); display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 2rem; height: 70px;
-    }
-    .nav-banner { height: 48px; object-fit: contain; }
-    .desktop-menu { display: flex; gap: 2rem; font-weight: 500; font-size: 0.95rem; }
-    .desktop-menu a { position: relative; padding: 0.25rem 0; transition: var(--transition); }
-    .desktop-menu a:hover { color: var(--primary); }
-
-    /* Creator Profile Content Layout */
-    .creator-main { max-width: 900px; margin: 3rem auto; padding: 0 2rem; display: flex; flex-direction: column; gap: 3rem; align-items: center; }
-    .profile-card {
-      background: rgba(18,0,24,0.5); border: 1px solid rgba(139,92,246,0.15); border-radius: 20px;
-      padding: 3rem 2rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.5rem; backdrop-filter: blur(10px); width: 100%;
-    }
-    .profile-avatar { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
-    .creator-name { font-size: 1.8rem; font-weight: 800; }
-    .creator-title { font-size: 1.1rem; color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-    
-    .mission-section { display: flex; flex-direction: column; gap: 1rem; width: 100%; text-align: left; }
-    .mission-section h2 { font-size: 1.5rem; font-weight: 700; border-left: 4px solid var(--primary); padding-left: 1rem; color: #fff; }
-    .mission-section p { font-size: 1.05rem; line-height: 1.7; color: #d1d5db; }
-
-    .creator-socials { display: flex; gap: 1.5rem; margin-top: 1rem; }
-    .creator-socials a {
-      font-size: 1.5rem; color: var(--text-muted); transition: var(--transition);
-      display: flex; align-items: center; justify-content: center; width: 45px; height: 45px;
-      border-radius: 50%; background: rgba(255,255,255,0.02); border: 1px solid rgba(139, 92, 246, 0.05);
-    }
-    .creator-socials a:hover {
-      color: var(--primary); transform: scale(1.15) translateY(-3px);
-      box-shadow: 0 0 15px var(--primary-glow); border-color: var(--primary); background: rgba(139, 92, 246, 0.1);
-    }
-
-    .footer {
-      background: #040206; border-top: 1px solid rgba(139, 92, 246, 0.15);
-      padding: 3rem 2rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
-      margin-top: auto; text-align: center;
-    }
-    .footer-banner { height: 50px; object-fit: contain; }
-  </style>
-</head>
-<body>
-
-  <!-- Header -->
-  <header class="navbar">
-    <div class="nav-left"></div>
-    <div class="nav-center">
-      <a href="index.html">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube Logo" class="nav-banner">
-      </a>
-    </div>
-    <div class="nav-right">
-      <nav class="desktop-menu">
-        <a href="index.html">Home</a>
-        <a href="discover.html">Discover</a>
-        <a href="donate.html">Donate</a>
-        <a href="creator.html">Creator</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Creator main section -->
-  <main class="creator-main">
-    <div class="profile-card">
-      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHE6pMgjbJ6YDLaMAtDUZCs6Zhkvxl0_fQnb0c0ZCmJOYRB_4N8dQ0ZWosBq_sZPK2wFel2E43Z2meo25JL3i7IZYkJ35FZ7lZ_BZfwlWofAKGhF1gWpFsxofeGUr87Peu6s7xtgvJMnrbtNnd4vJPtB7uG3L_wJ9tT8PKRCh-PXSxlyY9Ufn8OAzDY_Y/s320/NamiTube%20Original%20Favicon.png" alt="Creator Icon Avatar" class="profile-avatar">
-      <div>
-        <h1 class="creator-name">NamiTube Core Architect</h1>
-        <span class="creator-title">Principal Platform Architect</span>
-      </div>
-
-      <div class="creator-socials">
-        <a href="#" aria-label="Github"><i class="fa-brands fa-github"></i></a>
-        <a href="#" aria-label="X Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="#" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
-      </div>
-
-      <div class="mission-section">
-        <h2>Mission Statement</h2>
-        <p>The sole vision of NamiTube is to build a centralized, fast, and high-fidelity interface focused exclusively on Animated Art. By using the TMDB Core engine as the single source of truth, we ensure instant data lookups for every animation form, sub-genre, and release era. Our interface strictly filters live-action from our directory, serving only animation.</p>
-      </div>
-
-      <div class="mission-section">
-        <h2>Architecture Highlights</h2>
-        <p>This entire suite runs on direct serverless static page loads with integrated client cache storage mapping, ensuring immediate page load responses. Video mirror switching runs through isolated secure sandboxes with dynamic metadata resume options to preserve the ultimate responsive viewing experience across desktop, tablet, and mobile displays alike.</p>
-      </div>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-banner-container">
-      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube Footer Logo" class="footer-banner">
-    </div>
-    <p class="copyright">
-      &copy; 2026 NamiTube. All Rights Reserved. Powered by TMDB API.
-    </p>
-  </footer>
 </body>
 </html>
