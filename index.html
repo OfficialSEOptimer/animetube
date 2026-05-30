@@ -1315,13 +1315,28 @@
             const container = document.getElementById('heroSlides');
             const dotsContainer = document.getElementById('heroDots');
             try {
-                // Fetch animation movies and TV shows
+                // Fetch trending animation movies and TV shows
                 const [moviesRes, tvRes] = await Promise.allSettled([
-                    fetchTMDB(`/discover/movie?with_genres=${ANIMATION_GENRE_ID}&sort_by=popularity.desc&page=1`),
-                    fetchTMDB(`/discover/tv?with_genres=${ANIMATION_GENRE_ID}&sort_by=popularity.desc&page=1`)
+                    fetchTMDB(`/trending/movie/week`),
+                    fetchTMDB(`/trending/tv/week`)
                 ]);
-                const movies = (moviesRes.value?.results || []).slice(0, 6).map(r => ({ ...r, media_type: 'movie' }));
-                const shows = (tvRes.value?.results || []).slice(0, 6).map(r => ({ ...r, media_type: 'tv' }));
+                let movies = (moviesRes.value?.results || []).filter(item => item.genre_ids && item.genre_ids.includes(
+                    ANIMATION_GENRE_ID)).slice(0, 6).map(r => ({ ...r, media_type: 'movie' }));
+                let shows = (tvRes.value?.results || []).filter(item => item.genre_ids && item.genre_ids.includes(
+                    ANIMATION_GENRE_ID)).slice(0, 6).map(r => ({ ...r, media_type: 'tv' }));
+
+                // If not enough trending animation, fallback to discover
+                if (movies.length < 3) {
+                    const fallback = await fetchTMDB(
+                        `/discover/movie?with_genres=${ANIMATION_GENRE_ID}&sort_by=popularity.desc&page=1`);
+                    movies = (fallback.results || []).slice(0, 6).map(r => ({ ...r, media_type: 'movie' }));
+                }
+                if (shows.length < 3) {
+                    const fallback = await fetchTMDB(
+                        `/discover/tv?with_genres=${ANIMATION_GENRE_ID}&sort_by=popularity.desc&page=1`);
+                    shows = (fallback.results || []).slice(0, 6).map(r => ({ ...r, media_type: 'tv' }));
+                }
+
                 const combined = [...movies, ...shows].sort(() => Math.random() - 0.5).slice(0, 10);
                 if (!combined.length) throw new Error('No animation content available');
                 heroSlides = combined;
@@ -1451,10 +1466,10 @@
             if (!track) return;
             track.innerHTML = createSkeletons(6);
             try {
-                // Ensure animation genre is included
-                const separator = endpoint.includes('?') ? '&' : '?';
-                const data = await fetchTMDB(`${endpoint}${separator}with_genres=${ANIMATION_GENRE_ID}&page=${page}`);
-                const items = (data.results || []).slice(0, 18);
+                const data = await fetchTMDB(`${endpoint}?page=${page}`);
+                const items = (data.results || [])
+                    .filter(item => item.genre_ids && item.genre_ids.includes(ANIMATION_GENRE_ID))
+                    .slice(0, 18);
                 if (!items.length) {
                     track.innerHTML = '<div style="padding:20px;color:var(--text-muted)">No animation content available</div>';
                     return;
