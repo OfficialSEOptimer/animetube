@@ -1,1084 +1,753 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NamiTube - Premium Animation Streaming</title>
-    <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHE6pMgjbJ6YDLaMAtDUZCs6Zhkvxl0_fQnb0c0ZCmJOYRB_4N8dQ0ZWosBq_sZPK2wFel2E43Z2meo25JL3i7IZYkJ35FZ7lZ_BZfwlWofAKGhF1gWpFsxofeGUr87Peu6s7xtgvJMnrbtNnd4vJPtB7uG3L_wJ9tT8PKRCh-PXSxlyY9Ufn8OAzDY_Y/s320/NamiTube%20Original%20Favicon.png" type="image/png" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <style>
-        /* ----- RESET & BASE ----- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: #050505;
-            color: #fff;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-        img {
-            display: block;
-            max-width: 100%;
-        }
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #8b5cf6;
-            border-radius: 12px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #a855f7;
-        }
-        .container {
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
 
-        /* ----- GLOW UTILITY ----- */
-        .glow-text {
-            text-shadow: 0 0 40px rgba(139, 92, 246, .3);
-        }
-        .glow-border {
-            box-shadow: 0 0 30px rgba(139, 92, 246, .15);
-        }
 
-        /* ----- HEADER ----- */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            background: rgba(5, 5, 5, .85);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border-bottom: 1px solid rgba(139, 92, 246, .2);
-            padding: 10px 0;
-            transition: background .3s;
-        }
-        .header-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 0 24px;
-            gap: 16px;
-        }
-        .hamburger {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 26px;
-            cursor: pointer;
-            padding: 6px 10px;
-            border-radius: 8px;
-            transition: .2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .hamburger:hover {
-            background: rgba(139, 92, 246, .2);
-            color: #a855f7;
-        }
-        .header-logo {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-width: 0;
-        }
-        .header-logo img {
-            max-height: 52px;
-            width: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 0 30px rgba(139, 92, 246, .35));
-            transition: filter .3s;
-            border-radius: 4px;
-        }
-        .header-logo img:hover {
-            filter: drop-shadow(0 0 50px rgba(139, 92, 246, .6));
-        }
-        .header-search {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 22px;
-            cursor: pointer;
-            padding: 6px 10px;
-            border-radius: 8px;
-            transition: .2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .header-search:hover {
-            background: rgba(139, 92, 246, .2);
-            color: #a855f7;
-        }
+Create a **FULLY PRODUCTION-READY Anime Streaming Platform** inspired by:
 
-        /* ----- DRAWER ----- */
-        .drawer-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, .7);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: .35s;
-        }
-        .drawer-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .drawer {
-            position: fixed;
-            top: 0;
-            left: -320px;
-            width: 300px;
-            height: 100vh;
-            background: #0a0a0f;
-            border-right: 1px solid rgba(139, 92, 246, .25);
-            z-index: 1001;
-            padding: 30px 20px;
-            transition: left .35s cubic-bezier(.22, 1, .36, 1);
-            overflow-y: auto;
-            box-shadow: 4px 0 40px rgba(0, 0, 0, .6);
-        }
-        .drawer.open {
-            left: 0;
-        }
-        .drawer-close {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 28px;
-            cursor: pointer;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            width: 100%;
-            padding: 4px 0;
-            transition: .2s;
-        }
-        .drawer-close:hover {
-            color: #a855f7;
-        }
-        .drawer-logo {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .drawer-logo img {
-            max-height: 44px;
-            width: auto;
-            margin: 0 auto;
-            filter: drop-shadow(0 0 20px rgba(139, 92, 246, .3));
-        }
-        .drawer-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .drawer-nav a {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 14px 18px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 500;
-            color: #ccc;
-            transition: .25s;
-            background: transparent;
-        }
-        .drawer-nav a i {
-            width: 24px;
-            text-align: center;
-            font-size: 18px;
-            color: #8b5cf6;
-            transition: .25s;
-        }
-        .drawer-nav a:hover {
-            background: rgba(139, 92, 246, .12);
-            color: #fff;
-            padding-left: 24px;
-        }
-        .drawer-nav a:hover i {
-            color: #a855f7;
-            transform: scale(1.1);
-        }
+* HiAnime
+* AnimeKai
+* 9anime
+* Netflix
+* Enma
 
-        /* ----- SEARCH OVERLAY ----- */
-        .search-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(5, 5, 5, .92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            z-index: 2000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 24px;
-            opacity: 0;
-            visibility: hidden;
-            transition: .4s;
-        }
-        .search-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .search-close {
-            align-self: flex-end;
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 32px;
-            cursor: pointer;
-            transition: .2s;
-            padding: 8px;
-        }
-        .search-close:hover {
-            color: #a855f7;
-            transform: rotate(90deg);
-        }
-        .search-input-wrap {
-            width: 100%;
-            max-width: 680px;
-            margin-top: 20px;
-            position: relative;
-        }
-        .search-input-wrap input {
-            width: 100%;
-            padding: 18px 22px;
-            font-size: 20px;
-            border: 2px solid rgba(139, 92, 246, .3);
-            border-radius: 60px;
-            background: rgba(255, 255, 255, .05);
-            color: #fff;
-            outline: none;
-            transition: .3s;
-            font-weight: 400;
-        }
-        .search-input-wrap input:focus {
-            border-color: #8b5cf6;
-            box-shadow: 0 0 40px rgba(139, 92, 246, .15);
-        }
-        .search-input-wrap input::placeholder {
-            color: rgba(255, 255, 255, .4);
-        }
-        .search-results {
-            width: 100%;
-            max-width: 680px;
-            margin-top: 28px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 18px;
-            max-height: 60vh;
-            overflow-y: auto;
-            padding: 4px;
-        }
-        .search-results .result-card {
-            background: rgba(255, 255, 255, .04);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: .3s;
-            cursor: pointer;
-            border: 1px solid rgba(139, 92, 246, .08);
-        }
-        .search-results .result-card:hover {
-            transform: scale(1.04);
-            border-color: #8b5cf6;
-            box-shadow: 0 0 30px rgba(139, 92, 246, .15);
-        }
-        .search-results .result-card img {
-            width: 100%;
-            aspect-ratio: 2/3;
-            object-fit: cover;
-        }
-        .search-results .result-card .info {
-            padding: 10px 12px 14px;
-        }
-        .search-results .result-card .info h4 {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 4px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .search-results .result-card .info span {
-            font-size: 12px;
-            color: #aaa;
-        }
-        .search-no-results {
-            color: #888;
-            font-size: 18px;
-            text-align: center;
-            padding: 40px 0;
-            grid-column: 1 / -1;
-        }
+The final website MUST look, feel, and behave like a **REAL premium anime streaming platform** built by senior frontend engineers.
 
-        /* ----- FOOTER ----- */
-        footer {
-            background: #08080c;
-            border-top: 1px solid rgba(139, 92, 246, .15);
-            padding: 40px 24px 30px;
-            margin-top: 60px;
-        }
-        .footer-inner {
-            max-width: 1440px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .footer-banner {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 24px;
-        }
-        .footer-banner img {
-            max-height: 48px;
-            width: auto;
-            filter: drop-shadow(0 0 30px rgba(139, 92, 246, .25));
-            border-radius: 4px;
-        }
-        .footer-socials {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-        .footer-socials a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, .04);
-            color: #bbb;
-            font-size: 20px;
-            transition: .3s;
-            border: 1px solid rgba(139, 92, 246, .06);
-        }
-        .footer-socials a:hover {
-            background: rgba(139, 92, 246, .15);
-            color: #a855f7;
-            transform: scale(1.12);
-            box-shadow: 0 0 30px rgba(139, 92, 246, .2);
-            border-color: #8b5cf6;
-        }
-        .footer-disclaimer {
-            max-width: 720px;
-            margin: 16px auto 12px;
-            font-size: 13px;
-            color: #666;
-            line-height: 1.7;
-            padding: 0 12px;
-        }
-        .footer-copy {
-            font-size: 14px;
-            color: #555;
-        }
-        .footer-copy span {
-            color: #8b5cf6;
-        }
+The generated result MUST be:
 
-        /* ----- RESPONSIVE ----- */
-        @media (max-width: 768px) {
-            .header-inner {
-                padding: 0 14px;
-                gap: 8px;
-            }
-            .header-logo img {
-                max-height: 38px;
-            }
-            .hamburger {
-                font-size: 22px;
-                padding: 4px 8px;
-            }
-            .header-search {
-                font-size: 18px;
-                padding: 4px 8px;
-            }
-            .drawer {
-                width: 280px;
-                left: -290px;
-                padding: 24px 16px;
-            }
-            .drawer-nav a {
-                font-size: 15px;
-                padding: 12px 14px;
-            }
-            .search-input-wrap input {
-                font-size: 17px;
-                padding: 14px 18px;
-            }
-            .search-results {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-                gap: 12px;
-            }
-            .footer-socials {
-                gap: 16px;
-            }
-            .footer-socials a {
-                width: 40px;
-                height: 40px;
-                font-size: 17px;
-            }
-            .footer-banner img {
-                max-height: 36px;
-            }
-            .container {
-                padding: 0 14px;
-            }
-        }
-        @media (max-width: 480px) {
-            .header-logo img {
-                max-height: 30px;
-            }
-            .search-results {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-                gap: 10px;
-            }
-            .search-results .result-card .info h4 {
-                font-size: 12px;
-            }
-            .search-results .result-card .info span {
-                font-size: 10px;
-            }
-            .drawer {
-                width: 260px;
-                left: -270px;
-            }
-        }
-        @media (min-width: 1600px) {
-            .container {
-                padding: 0 40px;
-            }
-            .header-inner {
-                padding: 0 40px;
-            }
-        }
+* Cinematic
+* Ultra modern
+* Stable
+* Responsive
+* Netflix-quality
+* Smooth animated
+* Fast
+* Professional
+* Deployable immediately
 
-        /* ----- LOADING SKELETON ----- */
-        .skeleton {
-            background: linear-gradient(90deg, #1a1a2e 25%, #2a2a44 50%, #1a1a2e 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.8s infinite;
-            border-radius: 8px;
-        }
-        @keyframes shimmer {
-            0% {
-                background-position: 200% 0;
-            }
-            100% {
-                background-position: -200% 0;
-            }
-        }
+The website MUST NOT feel like:
 
-        /* ----- UTILITY ----- */
-        .hidden {
-            display: none !important;
-        }
-        .text-purple {
-            color: #8b5cf6;
-        }
-        .text-glow {
-            text-shadow: 0 0 30px rgba(139, 92, 246, .25);
-        }
-    </style>
-</head>
-<body>
+* demo code
+* AI-generated low quality UI
+* unfinished prototype
+* basic anime site
+* placeholder implementation
 
-    <!-- ===== HEADER ===== -->
-    <header>
-        <div class="header-inner">
-            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="header-logo">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube" />
-            </div>
-            <button class="header-search" id="searchBtn" aria-label="Search">
-                <i class="fas fa-search"></i>
-            </button>
-        </div>
-    </header>
+The output quality MUST be so consistent that:
 
-    <!-- ===== DRAWER ===== -->
-    <div class="drawer-overlay" id="drawerOverlay"></div>
-    <div class="drawer" id="drawer">
-        <button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button>
-        <div class="drawer-logo">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube" />
-        </div>
-        <nav class="drawer-nav">
-            <a href="index.html"><i class="fas fa-house"></i> Home</a>
-            <a href="discover.html"><i class="fas fa-compass"></i> Discover</a>
-            <a href="donate.html"><i class="fas fa-hand-holding-heart"></i> Donate</a>
-            <a href="creator.html"><i class="fas fa-star"></i> Creator</a>
-        </nav>
-    </div>
+* Claude
+* DeepSeek
+* Kimi
+* GPT
+* Any advanced AI model
 
-    <!-- ===== SEARCH OVERLAY ===== -->
-    <div class="search-overlay" id="searchOverlay">
-        <button class="search-close" id="searchClose"><i class="fas fa-times"></i></button>
-        <div class="search-input-wrap">
-            <input type="text" id="searchInput" placeholder="Search animation &amp; anime..." autofocus />
-        </div>
-        <div class="search-results" id="searchResults"></div>
-    </div>
+ALL generate the SAME premium-quality structure, layout, engineering system, and UI behavior.
 
-    <!-- ===== MAIN CONTENT ===== -->
-    <main>
-        <!-- Hero -->
-        <section class="hero-section" id="heroSection" style="position:relative;overflow:hidden;background:#050505;margin-bottom:30px;">
-            <div id="heroSlider" style="position:relative;width:100%;aspect-ratio:16/7;min-height:320px;background:#0a0a0f;overflow:hidden;border-radius:0 0 24px 24px;box-shadow:0 8px 60px rgba(0,0,0,.7);">
-                <div id="heroTrack" style="display:flex;width:100%;height:100%;transition:transform .9s cubic-bezier(.25,.46,.45,.94);will-change:transform;"></div>
-                <!-- hero controls -->
-                <button id="heroPrev" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.6);backdrop-filter:blur(6px);border:1px solid rgba(139,92,246,.25);color:#fff;width:48px;height:48px;border-radius:50%;font-size:20px;cursor:pointer;transition:.3s;z-index:10;display:flex;align-items:center;justify-content:center;"><i class="fas fa-chevron-left"></i></button>
-                <button id="heroNext" style="position:absolute;right:16px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.6);backdrop-filter:blur(6px);border:1px solid rgba(139,92,246,.25);color:#fff;width:48px;height:48px;border-radius:50%;font-size:20px;cursor:pointer;transition:.3s;z-index:10;display:flex;align-items:center;justify-content:center;"><i class="fas fa-chevron-right"></i></button>
-                <div id="heroDots" style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:10;flex-wrap:wrap;justify-content:center;"></div>
-            </div>
-        </section>
+---
 
-        <!-- Widgets -->
-        <div class="container" id="widgetsContainer">
-            <!-- Each widget will be injected by JS -->
-        </div>
-    </main>
+# CORE DEVELOPMENT RULES
 
-    <!-- ===== FOOTER ===== -->
-    <footer>
-        <div class="footer-inner">
-            <div class="footer-banner">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube" />
-            </div>
-            <div class="footer-socials">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
-                <a href="#" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
-                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            </div>
-            <div class="footer-disclaimer">
-                This website does not host any video content on its servers. All media content is embedded from third-party providers. We do not store or upload any videos. All trademarks, logos, and content belong to their respective owners.
-            </div>
-            <div class="footer-copy">
-                &copy; 2026 <span>NamiTube</span>. All Rights Reserved.<br />
-                Powered by TMDB API
-            </div>
-        </div>
-    </footer>
+Use ONLY:
 
-    <script>
-        // ============================================================
-        //  CONFIG
-        // ============================================================
-        const TMDB_API_KEY = "e10da2e2cbb23ea7ebfb64c3a188b64a";
-        const TMDB_BASE = "https://api.themoviedb.org/3";
-        const TMDB_IMG = "https://image.tmdb.org/t/p";
-        const GENRE_ID = 16; // animation
+* HTML
+* Vanilla CSS
+* Vanilla JavaScript
 
-        // ============================================================
-        //  HELPERS
-        // ============================================================
-        function fetchTMDB(endpoint, params = '') {
-            const url = `${TMDB_BASE}${endpoint}?api_key=${TMDB_API_KEY}&with_genres=${GENRE_ID}${params}`;
-            return fetch(url).then(r => r.json());
-        }
+STRICTLY NO:
 
-        function fetchTMDBRaw(endpoint) {
-            return fetch(`${TMDB_BASE}${endpoint}?api_key=${TMDB_API_KEY}`).then(r => r.json());
-        }
+* React
+* Vue
+* Angular
+* Tailwind
+* Bootstrap
+* jQuery
+* Frameworks
+* Build tools
+* External CSS files
+* External JavaScript files
 
-        function posterUrl(path, size = 'w500') {
-            return path ? `${TMDB_IMG}/${size}${path}` : 'https://via.placeholder.com/500x750/1a1a2e/8b5cf6?text=No+Poster';
-        }
+ONLY create:
 
-        function backdropUrl(path, size = 'w1280') {
-            return path ? `${TMDB_IMG}/${size}${path}` : 'https://via.placeholder.com/1280x720/1a1a2e/8b5cf6?text=No+Backdrop';
-        }
+* `index.html`
+* `anime.html`
+* `watch.html`
+* `discover.html`
+* `schedule.html`
+* `donate.html`
 
-        function yearFromDate(date) {
-            return date ? date.slice(0, 4) : 'N/A';
-        }
+ALL CSS MUST stay inside each HTML file:
 
-        function ratingStars(vote) {
-            const r = Math.round(vote / 2);
-            let s = '';
-            for (let i = 0; i < 5; i++) {
-                s += i < r ? '<i class="fas fa-star" style="color:#fbbf24;"></i>' :
-                    '<i class="far fa-star" style="color:#555;"></i>';
-            }
-            return s;
-        }
+```html
+<style></style>
+```
 
-        function truncate(text, max = 160) {
-            if (!text) return '';
-            return text.length > max ? text.slice(0, max) + '…' : text;
-        }
+ALL JavaScript MUST stay inside each HTML file:
 
-        function mediaTypeLabel(type) {
-            return type === 'movie' ? 'Movie' : 'TV Series';
-        }
+```html
+<script></script>
+```
 
-        // ============================================================
-        //  DRAWER
-        // ============================================================
-        const hamburger = document.getElementById('hamburgerBtn');
-        const drawer = document.getElementById('drawer');
-        const overlay = document.getElementById('drawerOverlay');
-        const closeBtn = document.getElementById('drawerClose');
+DO NOT create:
 
-        function openDrawer() { drawer.classList.add('open');
-            overlay.classList.add('active'); }
+* `style.css`
+* `script.js`
+* framework configs
+* build files
+* external assets
 
-        function closeDrawer() { drawer.classList.remove('open');
-            overlay.classList.remove('active'); }
+---
 
-        hamburger.addEventListener('click', openDrawer);
-        closeBtn.addEventListener('click', closeDrawer);
-        overlay.addEventListener('click', closeDrawer);
+# BRANDING ASSETS
 
-        // ============================================================
-        //  SEARCH
-        // ============================================================
-        const searchBtn = document.getElementById('searchBtn');
-        const searchOverlay = document.getElementById('searchOverlay');
-        const searchClose = document.getElementById('searchClose');
-        const searchInput = document.getElementById('searchInput');
-        const searchResults = document.getElementById('searchResults');
-        let searchTimeout = null;
+## Header Banner / Logo
 
-        function openSearch() {
-            searchOverlay.classList.add('active');
-            setTimeout(() => searchInput.focus(), 200);
-        }
+Use EXACTLY this banner image in header branding/logo area:
 
-        function closeSearch() {
-            searchOverlay.classList.remove('active');
-            searchResults.innerHTML = '';
-            searchInput.value = '';
-        }
+```txt
+https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png
+```
 
-        searchBtn.addEventListener('click', openSearch);
-        searchClose.addEventListener('click', closeSearch);
+Requirements:
 
-        searchInput.addEventListener('input', function() {
-            clearTimeout(searchTimeout);
-            const q = this.value.trim();
-            if (q.length < 2) { searchResults.innerHTML = ''; return; }
-            searchTimeout = setTimeout(() => performSearch(q), 400);
-        });
+* visible inside sticky header
+* centered on desktop
+* responsive scaling
+* preserve aspect ratio
+* no distortion
+* optimized for dark background
 
-        async function performSearch(query) {
-            try {
-                const url =
-                    `${TMDB_BASE}/search/multi?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}&with_genres=${GENRE_ID}`;
-                const res = await fetch(url);
-                const data = await res.json();
-                let results = data.results || [];
-                // filter to animation + movie/tv only
-                results = results.filter(item =>
-                    (item.media_type === 'movie' || item.media_type === 'tv') &&
-                    item.genre_ids && item.genre_ids.includes(GENRE_ID)
-                );
-                if (!results.length) {
-                    searchResults.innerHTML = '<div class="search-no-results">No animation results found.</div>';
-                    return;
-                }
-                let html = '';
-                results.slice(0, 20).forEach(item => {
-                    const id = item.id;
-                    const type = item.media_type;
-                    const title = item.title || item.name || 'Untitled';
-                    const poster = posterUrl(item.poster_path, 'w200');
-                    const year = yearFromDate(item.release_date || item.first_air_date);
-                    const rating = item.vote_average ? item.vote_average.toFixed(1) : 'N/A';
-                    html += `
-                        <div class="result-card" onclick="location.href='info.html?id=${id}&type=${type}'">
-                            <img src="${poster}" alt="${title}" loading="lazy" />
-                            <div class="info">
-                                <h4>${title}</h4>
-                                <span>${year} · ${rating} ⭐</span>
-                            </div>
-                        </div>
-                    `;
-                });
-                searchResults.innerHTML = html;
-            } catch (e) {
-                searchResults.innerHTML = '<div class="search-no-results">Error loading results.</div>';
-                console.error(e);
-            }
-        }
+---
 
-        // ============================================================
-        //  HERO SLIDER
-        // ============================================================
-        let heroItems = [];
-        let heroIndex = 0;
-        let heroInterval = null;
-        const heroTrack = document.getElementById('heroTrack');
-        const heroDots = document.getElementById('heroDots');
+## Favicon
 
-        async function loadHero() {
-            try {
-                const [movies, tv] = await Promise.all([
-                    fetchTMDB('/discover/movie', '&sort_by=popularity.desc&page=1'),
-                    fetchTMDB('/discover/tv', '&sort_by=popularity.desc&page=1')
-                ]);
-                const all = [];
-                (movies.results || []).forEach(m => all.push({ ...m, media_type: 'movie' }));
-                (tv.results || []).forEach(t => all.push({ ...t, media_type: 'tv' }));
-                // shuffle & take top 8
-                all.sort(() => Math.random() - 0.5);
-                heroItems = all.slice(0, 8);
-                if (!heroItems.length) {
-                    heroTrack.innerHTML =
-                        '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#555;font-size:20px;">No hero content</div>';
-                    return;
-                }
-                renderHero();
-                startHeroAuto();
-            } catch (e) {
-                console.error('Hero load error:', e);
-                heroTrack.innerHTML =
-                    '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#555;font-size:20px;">Failed to load hero</div>';
-            }
-        }
+Use EXACTLY this favicon:
 
-        function renderHero() {
-            let html = '';
-            heroItems.forEach((item, i) => {
-                const title = item.title || item.name || 'Untitled';
-                const overview = truncate(item.overview || 'No description available.', 180);
-                const backdrop = backdropUrl(item.backdrop_path);
-                const year = yearFromDate(item.release_date || item.first_air_date);
-                const rating = item.vote_average ? item.vote_average.toFixed(1) : 'N/A';
-                const type = item.media_type;
-                const id = item.id;
-                const genres = item.genre_ids ? item.genre_ids.slice(0, 3) : [];
-                const genreNames = { 16: 'Animation', 12: 'Adventure', 14: 'Fantasy', 28: 'Action', 35: 'Comedy', 18: 'Drama',
-                    27: 'Horror', 10749: 'Romance', 878: 'Sci-Fi', 53: 'Thriller', 10752: 'War', 37: 'Western' };
-                const genreLabels = genres.map(g => genreNames[g] || '').filter(Boolean).join(' · ');
+```txt
+https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHE6pMgjbJ6YDLaMAtDUZCs6Zhkvxl0_fQnb0c0ZCmJOYRB_4N8dQ0ZWosBq_sZPK2wFel2E43Z2meo25JL3i7IZYkJ35FZ7lZ_BZfwlWofAKGhF1gWpFsxofeGUr87Peu6s7xtgvJMnrbtNnd4vJPtB7uG3L_wJ9tT8PKRCh-PXSxlyY9Ufn8OAzDY_Y/s320/NamiTube%20Original%20Favicon.png
+```
 
-                html += `
-                    <div class="hero-slide" style="flex:0 0 100%;height:100%;position:relative;overflow:hidden;">
-                        <img src="${backdrop}" alt="${title}" style="width:100%;height:100%;object-fit:cover;filter:brightness(.45);" loading="${i===0?'eager':'lazy'}" />
-                        <div style="position:absolute;bottom:0;left:0;right:0;padding:40px 40px 50px;background:linear-gradient(transparent,rgba(5,5,5,.95));">
-                            <div style="max-width:700px;">
-                                <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:8px;">
-                                    <span style="background:rgba(139,92,246,.25);padding:4px 16px;border-radius:30px;font-size:13px;border:1px solid rgba(139,92,246,.2);">${mediaTypeLabel(type)}</span>
-                                    <span style="color:#aaa;font-size:14px;">${year}</span>
-                                    <span style="color:#fbbf24;font-size:14px;"><i class="fas fa-star" style="color:#fbbf24;"></i> ${rating}</span>
-                                    ${genreLabels ? `<span style="color:#888;font-size:13px;">${genreLabels}</span>` : ''}
-                                </div>
-                                <h2 style="font-size:clamp(28px,5vw,56px);font-weight:700;margin-bottom:8px;text-shadow:0 4px 30px rgba(0,0,0,.6);">${title}</h2>
-                                <p style="color:#ccc;font-size:clamp(14px,1.2vw,18px);line-height:1.6;max-width:600px;margin-bottom:20px;">${overview}</p>
-                                <div style="display:flex;gap:14px;flex-wrap:wrap;">
-                                    <a href="watch.html?id=${id}&type=${type}" style="background:#8b5cf6;color:#fff;padding:12px 32px;border-radius:60px;font-weight:600;font-size:16px;transition:.3s;display:inline-flex;align-items:center;gap:10px;border:none;cursor:pointer;box-shadow:0 0 40px rgba(139,92,246,.25);"><i class="fas fa-play"></i> Watch Now</a>
-                                    <a href="info.html?id=${id}&type=${type}" style="background:rgba(255,255,255,.08);color:#fff;padding:12px 32px;border-radius:60px;font-weight:500;font-size:16px;transition:.3s;display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.1);"><i class="fas fa-info-circle"></i> Info</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            heroTrack.innerHTML = html;
-            // dots
-            let dotsHtml = '';
-            heroItems.forEach((_, i) => {
-                dotsHtml +=
-                    `<button style="width:10px;height:10px;border-radius:50%;border:none;background:${i===0?'#8b5cf6':'#555'};cursor:pointer;transition:.3s;box-shadow:${i===0?'0 0 20px rgba(139,92,246,.4)':'none'};" data-index="${i}"></button>`;
-            });
-            heroDots.innerHTML = dotsHtml;
-            document.querySelectorAll('#heroDots button').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const idx = parseInt(this.dataset.index);
-                    goToHero(idx);
-                });
-            });
-            document.getElementById('heroPrev').addEventListener('click', () => goToHero(heroIndex - 1));
-            document.getElementById('heroNext').addEventListener('click', () => goToHero(heroIndex + 1));
-        }
+Must be included on every page:
 
-        function goToHero(index) {
-            if (!heroItems.length) return;
-            heroIndex = ((index % heroItems.length) + heroItems.length) % heroItems.length;
-            heroTrack.style.transform = `translateX(-${heroIndex * 100}%)`;
-            // update dots
-            document.querySelectorAll('#heroDots button').forEach((btn, i) => {
-                const active = i === heroIndex;
-                btn.style.background = active ? '#8b5cf6' : '#555';
-                btn.style.boxShadow = active ? '0 0 20px rgba(139,92,246,.4)' : 'none';
-            });
-            resetHeroAuto();
-        }
+```html
+<link rel="icon" href="..." />
+```
 
-        function startHeroAuto() {
-            if (heroInterval) clearInterval(heroInterval);
-            heroInterval = setInterval(() => goToHero(heroIndex + 1), 6000);
-        }
+---
 
-        function resetHeroAuto() {
-            if (heroInterval) {
-                clearInterval(heroInterval);
-                heroInterval = setInterval(() => goToHero(heroIndex + 1), 6000);
-            }
-        }
+# DEPLOYMENT TARGETS
 
-        // ============================================================
-        //  WIDGETS
-        // ============================================================
-        const widgetConfigs = [{
-            id: 'popular-movies',
-            title: 'Popular Anime Movies',
-            icon: 'fa-film',
-            endpoint: '/discover/movie',
-            params: '&sort_by=popularity.desc&page=1'
-        }, {
-            id: 'popular-series',
-            title: 'Popular Anime Series',
-            icon: 'fa-tv',
-            endpoint: '/discover/tv',
-            params: '&sort_by=popularity.desc&page=1'
-        }, {
-            id: 'top-rated',
-            title: 'Top Rated',
-            icon: 'fa-star',
-            endpoint: '/discover/movie',
-            params: '&sort_by=vote_average.desc&vote_count.gte=100&page=1'
-        }, {
-            id: 'airing-today',
-            title: 'Airing Today',
-            icon: 'fa-clock',
-            endpoint: '/tv/airing_today',
-            params: ''
-        }, {
-            id: 'recently-added',
-            title: 'Recently Added',
-            icon: 'fa-fire',
-            endpoint: '/discover/movie',
-            params: '&sort_by=release_date.desc&page=1'
-        }, {
-            id: 'recommended',
-            title: 'Recommended For You',
-            icon: 'fa-compass',
-            endpoint: '/discover/movie',
-            params: '&sort_by=popularity.desc&page=2'
-        }, {
-            id: 'featured-genres',
-            title: 'Featured Genres',
-            icon: 'fa-th-large',
-            endpoint: '/discover/movie',
-            params: '&sort_by=popularity.desc&page=1'
-        }, {
-            id: 'continue-watching',
-            title: 'Continue Watching',
-            icon: 'fa-play-circle',
-            endpoint: '/discover/movie',
-            params: '&sort_by=popularity.desc&page=1'
-        }, {
-            id: 'random',
-            title: 'Random Recommendation',
-            icon: 'fa-shuffle',
-            endpoint: '/discover/movie',
-            params: '&sort_by=popularity.desc&page=1'
-        }];
+The project MUST work directly on:
 
-        const container = document.getElementById('widgetsContainer');
+* GitHub Pages
+* Cloudflare Pages
 
-        async function loadWidgets() {
-            // For continue-watching, use localStorage
-            let continueData = JSON.parse(localStorage.getItem('nami_continue') || '[]');
+WITHOUT build steps.
 
-            for (const cfg of widgetConfigs) {
-                const widgetDiv = document.createElement('div');
-                widgetDiv.className = 'widget-wrapper';
-                widgetDiv.style.marginBottom = '40px';
-                widgetDiv.style.position = 'relative';
+Provide FULL deployment setup guide for:
 
-                let items = [];
-                try {
-                    if (cfg.id === 'continue-watching') {
-                        if (continueData.length) {
-                            const promises = continueData.slice(0, 12).map(async entry => {
-                                try {
-                                    const data = await fetchTMDBRaw(`/${entry.type}/${entry.id}`);
-                                    return { ...data, media_type: entry.type };
-                                } catch { return null; }
-                            });
-                            const results = await Promise.all(promises);
-                            items = results.filter(Boolean);
-                        } else {
-                            const data = await fetchTMDB(cfg.endpoint, cfg.params);
-                            items = (data.results || []).map(m => ({ ...m, media_type: 'movie' }));
-                        }
-                    } else if (cfg.id === 'airing-today') {
-                        // Fetch airing today and filter to animation only
-                        const airingData = await fetchTMDBRaw('/tv/airing_today');
-                        items = (airingData.results || [])
-                            .filter(item => item.genre_ids && item.genre_ids.includes(GENRE_ID))
-                            .map(item => ({ ...item, media_type: 'tv' }));
-                        // If not enough, fallback to popular animation series
-                        if (items.length < 8) {
-                            const fallback = await fetchTMDB('/discover/tv', '&sort_by=popularity.desc&page=1');
-                            items = (fallback.results || []).map(m => ({ ...m, media_type: 'tv' }));
-                        }
-                    } else if (cfg.id === 'random') {
-                        const data = await fetchTMDB(cfg.endpoint, cfg.params);
-                        const all = data.results || [];
-                        const shuffled = all.sort(() => Math.random() - 0.5);
-                        items = shuffled.slice(0, 12).map(m => ({ ...m, media_type: 'movie' }));
-                    } else if (cfg.id === 'featured-genres') {
-                        const [mData, tData] = await Promise.all([
-                            fetchTMDB('/discover/movie', '&sort_by=popularity.desc&page=1'),
-                            fetchTMDB('/discover/tv', '&sort_by=popularity.desc&page=1')
-                        ]);
-                        const mixed = [];
-                        (mData.results || []).forEach(m => mixed.push({ ...m, media_type: 'movie' }));
-                        (tData.results || []).forEach(t => mixed.push({ ...t, media_type: 'tv' }));
-                        mixed.sort(() => Math.random() - 0.5);
-                        items = mixed.slice(0, 12);
-                    } else {
-                        const data = await fetchTMDB(cfg.endpoint, cfg.params);
-                        items = (data.results || []).map(m => ({ ...m, media_type: cfg.endpoint.includes('/tv') ? 'tv' :
-                                'movie' }));
-                    }
-                } catch (e) {
-                    console.error(`Widget ${cfg.id} error:`, e);
-                    items = [];
-                }
+## GitHub Pages
 
-                if (!items.length) {
-                    widgetDiv.style.display = 'none';
-                    container.appendChild(widgetDiv);
-                    continue;
-                }
+Include:
 
-                // Build widget HTML
-                let cardsHtml = '';
-                items.slice(0, 12).forEach(item => {
-                    const id = item.id;
-                    const type = item.media_type;
-                    const title = item.title || item.name || 'Untitled';
-                    const poster = posterUrl(item.poster_path);
-                    const year = yearFromDate(item.release_date || item.first_air_date);
-                    const rating = item.vote_average ? item.vote_average.toFixed(1) : 'N/A';
-                    const isMovie = type === 'movie';
-                    cardsHtml += `
-                        <div class="widget-card" onclick="location.href='info.html?id=${id}&type=${type}'" style="flex:0 0 auto;width:180px;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.04);border:1px solid rgba(139,92,246,.08);transition:.3s;cursor:pointer;position:relative;scroll-snap-align:start;box-shadow:0 4px 20px rgba(0,0,0,.3);">
-                            <div style="position:relative;aspect-ratio:2/3;overflow:hidden;background:#0a0a0f;">
-                                <img src="${poster}" alt="${title}" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:.4s;" />
-                                <div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);padding:2px 10px;border-radius:30px;font-size:11px;border:1px solid rgba(139,92,246,.15);">${isMovie?'Movie':'TV'}</div>
-                                <div style="position:absolute;bottom:6px;left:8px;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);padding:2px 10px;border-radius:30px;font-size:12px;display:flex;align-items:center;gap:4px;border:1px solid rgba(139,92,246,.1);"><i class="fas fa-star" style="color:#fbbf24;font-size:11px;"></i> ${rating}</div>
-                            </div>
-                            <div style="padding:12px 12px 16px;">
-                                <h4 style="font-size:14px;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${title}</h4>
-                                <span style="font-size:12px;color:#888;">${year}</span>
-                            </div>
-                        </div>
-                    `;
-                });
+* repository creation
+* git init
+* git add
+* git commit
+* git remote add origin
+* git push
+* enable GitHub Pages
+* branch selection
+* update/redeploy workflow
 
-                // Build slider with arrows
-                widgetDiv.innerHTML = `
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
-                        <h3 style="font-size:clamp(18px,2vw,24px);font-weight:700;display:flex;align-items:center;gap:12px;color:#fff;text-shadow:0 0 30px rgba(139,92,246,.1);">
-                            <i class="fas ${cfg.icon}" style="color:#8b5cf6;font-size:clamp(16px,1.6vw,22px);"></i>
-                            ${cfg.title}
-                        </h3>
-                        <div style="display:flex;gap:8px;">
-                            <button class="widget-prev" data-target="${cfg.id}" style="background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.2);color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;"><i class="fas fa-chevron-left"></i></button>
-                            <button class="widget-next" data-target="${cfg.id}" style="background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.2);color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;"><i class="fas fa-chevron-right"></i></button>
-                        </div>
-                    </div>
-                    <div class="widget-track-wrap" style="position:relative;overflow:hidden;border-radius:16px;padding:4px 0;">
-                        <div class="widget-track" id="track-${cfg.id}" style="display:flex;gap:16px;overflow-x:auto;padding:8px 4px 16px;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;cursor:grab;">
-                            ${cardsHtml}
-                        </div>
-                    </div>
-                `;
+---
 
-                container.appendChild(widgetDiv);
+## Cloudflare Pages
 
-                // Attach scroll & drag for each track
-                const track = document.getElementById(`track-${cfg.id}`);
-                if (track) {
-                    const prevBtn = widgetDiv.querySelector('.widget-prev');
-                    const nextBtn = widgetDiv.querySelector('.widget-next');
-                    prevBtn.addEventListener('click', () => { track.scrollBy({ left: -220, behavior: 'smooth' }); });
-                    nextBtn.addEventListener('click', () => { track.scrollBy({ left: 220, behavior: 'smooth' }); });
+Include:
 
-                    track.addEventListener('wheel', (e) => {
-                        e.preventDefault();
-                        track.scrollBy({ left: e.deltaY > 0 ? 120 : -120, behavior: 'smooth' });
-                    }, { passive: false });
+* connect GitHub repo
+* build command = none
+* output directory = root
+* deploy settings
+* custom domain setup
+* DNS records
+* update/redeploy workflow
 
-                    let startX, scrollLeft, isDown = false;
-                    track.addEventListener('mousedown', (e) => {
-                        isDown = true;
-                        startX = e.pageX - track.offsetLeft;
-                        scrollLeft = track.scrollLeft;
-                        track.style.cursor = 'grabbing';
-                    });
-                    document.addEventListener('mouseup', () => {
-                        if (isDown) { isDown = false;
-                            track.style.cursor = 'grab'; }
-                    });
-                    document.addEventListener('mousemove', (e) => {
-                        if (!isDown) return;
-                        e.preventDefault();
-                        const x = e.pageX - track.offsetLeft;
-                        const walk = (x - startX) * 1.2;
-                        track.scrollLeft = scrollLeft - walk;
-                    });
-                }
-            }
-        }
+---
 
-        // ============================================================
-        //  INIT
-        // ============================================================
-        document.addEventListener('DOMContentLoaded', async function() {
-            await loadHero();
-            await loadWidgets();
-            // Store a dummy continue watching entry for demo
-            if (!localStorage.getItem('nami_continue')) {
-                localStorage.setItem('nami_continue', JSON.stringify([
-                    { id: 10681, type: 'movie' }, // How to Train Your Dragon
-                    { id: 12345, type: 'tv' }
-                ]));
-            }
-        });
+# DESIGN REQUIREMENTS
 
-        // keyboard escape for search & drawer
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                if (searchOverlay.classList.contains('active')) closeSearch();
-                if (drawer.classList.contains('open')) closeDrawer();
-            }
-        });
-    </script>
-</body>
-</html>
+The website MUST feel:
+
+* Premium
+* Cinematic
+* Netflix-quality
+* Ultra modern
+* Smooth animated
+* Dark luxury themed
+* Glassmorphism styled
+* Purple neon aesthetic
+
+Theme:
+
+* deep black background
+* purple glow accents
+* blur effects
+* floating glass cards
+* cinematic gradients
+* rounded corners
+* modern typography
+* premium overlays
+
+The UI MUST feel like a REAL streaming platform.
+
+---
+
+# RESPONSIVE REQUIREMENTS
+
+Entire website MUST be fully responsive.
+
+Support:
+
+* mobile
+* tablet
+* laptop
+* desktop
+* ultrawide monitors
+
+Always include:
+
+```css
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+```
+
+Use:
+
+* clamp()
+* minmax()
+* auto-fit
+* auto-fill
+* fluid typography
+* responsive grids
+* flex-wrap
+* aspect-ratio
+* media queries
+
+NO:
+
+* horizontal scrolling
+* layout breaking
+* overlapping UI
+
+---
+
+# HEADER + NAVIGATION
+
+Create PREMIUM sticky header.
+
+LEFT:
+
+* hamburger menu
+* mobile sidebar trigger
+
+CENTER:
+
+* NamiTube banner logo image
+
+RIGHT:
+
+* search button
+
+Desktop:
+
+* horizontal navbar
+
+Mobile:
+
+* animated sidebar drawer
+* blurred overlay
+* touch optimized
+
+Navigation:
+
+* Home
+* Discover
+* Schedule
+* Donate
+
+NO:
+
+* accounts
+* profile
+* login/signup
+* bookmarks
+* favorites
+
+---
+
+# SEARCH SYSTEM
+
+Create fullscreen Netflix-style search overlay.
+
+Features:
+
+* live anime search
+* instant suggestions
+* debounced AniList requests
+* keyboard navigation
+* ESC close
+* blur background
+* mobile optimized
+* touch optimized
+* overflow safe
+* smooth animations
+
+Filters:
+
+* Genre
+* Season
+* Year
+* Format
+* Status
+* Sort
+
+---
+
+# API REQUIREMENTS
+
+Use ONLY AniList GraphQL API:
+
+```txt
+https://graphql.anilist.co
+```
+
+ALL anime data MUST dynamically fetch from AniList.
+
+Fetch dynamically:
+
+* Trending anime
+* Popular anime
+* Top rated
+* Top airing
+* Upcoming
+* Completed
+* Movies
+* Seasonal
+* Recently released
+* Genres
+* Tags
+* Recommendations
+* Relations
+* Episodes
+* Characters
+* Staff
+* Studios
+* Rankings
+* Average score
+* Popularity
+* Favourites
+* Status
+* Synopsis
+* Trailer data
+* Banner images
+* Cover images
+* Airing schedule
+* Next airing episode
+* Season metadata
+* Year metadata
+
+NO hardcoded anime content.
+
+---
+
+# HOMEPAGE — index.html
+
+Create cinematic homepage.
+
+---
+
+# HERO SLIDER
+
+Fully custom cinematic hero slider.
+
+Requirements:
+
+* minimum 10 anime slides
+* AniList trending powered
+* large cinematic banners
+* animated text reveal
+* smooth gradients
+* autoplay
+* infinite loop
+* mouse drag
+* touch swipe
+* pagination dots
+* arrows
+* fade transitions
+* lazy loading
+* stable initialization
+
+Each slide includes:
+
+* banner image
+* title
+* genres
+* score
+* description
+* watch button
+* details button
+
+---
+
+# HOMEPAGE WIDGETS
+
+Create:
+
+1. Recently Updated
+2. Trending Now
+3. Top Airing
+4. Top Rated
+5. Latest Movies
+6. Completed
+7. Upcoming
+
+Each widget:
+
+* horizontal slider
+* minimum 12 cards
+* AniList powered
+* drag scroll
+* touch swipe
+* mouse wheel support
+* nav arrows
+* responsive
+
+Cards include:
+
+* poster
+* score badge
+* episode badge
+* HD badge
+* format badge
+* hover animation
+* gradient overlay
+
+---
+
+# UNIVERSAL SLIDER ENGINE
+
+Create ONE reusable slider engine.
+
+Must support:
+
+* init after data loads
+* duplicate init prevention
+* refresh safe
+* mobile safe
+* ResizeObserver
+* reinit on resize
+* dynamic sizing
+* overflow prevention
+* transition locking
+
+---
+
+# WATCH PAGE — watch.html
+
+Must include:
+
+* embedded player
+* fullscreen
+* theater mode
+* episode switching
+* auto next
+* keyboard shortcuts
+* related anime
+* episode selector
+* server selector
+* sub/dub switching
+* responsive player layout
+
+---
+
+# VIDEO STREAMING SYSTEM
+
+AniList ID is single source of truth.
+
+---
+
+## PRIMARY SERVER
+
+Vidnest:
+
+```txt
+https://vidnest.fun/anime/{anilist-id}/{ep-num}/{language}
+```
+
+Examples:
+
+```txt
+https://vidnest.fun/anime/21/1/sub
+https://vidnest.fun/anime/21/1/dub
+```
+
+---
+
+## FALLBACK SERVER
+
+Megaplay:
+
+```txt
+https://megaplay.buzz/stream/ani/{anilist-id}/{ep-num}/{language}
+```
+
+Examples:
+
+```txt
+https://megaplay.buzz/stream/ani/21/1/sub
+https://megaplay.buzz/stream/ani/21/1/dub
+```
+
+---
+
+# STREAMING REQUIREMENTS
+
+Must support:
+
+* AniList ID routing
+* server switching
+* automatic fallback
+* broken stream recovery
+* safe iframe loading
+* loading timeout handling
+* retry mechanism
+* stream failure rendering
+* sub/dub switching
+* episode switching
+* refresh safe playback
+* mobile fullscreen support
+* responsive iframe scaling
+
+NO:
+
+* MAL dependency
+* Jikan dependency
+
+AniList ID ONLY.
+
+---
+
+# ANIME DETAILS PAGE — anime.html
+
+Must include:
+
+* cinematic banner
+* poster
+* trailer
+* synopsis
+* genres
+* tags
+* studios
+* staff
+* characters
+* recommendations
+* relations
+* episodes
+* score
+* popularity
+* rankings
+* favourites
+* status
+* season/year
+* watch buttons
+
+Fully responsive.
+
+---
+
+# Discover PAGE — discover.html
+
+Must include:
+
+* live AniList search
+* infinite loading
+* anime grid
+* genre filter
+* year filter
+* season filter
+* format filter
+* status filter
+* sort
+
+AniList GraphQL only.
+
+---
+
+# SCHEDULE PAGE — schedule.html
+
+Must include:
+
+* Monday–Sunday tabs
+* AniList airingSchedule queries
+* mobile scrollable tabs
+* smooth transitions
+
+Display:
+
+* airing time
+* episode number
+* countdown
+* poster
+* title
+
+---
+
+# DONATE PAGE — donate.html
+
+Must include:
+
+* premium glassmorphism layout
+* donation cards
+* support message
+* animated UI
+* responsive design
+* QR placeholder area
+* payment placeholder area
+* social support links
+* cinematic styling
+
+---
+
+# CRITICAL STABILITY REQUIREMENTS
+
+Must permanently fix:
+
+* API failures
+* empty responses
+* GraphQL errors
+* rate limiting
+* hero slider disappearing
+* broken refresh behavior
+* async race conditions
+* slider glitches
+* duplicate initialization
+* event duplication
+* memory leaks
+* mobile overflow
+* broken responsiveness
+* horizontal scrolling
+* header overlap
+* search overflow
+* anime detail overflow
+* broken tabs
+* sidebar overlap
+* laptop layout issues
+* landscape mode issues
+* touch interaction bugs
+* clipped suggestions
+* card overflow
+* slider refresh bugs
+* arrow controls breaking
+* slow-loading glitches
+* image scaling bugs
+* fixed-width layout bugs
+* keyboard accessibility issues
+
+---
+
+# MANDATORY ENGINEERING SYSTEM
+
+Implement ALL:
+
+* async/await
+* Promise.allSettled()
+* GraphQL POST requests
+* retry fetch system
+* timeout handling
+* AbortController
+* request cancellation
+* fallback rendering
+* skeleton loaders
+* safe DOM rendering
+* null protection
+* debounced requests
+* localStorage cache
+* lazy loading
+* lazy initialization
+* ResizeObserver
+* orientationchange recalculation
+* overflow prevention
+* dynamic sizing
+* slider reinit
+* transition locking
+* viewport-safe calculations
+* memory leak prevention
+
+---
+
+# FOOTER
+
+Footer MUST ONLY contain:
+
+* Copyright
+* Credits
+* Minimal social icons
+* Disclaimer
+
+Include EXACTLY:
+
+> "This site does not store any files on its server. All contents are provided by non-affiliated third parties."
+
+---
+
+# SEO + PERFORMANCE
+
+Optimize for:
+
+* fast loading
+* lazy loading
+* accessibility
+* semantic HTML
+* meta tags
+* OpenGraph tags
+* reduced API calls
+* localStorage cache
+* GraphQL efficiency
+* image lazy loading
+
+---
+
+# FINAL REQUIREMENTS
+
+Generate FULL COMPLETE CODE for:
+
+* `index.html`
+* `anime.html`
+* `watch.html`
+* `discover.html`
+* `schedule.html`
+* `donate.html`
+
+Requirements:
+
+* deployable immediately
+* production-level frontend engineering
+* premium cinematic UI
+* stable architecture
+* AniList API only
+* Netflix-quality UX
+* fully responsive
+* no broken sections
+* no placeholders
+* no unfinished systems
+* no inconsistent layouts
+* no low-quality UI
+
+REMOVE ALL usage of:
+
+* MyAnimeList API
+* MAL IDs
+* Jikan API
+
+Replace ALL MAL/Jikan logic with AniList GraphQL equivalents while preserving all functionality.
