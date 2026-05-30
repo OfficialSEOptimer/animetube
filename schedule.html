@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="description" content="NamiTube - Anime Schedule">
+<meta name="theme-color" content="#0a0a0f">
+<title>NamiTube - Schedule</title>
+<link rel="icon" type="image/png" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHE6pMgjbJ6YDLaMAtDUZCs6Zhkvxl0_fQnb0c0ZCmJOYRB_4N8dQ0ZWosBq_sZPK2wFel2E43Z2meo25JL3i7IZYkJ35FZ7lZ_BZfwlWofAKGhF1gWpFsxofeGUr87Peu6s7xtgvJMnrbtNnd4vJPtB7uG3L_wJ9tT8PKRCh-PXSxlyY9Ufn8OAzDY_Y/s320/NamiTube%20Original%20Favicon.png">
+<style>
+:root {
+  --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-tertiary: #1a1a2e;
+  --accent: #7c3aed; --accent-light: #a78bfa; --accent-glow: rgba(124,58,237,0.4);
+  --text-primary: #f8fafc; --text-secondary: #94a3b8; --text-muted: #64748b;
+  --glass: rgba(18,18,26,0.85); --glass-border: rgba(124,58,237,0.15);
+  --card-bg: rgba(26,26,46,0.6); --shadow-lg: 0 25px 50px -12px rgba(0,0,0,0.7);
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px;
+  --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { overflow-x:hidden; max-width:100%; background:var(--bg-primary); color:var(--text-primary); font-family:'Segoe UI',system-ui,-apple-system,sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; }
+::-webkit-scrollbar { width:6px; height:6px; }
+::-webkit-scrollbar-track { background:var(--bg-primary); }
+::-webkit-scrollbar-thumb { background:var(--accent); border-radius:3px; }
+
+.header { position:fixed; top:0; left:0; right:0; z-index:1000; background:linear-gradient(180deg,rgba(10,10,15,0.95) 0%,rgba(10,10,15,0.8) 60%,transparent 100%); backdrop-filter:blur(20px); padding:0 4vw; height:70px; display:flex; align-items:center; justify-content:space-between; transition:var(--transition); }
+.header.scrolled { background:rgba(10,10,15,0.98); box-shadow:0 4px 30px rgba(0,0,0,0.5); }
+.header-left { display:flex; align-items:center; gap:20px; }
+.hamburger { width:32px; height:32px; display:flex; flex-direction:column; justify-content:center; gap:5px; cursor:pointer; background:none; border:none; padding:4px; }
+.hamburger span { display:block; width:100%; height:2px; background:var(--text-primary); border-radius:2px; transition:var(--transition); }
+.hamburger.active span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+.hamburger.active span:nth-child(2) { opacity:0; }
+.hamburger.active span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+.logo-banner { height:40px; width:auto; object-fit:contain; filter:drop-shadow(0 0 10px var(--accent-glow)); }
+.nav-desktop { display:flex; gap:28px; }
+.nav-desktop a { color:var(--text-secondary); text-decoration:none; font-size:clamp(13px,1vw,15px); font-weight:500; letter-spacing:0.5px; transition:var(--transition); position:relative; }
+.nav-desktop a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--accent); border-radius:1px; transition:var(--transition); }
+.nav-desktop a:hover,.nav-desktop a.active { color:var(--text-primary); }
+.nav-desktop a:hover::after,.nav-desktop a.active::after { width:100%; }
+.header-right { display:flex; align-items:center; gap:16px; }
+.search-btn { width:40px; height:40px; border-radius:50%; border:1px solid var(--glass-border); background:var(--card-bg); color:var(--text-primary); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:var(--transition); backdrop-filter:blur(10px); }
+.search-btn:hover { background:var(--accent); border-color:var(--accent); box-shadow:0 0 20px var(--accent-glow); }
+
+.mobile-nav-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(4px); z-index:998; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+.mobile-nav-overlay.active { opacity:1; pointer-events:all; }
+.mobile-nav { position:fixed; top:0; left:-100%; width:80%; max-width:320px; height:100vh; background:var(--glass); backdrop-filter:blur(30px); z-index:999; padding:90px 30px 30px; transition:left 0.4s cubic-bezier(0.4,0,0.2,1); border-right:1px solid var(--glass-border); }
+.mobile-nav.active { left:0; }
+.mobile-nav a { display:block; padding:16px 0; color:var(--text-secondary); text-decoration:none; font-size:18px; font-weight:500; border-bottom:1px solid var(--glass-border); transition:var(--transition); }
+.mobile-nav a:hover,.mobile-nav a.active { color:var(--accent-light); padding-left:12px; }
+
+@media (max-width:768px) { .nav-desktop { display:none; } }
+@media (min-width:769px) { .hamburger { display:none; } }
+
+/* Schedule */
+.schedule-container { padding:100px 4vw 40px; max-width:1400px; margin:0 auto; }
+.schedule-header { margin-bottom:30px; }
+.schedule-header h1 { font-size:clamp(28px,3vw,40px); font-weight:800; margin-bottom:8px; }
+.schedule-header p { color:var(--text-secondary); font-size:16px; }
+
+.day-tabs { display:flex; gap:8px; margin-bottom:30px; overflow-x:auto; padding-bottom:8px; -webkit-overflow-scrolling:touch; }
+.day-tabs::-webkit-scrollbar { height:4px; }
+.day-tab {
+  flex-shrink:0; padding:12px 24px; border-radius:var(--radius-md); background:var(--card-bg); border:1px solid var(--glass-border);
+  color:var(--text-secondary); font-size:14px; font-weight:600; cursor:pointer; transition:var(--transition); text-align:center; min-width:100px;
+}
+.day-tab:hover { border-color:var(--accent); color:var(--text-primary); }
+.day-tab.active { background:var(--accent); border-color:var(--accent); color:white; box-shadow:0 4px 15px var(--accent-glow); }
+.day-tab .day-name { display:block; font-size:13px; }
+.day-tab .day-date { display:block; font-size:11px; font-weight:400; opacity:0.8; margin-top:2px; }
+
+.schedule-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:20px; }
+.schedule-card {
+  display:flex; gap:16px; background:var(--card-bg); border:1px solid var(--glass-border); border-radius:var(--radius-lg);
+  padding:16px; cursor:pointer; transition:var(--transition); backdrop-filter:blur(10px);
+}
+.schedule-card:hover { border-color:var(--accent); transform:translateY(-4px); box-shadow:0 8px 30px rgba(0,0,0,0.4); }
+.schedule-card img { width:80px; height:110px; object-fit:cover; border-radius:var(--radius-sm); flex-shrink:0; }
+.schedule-info { flex:1; min-width:0; display:flex; flex-direction:column; }
+.schedule-title { font-size:15px; font-weight:700; color:var(--text-primary); margin-bottom:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.schedule-meta { font-size:12px; color:var(--text-muted); margin-bottom:8px; }
+.schedule-episode { display:inline-block; padding:3px 10px; border-radius:20px; background:rgba(124,58,237,0.15); border:1px solid var(--glass-border); color:var(--accent-light); font-size:12px; font-weight:600; margin-bottom:8px; width:fit-content; }
+.schedule-countdown { font-size:13px; color:#4ade80; font-weight:600; font-variant-numeric:tabular-nums; }
+.schedule-countdown.airing { color:#fbbf24; }
+.schedule-countdown.past { color:var(--text-muted); }
+
+.empty-state { text-align:center; padding:80px 20px; color:var(--text-muted); }
+.empty-state svg { width:64px; height:64px; margin-bottom:16px; opacity:0.5; }
+.empty-state h3 { font-size:20px; color:var(--text-primary); margin-bottom:8px; }
+
+.loading-spinner { width:40px; height:40px; border:3px solid var(--bg-tertiary); border-top-color:var(--accent); border-radius:50%; animation:spin 1s linear infinite; margin:40px auto; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+.toast-container { position:fixed; bottom:24px; right:24px; z-index:3000; display:flex; flex-direction:column; gap:10px; }
+.toast { padding:14px 20px; border-radius:var(--radius-md); background:var(--glass); backdrop-filter:blur(20px); border:1px solid var(--glass-border); color:var(--text-primary); font-size:14px; font-weight:500; box-shadow:var(--shadow-lg); transform:translateX(120%); transition:transform 0.4s cubic-bezier(0.4,0,0.2,1); max-width:360px; }
+.toast.show { transform:translateX(0); }
+.toast.error { border-color:rgba(239,68,68,0.5); }
+
+.footer { padding:50px 4vw 30px; border-top:1px solid var(--glass-border); background:linear-gradient(180deg,var(--bg-primary) 0%,var(--bg-secondary) 100%); }
+.footer-content { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px; }
+.footer-brand { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+.footer-brand img { height:36px; }
+.footer-brand span { font-size:20px; font-weight:700; }
+.footer-desc { color:var(--text-muted); font-size:14px; line-height:1.6; }
+.footer-links h4 { font-size:16px; margin-bottom:16px; color:var(--text-primary); }
+.footer-links a { display:block; color:var(--text-muted); text-decoration:none; font-size:14px; padding:6px 0; transition:var(--transition); }
+.footer-links a:hover { color:var(--accent-light); padding-left:4px; }
+.footer-bottom { text-align:center; padding-top:30px; margin-top:30px; border-top:1px solid var(--glass-border); color:var(--text-muted); font-size:13px; }
+@media (max-width:768px) { .footer-content { grid-template-columns:1fr; gap:30px; text-align:center; } .footer-brand { justify-content:center; } .schedule-grid { grid-template-columns:1fr; } }
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<header class="header" id="header">
+  <div class="header-left">
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    <a href="index.html"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube" class="logo-banner"></a>
+  </div>
+  <nav class="nav-desktop">
+    <a href="index.html">Home</a>
+    <a href="discover.html">Discover</a>
+    <a href="schedule.html" class="active">Schedule</a>
+    <a href="donate.html">Donate</a>
+  </nav>
+  <div class="header-right">
+    <button class="search-btn" onclick="window.location.href='discover.html'">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-nav-overlay" id="mobileOverlay"></div>
+<nav class="mobile-nav" id="mobileNav">
+  <a href="index.html">Home</a>
+  <a href="discover.html">Discover</a>
+  <a href="schedule.html" class="active">Schedule</a>
+  <a href="donate.html">Donate</a>
+</nav>
+
+<div class="schedule-container">
+  <div class="schedule-header">
+    <h1>Airing Schedule</h1>
+    <p>Track when your favorite anime episodes release</p>
+  </div>
+
+  <div class="day-tabs" id="dayTabs"></div>
+  <div class="schedule-grid" id="scheduleGrid"><div class="loading-spinner"></div></div>
+</div>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div>
+      <div class="footer-brand"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHE6pMgjbJ6YDLaMAtDUZCs6Zhkvxl0_fQnb0c0ZCmJOYRB_4N8dQ0ZWosBq_sZPK2wFel2E43Z2meo25JL3i7IZYkJ35FZ7lZ_BZfwlWofAKGhF1gWpFsxofeGUr87Peu6s7xtgvJMnrbtNnd4vJPtB7uG3L_wJ9tT8PKRCh-PXSxlyY9Ufn8OAzDY_Y/s320/NamiTube%20Original%20Favicon.png" alt="NamiTube"><span>NamiTube</span></div>
+      <p class="footer-desc">Premium anime streaming experience.</p>
+    </div>
+    <div class="footer-links"><h4>Navigation</h4><a href="index.html">Home</a><a href="discover.html">Discover</a><a href="schedule.html">Schedule</a><a href="donate.html">Donate</a></div>
+    <div class="footer-links"><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">DMCA</a></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 NamiTube. All rights reserved.</p>
+    <p style="margin-top:8px">This site does not store any files on its server. All contents are provided by non-affiliated third parties.</p>
+  </div>
+</footer>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+const API_URL = 'https://graphql.anilist.co';
+const CACHE_PREFIX = 'namitube_';
+const CACHE_TTL = 1000 * 60 * 30;
+const controllers = new Map();
+
+function getController(key) {
+  if (controllers.has(key)) controllers.get(key).abort();
+  const ctrl = new AbortController();
+  controllers.set(key, ctrl);
+  setTimeout(() => controllers.delete(key), 30000);
+  return ctrl;
+}
+
+async function fetchAniList(query, variables = {}, key = 'default', retries = 2) {
+  const cacheKey = CACHE_PREFIX + key + '_' + JSON.stringify(variables);
+  const cached = localStorage.getItem(cacheKey);
+  if (cached) { const {data,timestamp} = JSON.parse(cached); if (Date.now()-timestamp < CACHE_TTL) return data; }
+  const ctrl = getController(key);
+  const timeout = setTimeout(() => ctrl.abort(), 15000);
+  for (let i = 0; i <= retries; i++) {
+    try {
+      const res = await fetch(API_URL, { method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body:JSON.stringify({query,variables}), signal:ctrl.signal });
+      clearTimeout(timeout);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json();
+      if (json.errors) throw new Error(json.errors[0].message);
+      localStorage.setItem(cacheKey, JSON.stringify({data:json.data,timestamp:Date.now()}));
+      return json.data;
+    } catch (e) { if (i === retries || e.name === 'AbortError') throw e; await new Promise(r => setTimeout(r, 1000*(i+1))); }
+  }
+}
+
+function showToast(msg, type='info') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div'); toast.className = `toast ${type}`; toast.textContent = msg;
+  container.appendChild(toast); requestAnimationFrame(() => toast.classList.add('show'));
+  setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 4000);
+}
+
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+let scheduleData = {};
+let currentDay = new Date().getDay();
+let countdownInterval;
+
+function initTabs() {
+  const tabs = document.getElementById('dayTabs');
+  const today = new Date();
+
+  DAYS.forEach((day, i) => {
+    const date = new Date(today);
+    date.setDate(today.getDate() + (i - today.getDay()));
+    const tab = document.createElement('button');
+    tab.className = 'day-tab' + (i === currentDay ? ' active' : '');
+    tab.innerHTML = `<span class="day-name">${day}</span><span class="day-date">${date.getMonth()+1}/${date.getDate()}</span>`;
+    tab.addEventListener('click', () => { currentDay = i; updateTabs(); renderSchedule(); });
+    tabs.appendChild(tab);
+  });
+}
+
+function updateTabs() {
+  document.querySelectorAll('.day-tab').forEach((tab, i) => {
+    tab.classList.toggle('active', i === currentDay);
+  });
+}
+
+function formatCountdown(airingAt) {
+  const now = Date.now() / 1000;
+  const diff = airingAt - now;
+  if (diff <= 0) return 'Airing now';
+  const hours = Math.floor(diff / 3600);
+  const minutes = Math.floor((diff % 3600) / 60);
+  if (hours > 24) return `${Math.floor(hours/24)}d ${hours%24}h left`;
+  return `${hours}h ${minutes}m left`;
+}
+
+function renderSchedule() {
+  const grid = document.getElementById('scheduleGrid');
+  const dayData = scheduleData[currentDay] || [];
+
+  if (!dayData.length) {
+    grid.innerHTML = `
+      <div class="empty-state" style="grid-column:1/-1">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+        <h3>No episodes scheduled</h3>
+        <p>No anime episodes are scheduled for ${DAYS[currentDay]}.</p>
+      </div>
+    `;
+    return;
+  }
+
+  // Sort by airing time
+  dayData.sort((a, b) => a.airingAt - b.airingAt);
+
+  grid.innerHTML = dayData.map(item => {
+    const anime = item.media;
+    const title = anime.title?.english || anime.title?.romaji || 'Unknown';
+    const airingTime = new Date(item.airingAt * 1000);
+    const timeStr = airingTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    const isAiring = Date.now() / 1000 >= item.airingAt && Date.now() / 1000 < item.airingAt + 3600;
+    const hasAired = Date.now() / 1000 >= item.airingAt + 3600;
+    const countdownClass = isAiring ? 'airing' : hasAired ? 'past' : '';
+
+    return `
+      <div class="schedule-card" onclick="window.location.href='anime.html?id=${anime.id}'">
+        <img src="${anime.coverImage?.medium || ''}" alt="${title}" loading="lazy">
+        <div class="schedule-info">
+          <div class="schedule-title">${title}</div>
+          <div class="schedule-meta">${anime.format || 'TV'} • ${timeStr}</div>
+          <span class="schedule-episode">Episode ${item.episode}</span>
+          <div class="schedule-countdown ${countdownClass}" data-airing="${item.airingAt}">${formatCountdown(item.airingAt)}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  startCountdowns();
+}
+
+function startCountdowns() {
+  clearInterval(countdownInterval);
+  countdownInterval = setInterval(() => {
+    document.querySelectorAll('.schedule-countdown').forEach(el => {
+      const airingAt = parseInt(el.dataset.airing);
+      el.textContent = formatCountdown(airingAt);
+    });
+  }, 60000);
+}
+
+async function loadSchedule() {
+  try {
+    const data = await fetchAniList(`
+      query($weekStart:Int,$weekEnd:Int){
+        Page(page:1,perPage:50){
+          airingSchedules(airingAt_greater:$weekStart,airingAt_lesser:$weekEnd,sort:TIME){
+            id airingAt episode
+            media{id title{english romaji} coverImage{medium} format}
+          }
+        }
+      }
+    `, {
+      weekStart: Math.floor(Date.now()/1000) - 86400 * 3,
+      weekEnd: Math.floor(Date.now()/1000) + 86400 * 10
+    }, 'schedule');
+
+    // Group by day
+    scheduleData = {};
+    data.Page.airingSchedules.forEach(item => {
+      const day = new Date(item.airingAt * 1000).getDay();
+      if (!scheduleData[day]) scheduleData[day] = [];
+      scheduleData[day].push(item);
+    });
+
+    renderSchedule();
+  } catch (e) {
+    showToast('Failed to load schedule', 'error');
+    console.error(e);
+    document.getElementById('scheduleGrid').innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:40px">Failed to load schedule. Please refresh.</p>';
+  }
+}
+
+// Header scroll
+window.addEventListener('scroll', () => {
+  requestAnimationFrame(() => {
+    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+  });
+}, {passive:true});
+
+// Mobile nav
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
+const overlay = document.getElementById('mobileOverlay');
+function toggleNav() {
+  hamburger.classList.toggle('active');
+  mobileNav.classList.toggle('active');
+  overlay.classList.toggle('active');
+  document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+}
+hamburger.addEventListener('click', toggleNav);
+overlay.addEventListener('click', toggleNav);
+
+document.addEventListener('DOMContentLoaded', () => {
+  initTabs();
+  loadSchedule();
+});
+</script>
+</body>
+</html>
