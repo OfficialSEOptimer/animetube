@@ -1138,7 +1138,7 @@
         </button>
     </section>
 
-    <!-- Content Widgets - ALL ANIMATION -->
+    <!-- Content Widgets - ALL ANIMATION (minimum 12 items each) -->
     <main id="mainContent">
 
         <!-- Animation Movies -->
@@ -1315,7 +1315,6 @@
             const container = document.getElementById('heroSlides');
             const dotsContainer = document.getElementById('heroDots');
             try {
-                // Fetch trending animation movies and TV shows
                 const [moviesRes, tvRes] = await Promise.allSettled([
                     fetchTMDB(`/trending/movie/week`),
                     fetchTMDB(`/trending/tv/week`)
@@ -1325,7 +1324,6 @@
                 let shows = (tvRes.value?.results || []).filter(item => item.genre_ids && item.genre_ids.includes(
                     ANIMATION_GENRE_ID)).slice(0, 6).map(r => ({ ...r, media_type: 'tv' }));
 
-                // If not enough trending animation, fallback to discover
                 if (movies.length < 3) {
                     const fallback = await fetchTMDB(
                         `/discover/movie?with_genres=${ANIMATION_GENRE_ID}&sort_by=popularity.desc&page=1`);
@@ -1460,43 +1458,66 @@
                 `).join('');
         }
 
-        // ===== WIDGET LOADER — ANIMATION ONLY =====
+        // ===== WIDGET LOADER — GUARANTEED 12+ ANIMATION ITEMS =====
         async function loadWidget(key, endpoint, type, page = 1) {
             const track = document.getElementById('track-' + key);
             if (!track) return;
-            track.innerHTML = createSkeletons(6);
+            track.innerHTML = createSkeletons(12);
             try {
-                const data = await fetchTMDB(`${endpoint}?page=${page}`);
-                const items = (data.results || [])
-                    .filter(item => item.genre_ids && item.genre_ids.includes(ANIMATION_GENRE_ID))
-                    .slice(0, 18);
-                if (!items.length) {
+                const data = await fetchTMDB(`${endpoint}&page=${page}`);
+                let items = (data.results || [])
+                    .filter(item => item.genre_ids && item.genre_ids.includes(ANIMATION_GENRE_ID));
+
+                // If we have fewer than 12, fetch more pages (up to 3 pages)
+                let currentPage = page;
+                while (items.length < 12 && currentPage < 5) {
+                    currentPage++;
+                    const moreData = await fetchTMDB(`${endpoint}&page=${currentPage}`);
+                    const moreItems = (moreData.results || [])
+                        .filter(item => item.genre_ids && item.genre_ids.includes(ANIMATION_GENRE_ID));
+                    items = [...items, ...moreItems];
+                }
+
+                // Take up to 20 items to show a nice grid
+                const displayItems = items.slice(0, 20);
+
+                if (!displayItems.length) {
                     track.innerHTML = '<div style="padding:20px;color:var(--text-muted)">No animation content available</div>';
                     return;
                 }
-                track.innerHTML = items.map((item, i) => createCard(item, type)).join('');
+                track.innerHTML = displayItems.map((item, i) => createCard(item, type)).join('');
                 initSliderDrag(key);
             } catch (e) {
                 track.innerHTML =
-                    `<div class="error-state" style="padding:20px"><h3>Failed to load</h3><p>${e.message}</p><button class="retry-btn" onclick="loadWidget('${key}','${endpoint}','${type}',${page})">Retry</button></div>`;
+                    `<div class="error-state" style="padding:20px"><h3>Failed to load</h3><p>${e.message}</p><button class="retry-btn" onclick="loadWidget('${key}','${endpoint}','${type}',1)">Retry</button></div>`;
             }
         }
 
-        // ===== INITIALIZE ALL — ANIMATION ONLY =====
+        // ===== INITIALIZE ALL — ANIMATION ONLY, 12+ ITEMS EACH =====
         async function initAll() {
             const widgets = [
-                // Animation Movies
-                { key: 'trendingAnimationMovies', endpoint: '/trending/movie/week', type: 'movie' },
-                { key: 'popularAnimationMovies', endpoint: '/movie/popular', type: 'movie' },
-                { key: 'topRatedAnimationMovies', endpoint: '/movie/top_rated', type: 'movie' },
-                { key: 'upcomingAnimationMovies', endpoint: '/movie/upcoming', type: 'movie' },
-                { key: 'nowPlayingAnimationMovies', endpoint: '/movie/now_playing', type: 'movie' },
+                // Animation Movies (using discover with genre filter)
+                { key: 'trendingAnimationMovies', endpoint: '/discover/movie?with_genres=16&sort_by=popularity.desc',
+                    type: 'movie' },
+                { key: 'popularAnimationMovies', endpoint: '/discover/movie?with_genres=16&sort_by=popularity.desc',
+                    type: 'movie' },
+                { key: 'topRatedAnimationMovies', endpoint: '/discover/movie?with_genres=16&sort_by=vote_average.desc',
+                    type: 'movie' },
+                { key: 'upcomingAnimationMovies', endpoint: '/discover/movie?with_genres=16&sort_by=release_date.desc',
+                    type: 'movie' },
+                { key: 'nowPlayingAnimationMovies', endpoint: '/discover/movie?with_genres=16&sort_by=release_date.desc',
+                    type: 'movie' },
                 // Animation TV
-                { key: 'trendingAnimationTV', endpoint: '/trending/tv/week', type: 'tv' },
-                { key: 'popularAnimationTV', endpoint: '/tv/popular', type: 'tv' },
-                { key: 'topRatedAnimationTV', endpoint: '/tv/top_rated', type: 'tv' },
-                { key: 'airingTodayAnimationTV', endpoint: '/tv/airing_today', type: 'tv' },
-                { key: 'onTheAirAnimationTV', endpoint: '/tv/on_the_air', type: 'tv' },
+                { key: 'trendingAnimationTV', endpoint: '/discover/tv?with_genres=16&sort_by=popularity.desc',
+                type: 'tv' },
+                { key: 'popularAnimationTV', endpoint: '/discover/tv?with_genres=16&sort_by=popularity.desc',
+                type: 'tv' },
+                { key: 'topRatedAnimationTV', endpoint: '/discover/tv?with_genres=16&sort_by=vote_average.desc',
+                type: 'tv' },
+                { key: 'airingTodayAnimationTV', endpoint: '/discover/tv?with_genres=16&sort_by=popularity.desc',
+                    type: 'tv' },
+                { key: 'onTheAirAnimationTV', endpoint: '/discover/tv?with_genres=16&sort_by=popularity.desc',
+                    type: 'tv' },
             ];
             await initHero();
             await Promise.allSettled(widgets.map(w => loadWidget(w.key, w.endpoint, w.type)));
