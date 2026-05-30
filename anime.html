@@ -108,7 +108,7 @@ html,body { overflow-x:hidden; max-width:100%; background:var(--bg-primary); col
 .relation-type { font-size:11px; color:var(--accent-light); margin-top:4px; font-weight:500; }
 .relation-format { font-size:11px; color:var(--text-muted); margin-top:2px; }
 
-.recommendations-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:16px; }
+.recommendations-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; margin-bottom:40px; }
 .rec-card { cursor:pointer; transition:var(--transition); }
 .rec-card:hover { transform:translateY(-6px); }
 .rec-card img { width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:var(--radius-md); border:1px solid var(--glass-border); transition:var(--transition); }
@@ -458,10 +458,15 @@ function renderAnime(anime) {
       const rec = node.mediaRecommendation;
       if (!rec) return;
       const recTitle = rec.title?.english || rec.title?.romaji || 'Unknown';
+      const recScore = rec.averageScore ? (rec.averageScore / 10).toFixed(1) : null;
       mainHTML += `
         <div class="rec-card" onclick="goToAnime(${rec.id})">
           <img src="${rec.coverImage?.medium || ''}" alt="${recTitle}" loading="lazy">
-          <div class="rec-title">${recTitle}</div>
+          <div class="rec-info">
+            <div class="rec-title">${recTitle}</div>
+            <div class="rec-score">${recScore ? '★ ' + recScore : 'Recommended'}</div>
+            <div class="rec-format">${rec.format || ''}</div>
+          </div>
         </div>
       `;
     });
