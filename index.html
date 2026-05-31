@@ -1,94 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NamiTube Infinity — Premium Anime Streaming</title>
-    <meta name="description" content="NamiTube Infinity is a luxury anime streaming platform. Discover, watch, and collect the finest anime ever made." />
-    <meta property="og:title" content="NamiTube Infinity" />
-    <meta property="og:description" content="Premium anime streaming — curated, cinematic, and exclusive." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="NamiTube Infinity" />
-    <meta name="twitter:description" content="Premium anime streaming platform." />
-    <link rel="canonical" href="https://namitube.infinity" />
-    <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHE6pMgjbJ6YDLaMAtDUZCs6Zhkvxl0_fQnb0c0ZCmJOYRB_4N8dQ0ZWosBq_sZPK2wFel2E43Z2meo25JL3i7IZYkJ35FZ7lZ_BZfwlWofAKGhF1gWpFsxofeGUr87Peu6s7xtgvJMnrbtNnd4vJPtB7uG3L_wJ9tT8PKRCh-PXSxlyY9Ufn8OAzDY_Y/s320/NamiTube%20Original%20Favicon.png" type="image/png" />
+    <meta name="description" content="NamiTube Infinity — The ultimate premium anime streaming experience. Discover, watch, and explore the world of anime like never before.">
+    <meta property="og:title" content="NamiTube Infinity">
+    <meta property="og:description" content="Premium anime streaming platform">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHE6pMgjbJ6YDLaMAtDUZCs6Zhkvxl0_fQnb0c0ZCmJOYRB_4N8dQ0ZWosBq_sZPK2wFel2E43Z2meo25JL3i7IZYkJ35FZ7lZ_BZfwlWofAKGhF1gWpFsxofeGUr87Peu6s7xtgvJMnrbtNnd4vJPtB7uG3L_wJ9tT8PKRCh-PXSxlyY9Ufn8OAzDY_Y/s320/NamiTube%20Original%20Favicon.png">
     <style>
-        /* ── RESET & BASE ── */
+        :root {
+            --bg-deep: #000000;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #0f0f0f;
+            --bg-card: #141414;
+            --bg-glass: rgba(20, 20, 30, 0.55);
+            --bg-glass-hover: rgba(25, 25, 40, 0.7);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-glow: rgba(138, 43, 226, 0.35);
+            --text-primary: #f0f0f0;
+            --text-secondary: #b0b0b0;
+            --text-muted: #707070;
+            --accent-violet: #8b2fc9;
+            --accent-neon: #b34dff;
+            --accent-glow: rgba(179, 77, 255, 0.5);
+            --accent-midnight: #1a0a2e;
+            --gold: #d4a853;
+            --gold-glow: rgba(212, 168, 83, 0.4);
+            --danger: #ff4757;
+            --success: #2ed573;
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --font-display: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            --shadow-card: 0 4px 30px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 40px rgba(138, 43, 226, 0.3);
+            --shadow-gold: 0 0 30px rgba(212, 168, 83, 0.25);
+            --header-height: 64px;
+            --sidebar-width: 300px;
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
         *,
         *::before,
         *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
-        html,
-        body {
-            overflow-x: hidden;
-            max-width: 100%;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #0a0a0f;
-            color: #f0eef8;
+
+        html {
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-        }
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #12121c;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #6c3cff;
-            border-radius: 12px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #8558ff;
+            overflow-x: hidden;
+            max-width: 100%;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: var(--font-body);
         }
 
-        /* ── FONTS ── */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap');
-
-        /* ── VARIABLES ── */
-        :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #11111f;
-            --bg-card: rgba(18, 18, 36, 0.72);
-            --bg-glass: rgba(20, 20, 44, 0.55);
-            --border-glass: rgba(120, 80, 255, 0.18);
-            --glow-primary: #6c3cff;
-            --glow-secondary: #9b6bff;
-            --glow-neon: #b388ff;
-            --purple-deep: #2d1b69;
-            --purple-mid: #4a2c8a;
-            --text-primary: #f0eef8;
-            --text-secondary: #b8b0d0;
-            --text-muted: #7a72a0;
-            --radius-lg: 24px;
-            --radius-md: 16px;
-            --radius-sm: 12px;
-            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(108, 60, 255, 0.06);
-            --shadow-glow: 0 0 80px rgba(108, 60, 255, 0.08);
-            --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        body {
+            overflow-x: hidden;
+            max-width: 100%;
+            min-height: 100vh;
+            background: var(--bg-deep);
+            line-height: 1.6;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(ellipse at 20% 20%, rgba(138, 43, 226, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 70%, rgba(179, 77, 255, 0.04) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 50%, rgba(212, 168, 83, 0.02) 0%, transparent 70%);
         }
 
-        /* ── UTILITY ── */
-        .container {
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-        @media (min-width:768px) {
-            .container {
-                padding: 0 40px;
+        @media(prefers-reduced-motion:reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
-        }
-        @media (min-width:1280px) {
-            .container {
-                padding: 0 60px;
+            html {
+                scroll-behavior: auto;
             }
         }
 
@@ -101,1960 +108,962 @@
             overflow: hidden;
             clip: rect(0, 0, 0, 0);
             border: 0;
+            white-space: nowrap;
         }
 
-        /* ── SKELETON ── */
-        .skeleton {
-            background: linear-gradient(90deg, rgba(30, 30, 60, 0.5) 25%, rgba(60, 40, 120, 0.3) 50%, rgba(30, 30, 60, 0.5) 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.8s ease-in-out infinite;
-            border-radius: 12px;
-        }
-        @keyframes shimmer {
-            0% {
-                background-position: -200% 0;
-            }
-            100% {
-                background-position: 200% 0;
-            }
-        }
-
-        /* ── HEADER ── */
-        .header {
+        header.global-header {
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(10, 10, 15, 0.82);
-            backdrop-filter: blur(28px) saturate(1.4);
-            -webkit-backdrop-filter: blur(28px) saturate(1.4);
-            border-bottom: 1px solid rgba(120, 80, 255, 0.08);
-            padding: 0 20px;
-            height: 72px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-bottom: 1px solid var(--border-subtle);
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 clamp(12px, 3vw, 32px);
+            transition: var(--transition-smooth);
+        }
+        header.global-header.scrolled {
+            background: rgba(6, 6, 6, 0.9);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+        .header-inner {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: background var(--transition);
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            gap: 16px;
         }
-        .header .logo-wrap {
+        .header-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
             flex-shrink: 0;
         }
-        .header .logo-wrap img {
-            height: 42px;
-            width: auto;
-            display: block;
-            filter: drop-shadow(0 0 30px rgba(108, 60, 255, 0.25));
-            transition: filter var(--transition);
-        }
-        .header .logo-wrap img:hover {
-            filter: drop-shadow(0 0 50px rgba(108, 60, 255, 0.5));
-        }
-        .header .nav-desktop {
-            display: none;
+        .hamburger-btn {
+            display: flex;
             align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: var(--transition-fast);
+            flex-shrink: 0;
         }
-        .header .nav-desktop a {
+        .hamburger-btn:hover {
+            background: var(--bg-glass);
+            border-color: var(--border-glow);
+        }
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .logo-img {
+            height: clamp(32px, 5vw, 42px);
+            width: auto;
+            filter: drop-shadow(0 0 14px rgba(179, 77, 255, 0.5));
+            transition: var(--transition-smooth);
+        }
+        .logo-img:hover {
+            filter: drop-shadow(0 0 22px rgba(179, 77, 255, 0.8)) brightness(1.15);
+        }
+        .header-nav-desktop {
+            display: none;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        @media(min-width:1024px) {
+            .header-nav-desktop {
+                display: flex;
+            }
+        }
+        .header-nav-desktop a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.85rem;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
             font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 40px;
-            transition: all var(--transition);
-            letter-spacing: 0.02em;
+            letter-spacing: 0.01em;
+            transition: var(--transition-fast);
+            white-space: nowrap;
             position: relative;
         }
-        .header .nav-desktop a:hover,
-        .header .nav-desktop a.active {
+        .header-nav-desktop a:hover,
+        .header-nav-desktop a.active {
             color: #fff;
-            background: rgba(108, 60, 255, 0.15);
-            box-shadow: 0 0 30px rgba(108, 60, 255, 0.05);
+            background: var(--bg-glass);
+            box-shadow: 0 0 16px rgba(138, 43, 226, 0.25);
         }
-        .header .nav-desktop a.active::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 2px;
-            background: var(--glow-primary);
-            border-radius: 4px;
+        .header-nav-desktop a.active {
+            background: rgba(138, 43, 226, 0.2);
+            border: 1px solid var(--border-glow);
         }
-        .header .actions {
+        .header-right {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             flex-shrink: 0;
         }
-        .header .actions button {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            padding: 8px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all var(--transition);
+        .header-icon-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 42px;
-            height: 42px;
-        }
-        .header .actions button:hover {
-            color: #fff;
-            background: rgba(108, 60, 255, 0.12);
-        }
-        .header .actions .profile-btn {
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #6c3cff, #3d1f8a);
-            color: #fff;
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
             cursor: pointer;
-            transition: all var(--transition);
-            box-shadow: 0 0 30px rgba(108, 60, 255, 0.15);
+            font-size: 1.1rem;
+            transition: var(--transition-fast);
+            text-decoration: none;
         }
-        .header .actions .profile-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 50px rgba(108, 60, 255, 0.3);
+        .header-icon-btn:hover {
+            background: var(--bg-glass);
+            border-color: var(--border-glow);
+            box-shadow: 0 0 14px rgba(138, 43, 226, 0.3);
         }
 
-        .hamburger {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            width: 32px;
-            height: 32px;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            transition: background var(--transition);
-        }
-        .hamburger:hover {
-            background: rgba(108, 60, 255, 0.08);
-        }
-        .hamburger span {
-            display: block;
-            width: 22px;
-            height: 2px;
-            background: var(--text-secondary);
-            border-radius: 4px;
-            transition: all var(--transition);
-        }
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        /* ── SIDEBAR ── */
         .sidebar-overlay {
             position: fixed;
             inset: 0;
-            z-index: 1999;
             background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
+            z-index: 1100;
             opacity: 0;
             pointer-events: none;
-            transition: opacity var(--transition);
+            transition: opacity var(--transition-smooth);
         }
-        .sidebar-overlay.open {
+        .sidebar-overlay.active {
             opacity: 1;
-            pointer-events: all;
+            pointer-events: auto;
         }
         .sidebar {
             position: fixed;
             top: 0;
             left: 0;
-            bottom: 0;
-            width: 320px;
-            max-width: 85vw;
-            z-index: 2000;
-            background: rgba(10, 10, 20, 0.96);
-            backdrop-filter: blur(40px) saturate(1.6);
-            -webkit-backdrop-filter: blur(40px) saturate(1.6);
-            border-right: 1px solid rgba(120, 80, 255, 0.08);
-            padding: 24px 20px;
-            overflow-y: auto;
-            transform: translateX(-100%);
-            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .sidebar.open {
-            transform: translateX(0);
-        }
-        .sidebar .logo-side {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 32px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid rgba(120, 80, 255, 0.06);
-        }
-        .sidebar .logo-side img {
-            height: 36px;
-            width: auto;
-        }
-        .sidebar .logo-side span {
-            font-size: 1.2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #b388ff, #6c3cff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .sidebar nav {
+            width: min(85vw, 320px);
+            height: 100vh;
+            height: 100dvh;
+            z-index: 1200;
+            background: rgba(10, 10, 14, 0.95);
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            border-right: 1px solid var(--border-subtle);
+            transform: translateX(-105%);
+            transition: transform var(--transition-bounce);
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            overflow-y: auto;
+            padding: 20px 16px;
+            gap: 8px;
         }
-        .sidebar nav a {
+        .sidebar.active {
+            transform: translateX(0);
+        }
+        .sidebar-close {
+            align-self: flex-end;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition-fast);
+        }
+        .sidebar-close:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .sidebar a {
             color: var(--text-secondary);
             text-decoration: none;
             padding: 12px 16px;
-            border-radius: 12px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .sidebar nav a:hover,
-        .sidebar nav a.active {
-            color: #fff;
-            background: rgba(108, 60, 255, 0.10);
-        }
-        .sidebar nav a .icon {
-            width: 24px;
-            text-align: center;
-            font-size: 1.1rem;
-        }
-        .sidebar .close-side {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 1.4rem;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 8px;
-            transition: all var(--transition);
-        }
-        .sidebar .close-side:hover {
-            color: #fff;
-            background: rgba(108, 60, 255, 0.1);
-        }
-
-        /* ── SEARCH MODAL ── */
-        .search-modal {
-            position: fixed;
-            inset: 0;
-            z-index: 3000;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(30px) saturate(1.5);
-            -webkit-backdrop-filter: blur(30px) saturate(1.5);
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            padding: 80px 20px 40px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
-        .search-modal.open {
-            opacity: 1;
-            pointer-events: all;
-        }
-        .search-modal .search-container {
-            width: 100%;
-            max-width: 720px;
-            background: rgba(18, 18, 36, 0.8);
-            border: 1px solid rgba(120, 80, 255, 0.12);
-            border-radius: var(--radius-lg);
-            padding: 24px 28px 28px;
-            box-shadow: 0 40px 120px rgba(0, 0, 0, 0.8), 0 0 80px rgba(108, 60, 255, 0.04);
-            transform: translateY(20px) scale(0.98);
-            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
-        }
-        .search-modal.open .search-container {
-            transform: translateY(0) scale(1);
-        }
-        .search-modal .search-bar {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            background: rgba(0, 0, 0, 0.4);
             border-radius: var(--radius-md);
-            padding: 0 18px;
-            border: 1px solid rgba(120, 80, 255, 0.08);
-            transition: border var(--transition);
-        }
-        .search-modal .search-bar:focus-within {
-            border-color: var(--glow-primary);
-            box-shadow: 0 0 40px rgba(108, 60, 255, 0.06);
-        }
-        .search-modal .search-bar input {
-            flex: 1;
-            background: none;
-            border: none;
-            padding: 16px 0;
-            color: #fff;
-            font-size: 1.1rem;
-            font-weight: 400;
-            outline: none;
-            font-family: var(--font);
-        }
-        .search-modal .search-bar input::placeholder {
-            color: var(--text-muted);
-            font-weight: 300;
-        }
-        .search-modal .search-bar .search-icon {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-        }
-        .search-modal .search-bar .close-search {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 4px;
-            border-radius: 50%;
-            transition: all var(--transition);
-        }
-        .search-modal .search-bar .close-search:hover {
-            color: #fff;
-            background: rgba(108, 60, 255, 0.08);
-        }
-        .search-modal .search-hints {
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition-fast);
             display: flex;
+            align-items: center;
             gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 16px;
         }
-        .search-modal .search-hints span {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            background: rgba(255, 255, 255, 0.04);
-            padding: 4px 14px;
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            cursor: pointer;
-            transition: all var(--transition);
-        }
-        .search-modal .search-hints span:hover {
+        .sidebar a:hover,
+        .sidebar a.active {
             color: #fff;
-            background: rgba(108, 60, 255, 0.12);
-            border-color: rgba(108, 60, 255, 0.2);
+            background: var(--bg-glass);
+            box-shadow: 0 0 16px rgba(138, 43, 226, 0.2);
         }
-        .search-modal .search-results {
-            margin-top: 18px;
-            max-height: 420px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .search-modal .search-results .result-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 10px 14px;
-            border-radius: var(--radius-sm);
-            background: rgba(255, 255, 255, 0.02);
-            transition: all var(--transition);
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
-        .search-modal .search-results .result-item:hover,
-        .search-modal .search-results .result-item.active {
-            background: rgba(108, 60, 255, 0.06);
-            border-color: rgba(108, 60, 255, 0.08);
-        }
-        .search-modal .search-results .result-item img {
-            width: 48px;
-            height: 68px;
-            object-fit: cover;
-            border-radius: 8px;
-            background: #1a1a2e;
-            flex-shrink: 0;
-        }
-        .search-modal .search-results .result-item .info {
-            flex: 1;
-            min-width: 0;
-        }
-        .search-modal .search-results .result-item .info .title {
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: #fff;
-        }
-        .search-modal .search-results .result-item .info .meta {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-        .search-modal .search-results .result-item .info .meta span {
-            margin-right: 12px;
-        }
-        .search-modal .search-results .empty {
-            color: var(--text-muted);
-            text-align: center;
-            padding: 40px 0;
-            font-size: 0.9rem;
-        }
-        .search-modal .search-results .empty .big {
-            font-size: 2rem;
-            margin-bottom: 8px;
+        .sidebar a.active {
+            border: 1px solid var(--border-glow);
+            background: rgba(138, 43, 226, 0.15);
         }
 
-        /* ── KEYBOARD SHORTCUT HINT ── */
-        .kbd-hint {
-            display: none;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            background: rgba(255, 255, 255, 0.04);
-            padding: 4px 10px;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-        .kbd-hint kbd {
-            background: rgba(255, 255, 255, 0.06);
-            padding: 0 6px;
-            border-radius: 4px;
-            font-family: inherit;
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-        }
-        @media (min-width:768px) {
-            .kbd-hint {
-                display: flex;
-            }
-        }
-
-        /* ── HERO ── */
-        .hero {
+        main {
             position: relative;
-            width: 100%;
-            height: min(85vh, 720px);
-            overflow: hidden;
-            background: #0a0a0f;
-            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-            margin-bottom: 32px;
+            z-index: 1;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 clamp(12px, 3vw, 32px) 40px;
         }
-        .hero .hero-slide {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+
+        .hero-section {
+            position: relative;
+            margin: 16px 0 32px;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            min-height: clamp(380px, 50vw, 620px);
             display: flex;
             align-items: flex-end;
-            padding: 40px 28px 60px;
-            background: linear-gradient(180deg, transparent 40%, rgba(10, 10, 15, 0.92) 100%);
-            will-change: opacity;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-card);
         }
-        .hero .hero-slide.active {
-            opacity: 1;
-        }
-        .hero .hero-slide .bg {
+        .hero-bg {
             position: absolute;
             inset: 0;
-            z-index: -1;
+            z-index: 0;
             background-size: cover;
-            background-position: center top;
-            filter: brightness(0.6) saturate(0.8);
-            transform: scale(1.02);
-            transition: transform 8s ease;
+            background-position: center 20%;
+            background-repeat: no-repeat;
+            transition: opacity 0.8s ease;
+            filter: brightness(0.5) saturate(1.3);
         }
-        .hero .hero-slide.active .bg {
-            transform: scale(1);
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.55) 40%, rgba(0, 0, 0, 0.25) 70%, rgba(0, 0, 0, 0.4) 100%);
         }
-        .hero .hero-slide .content {
-            max-width: 680px;
+        .hero-content {
             position: relative;
             z-index: 2;
-        }
-        .hero .hero-slide .content .badge {
-            display: inline-block;
-            background: rgba(108, 60, 255, 0.25);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            padding: 4px 16px;
-            border-radius: 40px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: #b388ff;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            border: 1px solid rgba(120, 80, 255, 0.15);
-            margin-bottom: 12px;
-        }
-        .hero .hero-slide .content h1 {
-            font-size: clamp(2rem, 5vw, 3.6rem);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 12px;
-            text-shadow: 0 4px 40px rgba(0, 0, 0, 0.6);
-        }
-        .hero .hero-slide .content .synopsis {
-            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
-            color: var(--text-secondary);
-            line-height: 1.6;
-            max-width: 560px;
-            margin-bottom: 20px;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
-        }
-        .hero .hero-slide .content .meta-row {
+            padding: clamp(24px, 5vw, 48px);
             display: flex;
-            flex-wrap: wrap;
-            gap: 12px 20px;
-            margin-bottom: 20px;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
+            flex-direction: column;
+            gap: 14px;
+            max-width: 700px;
+            width: 100%;
         }
-        .hero .hero-slide .content .meta-row span {
-            display: flex;
+        .hero-badge {
+            display: inline-flex;
             align-items: center;
             gap: 6px;
-        }
-        .hero .hero-slide .content .meta-row .score {
-            color: #ffd54f;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: rgba(138, 43, 226, 0.3);
+            border: 1px solid var(--border-glow);
+            font-size: 0.8rem;
             font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #e0c0ff;
+            width: fit-content;
         }
-        .hero .hero-slide .content .actions-row {
+        .hero-title {
+            font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+        }
+        .hero-synopsis {
+            font-size: clamp(0.85rem, 1.3vw, 1rem);
+            color: #ccc;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .hero-meta {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #bbb;
         }
-        .hero .hero-slide .content .actions-row .btn {
-            padding: 12px 32px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            border: none;
-            cursor: pointer;
-            transition: all var(--transition);
-            text-decoration: none;
+        .hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+        .btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            font-family: var(--font);
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 28px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+            transition: var(--transition-fast);
+            white-space: nowrap;
+            letter-spacing: 0.01em;
         }
-        .hero .hero-slide .content .actions-row .btn-primary {
-            background: linear-gradient(135deg, #6c3cff, #4a2c8a);
+        .btn-primary {
+            background: var(--accent-violet);
             color: #fff;
-            box-shadow: 0 8px 40px rgba(108, 60, 255, 0.25);
+            box-shadow: 0 4px 20px rgba(138, 43, 226, 0.4);
         }
-        .hero .hero-slide .content .actions-row .btn-primary:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 12px 60px rgba(108, 60, 255, 0.35);
-        }
-        .hero .hero-slide .content .actions-row .btn-secondary {
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .hero .hero-slide .content .actions-row .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.12);
+        .btn-primary:hover {
+            background: var(--accent-neon);
+            box-shadow: 0 6px 28px rgba(179, 77, 255, 0.55);
             transform: translateY(-2px);
         }
-        .hero .hero-nav {
+        .btn-glass {
+            background: var(--bg-glass);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        .btn-glass:hover {
+            background: var(--bg-glass-hover);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        .hero-dots {
             position: absolute;
-            bottom: 24px;
-            right: 28px;
-            z-index: 5;
+            bottom: 16px;
+            right: 24px;
+            z-index: 3;
             display: flex;
             gap: 8px;
         }
-        .hero .hero-nav button {
-            width: 40px;
-            height: 40px;
+        .hero-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border: none;
+        }
+        .hero-dot.active {
+            background: #fff;
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+            width: 28px;
+            border-radius: 10px;
+        }
+        .hero-nav-btn {
+            position: absolute;
+            top: 50%;
+            z-index: 3;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
-            font-size: 1rem;
             cursor: pointer;
-            transition: all var(--transition);
+            font-size: 1.2rem;
+            transition: var(--transition-fast);
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .hero .hero-nav button:hover {
-            background: rgba(108, 60, 255, 0.3);
-            border-color: rgba(108, 60, 255, 0.2);
+        .hero-nav-btn:hover {
+            background: rgba(0, 0, 0, 0.75);
+            border-color: #fff;
         }
-        .hero .hero-dots {
-            position: absolute;
-            bottom: 34px;
-            left: 28px;
-            z-index: 5;
-            display: flex;
-            gap: 8px;
+        .hero-nav-btn.prev {
+            left: 12px;
         }
-        .hero .hero-dots button {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            cursor: pointer;
-            transition: all var(--transition);
-            padding: 0;
-        }
-        .hero .hero-dots button.active {
-            background: var(--glow-primary);
-            width: 28px;
-            border-radius: 4px;
-            box-shadow: 0 0 20px rgba(108, 60, 255, 0.3);
+        .hero-nav-btn.next {
+            right: 12px;
         }
 
-        /* ── SECTION HEADER ── */
         .section-header {
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin: 36px 0 16px;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
         }
-        .section-header h2 {
-            font-size: clamp(1.3rem, 2.2vw, 1.9rem);
+        .section-title {
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
             font-weight: 700;
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #f0eef8, #b388ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .section-header .view-all {
-            color: var(--text-muted);
+        .section-title .icon-accent {
+            color: var(--accent-neon);
+            font-size: 1.3em;
+        }
+        .section-link {
+            color: var(--accent-neon);
             text-decoration: none;
             font-size: 0.85rem;
             font-weight: 500;
-            transition: color var(--transition);
+            transition: var(--transition-fast);
+        }
+        .section-link:hover {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(179, 77, 255, 0.5);
+        }
+
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            margin: 0 -8px;
+        }
+        .slider-track {
             display: flex;
-            align-items: center;
-            gap: 6px;
+            gap: 14px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 8px clamp(12px, 3vw, 32px);
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            cursor: grab;
         }
-        .section-header .view-all:hover {
-            color: var(--glow-primary);
+        .slider-track::-webkit-scrollbar {
+            display: none;
         }
-
-        /* ── CARDS GRID ── */
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
-            gap: 16px;
-            margin-bottom: 40px;
+        .slider-track:active {
+            cursor: grabbing;
         }
-        @media (min-width:600px) {
-            .grid-cards {
-                grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr));
-                gap: 20px;
-            }
+        .slider-track.dragging {
+            scroll-behavior: auto;
+            cursor: grabbing;
         }
-        @media (min-width:1024px) {
-            .grid-cards {
-                grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
-                gap: 24px;
-            }
-        }
-
-        .card-anime {
-            background: var(--bg-card);
+        .anime-card {
+            flex: 0 0 clamp(150px, 18vw, 200px);
+            scroll-snap-align: start;
             border-radius: var(--radius-md);
             overflow: hidden;
-            border: 1px solid rgba(120, 80, 255, 0.06);
-            transition: all var(--transition);
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            transition: var(--transition-smooth);
             cursor: pointer;
+            text-decoration: none;
+            color: inherit;
             position: relative;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
+            display: flex;
+            flex-direction: column;
             box-shadow: var(--shadow-card);
+            min-width: 140px;
         }
-        .card-anime:hover {
+        .anime-card:hover {
             transform: translateY(-6px);
-            border-color: rgba(120, 80, 255, 0.15);
-            box-shadow: var(--shadow-card), var(--shadow-glow);
+            border-color: var(--border-glow);
+            box-shadow: var(--shadow-glow), var(--shadow-card);
+            z-index: 2;
         }
-        .card-anime .poster {
+        .anime-card-img-wrap {
             aspect-ratio: 2/3;
-            background: #12121c;
             overflow: hidden;
             position: relative;
+            background: var(--bg-secondary);
         }
-        .card-anime .poster img {
+        .anime-card-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: transform 0.5s ease;
         }
-        .card-anime:hover .poster img {
-            transform: scale(1.04);
+        .anime-card:hover .anime-card-img {
+            transform: scale(1.08);
         }
-        .card-anime .poster .overlay {
+        .anime-card-badge {
             position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 50%, rgba(10, 10, 15, 0.7) 100%);
-            opacity: 0;
-            transition: opacity var(--transition);
-            display: flex;
-            align-items: flex-end;
-            padding: 12px;
-        }
-        .card-anime:hover .poster .overlay {
-            opacity: 1;
-        }
-        .card-anime .poster .overlay .score-badge {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            padding: 2px 12px;
-            border-radius: 40px;
+            top: 8px;
+            left: 8px;
+            padding: 4px 10px;
+            border-radius: 12px;
             font-size: 0.7rem;
-            font-weight: 600;
-            color: #ffd54f;
-            border: 1px solid rgba(255, 213, 79, 0.15);
+            font-weight: 700;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            letter-spacing: 0.03em;
+            z-index: 2;
         }
-        .card-anime .info {
-            padding: 12px 14px 16px;
+        .anime-card-badge.score {
+            background: rgba(212, 168, 83, 0.85);
+            color: #000;
         }
-        .card-anime .info .title {
-            font-weight: 600;
+        .anime-card-info {
+            padding: 10px 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1;
+        }
+        .anime-card-title {
             font-size: 0.85rem;
+            font-weight: 600;
             line-height: 1.3;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            margin-bottom: 4px;
         }
-        .card-anime .info .meta {
-            font-size: 0.7rem;
+        .anime-card-meta {
+            font-size: 0.72rem;
             color: var(--text-muted);
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #1a1a1a 25%, #252525 50%, #1a1a1a 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: var(--radius-md);
+        }
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+        .skeleton-card {
+            flex: 0 0 clamp(150px, 18vw, 200px);
+            aspect-ratio: 2/3;
+            min-width: 140px;
+            border-radius: var(--radius-md);
+        }
+
+        .footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 40px clamp(12px, 3vw, 32px) 30px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            position: relative;
+            z-index: 1;
+            background: var(--bg-primary);
+        }
+        .footer-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-        }
-        .card-anime .info .meta span {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        /* ── SLIDER (horizontal) ── */
-        .slider-wrap {
-            position: relative;
-            margin-bottom: 40px;
-        }
-        .slider-wrap .slider-container {
-            display: flex;
-            gap: 16px;
-            overflow-x: auto;
-            padding: 4px 2px 12px;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-        .slider-wrap .slider-container::-webkit-scrollbar {
-            display: none;
-        }
-        .slider-wrap .slider-container>* {
-            flex: 0 0 min(200px, 60vw);
-            scroll-snap-align: start;
-        }
-        @media (min-width:600px) {
-            .slider-wrap .slider-container>* {
-                flex: 0 0 min(180px, 40vw);
-            }
-        }
-        @media (min-width:1024px) {
-            .slider-wrap .slider-container>* {
-                flex: 0 0 min(180px, 18vw);
-            }
-        }
-        .slider-wrap .slider-nav {
-            display: none;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 4;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            color: #fff;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all var(--transition);
-            display: flex;
-            align-items: center;
             justify-content: center;
-        }
-        .slider-wrap .slider-nav:hover {
-            background: rgba(108, 60, 255, 0.25);
-            border-color: rgba(108, 60, 255, 0.15);
-        }
-        .slider-wrap .slider-nav.prev {
-            left: -12px;
-        }
-        .slider-wrap .slider-nav.next {
-            right: -12px;
-        }
-        @media (min-width:768px) {
-            .slider-wrap .slider-nav {
-                display: flex;
-            }
-        }
-
-        /* ── FOOTER ── */
-        .footer {
-            margin-top: 60px;
-            padding: 48px 0 32px;
-            border-top: 1px solid rgba(120, 80, 255, 0.06);
-            background: rgba(10, 10, 15, 0.5);
-        }
-        .footer .inner {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             gap: 20px;
-            text-align: center;
+            margin-bottom: 16px;
         }
-        .footer .inner .brand {
-            font-size: 1.4rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #b388ff, #6c3cff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .footer .inner .manifesto {
-            max-width: 480px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-        .footer .inner .socials {
-            display: flex;
-            gap: 16px;
-        }
-        .footer .inner .socials a {
-            color: var(--text-muted);
+        .footer-links a {
+            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 1.2rem;
-            transition: color var(--transition);
+            transition: var(--transition-fast);
         }
-        .footer .inner .socials a:hover {
-            color: var(--glow-primary);
-        }
-        .footer .inner .disclaimer {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            opacity: 0.6;
-            max-width: 600px;
-        }
-        .footer .inner .copy {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            opacity: 0.4;
-        }
-
-        /* ── RESPONSIVE TWEAKS ── */
-        @media (max-width:600px) {
-            .header {
-                padding: 0 12px;
-                height: 64px;
-            }
-            .header .logo-wrap img {
-                height: 32px;
-            }
-            .hero {
-                height: 60vh;
-                min-height: 400px;
-            }
-            .hero .hero-slide {
-                padding: 20px 16px 36px;
-            }
-            .hero .hero-slide .content .synopsis {
-                -webkit-line-clamp: 2;
-            }
-            .hero .hero-nav {
-                bottom: 16px;
-                right: 16px;
-            }
-            .hero .hero-dots {
-                bottom: 22px;
-                left: 16px;
-            }
-            .sidebar {
-                width: 280px;
-            }
-            .search-modal {
-                padding: 60px 12px 20px;
-            }
-            .search-modal .search-container {
-                padding: 16px 18px 20px;
-            }
-        }
-
-        /* ── REDUCED MOTION ── */
-        @media (prefers-reduced-motion:reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* ── LOADING STATE ── */
-        .loading-spinner {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 0;
-            color: var(--text-muted);
-            gap: 12px;
-        }
-        .loading-spinner .spinner {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            border: 3px solid rgba(108, 60, 255, 0.08);
-            border-top-color: var(--glow-primary);
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* ── ERROR STATE ── */
-        .error-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-muted);
-        }
-        .error-state .icon {
-            font-size: 2.4rem;
-            margin-bottom: 12px;
-        }
-        .error-state .retry {
-            margin-top: 12px;
-            padding: 8px 24px;
-            border-radius: 40px;
-            background: rgba(108, 60, 255, 0.1);
-            border: 1px solid rgba(108, 60, 255, 0.1);
+        .footer-links a:hover {
             color: #fff;
-            cursor: pointer;
-            font-family: var(--font);
-            font-weight: 500;
-            transition: all var(--transition);
         }
-        .error-state .retry:hover {
-            background: rgba(108, 60, 255, 0.2);
+        .footer-disclaimer {
+            max-width: 600px;
+            margin: 12px auto 0;
+            font-size: 0.7rem;
+            opacity: 0.7;
+        }
+
+        @media(max-width:768px) {
+            .hero-nav-btn {
+                width: 34px;
+                height: 34px;
+                font-size: 0.9rem;
+            }
+            .hero-nav-btn.prev {
+                left: 4px;
+            }
+            .hero-nav-btn.next {
+                right: 4px;
+            }
+            .btn {
+                padding: 10px 18px;
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
 <body>
-
-    <!-- ════════════════════════════════════════════════ -->
-    <!-- HEADER -->
-    <!-- ════════════════════════════════════════════════ -->
-    <header class="header" role="banner" aria-label="Main header">
-        <div class="logo-wrap">
-            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
-                <span></span><span></span><span></span>
-            </button>
-            <a href="index.html" aria-label="NamiTube Infinity Home">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube Infinity Logo" />
-            </a>
-        </div>
-
-        <nav class="nav-desktop" aria-label="Main navigation">
-            <a href="index.html" class="active">Home</a>
-            <a href="discover.html">Discover</a>
-            <a href="collections.html">Collections</a>
-            <a href="studios.html">Studios</a>
-            <a href="characters.html">Characters</a>
-            <a href="rankings.html">Rankings</a>
-            <a href="releases.html">Releases</a>
-            <a href="vault.html">Vault</a>
-            <a href="community.html">Community</a>
-            <a href="news.html">News</a>
-            <a href="profile.html">Profile</a>
-        </nav>
-
-        <div class="actions">
-            <button id="searchTrigger" aria-label="Open search (Ctrl+K)" title="Search (Ctrl+K)">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            </button>
-            <span class="kbd-hint"><kbd>⌘</kbd><kbd>K</kbd></span>
-            <a href="profile.html" class="profile-btn" aria-label="Profile">U</a>
+    <header class="global-header" id="globalHeader" role="banner">
+        <div class="header-inner">
+            <div class="header-left">
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+                <a href="index.html" class="logo-link" aria-label="NamiTube Infinity Home">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png"
+                    alt="NamiTube Infinity" class="logo-img" width="160" height="42" loading="eager">
+                </a>
+            </div>
+            <nav class="header-nav-desktop" aria-label="Main navigation">
+                <a href="index.html" class="active">Home</a>
+                <a href="discover.html">Discover</a>
+                <a href="collections.html">Collections</a>
+                <a href="studios.html">Studios</a>
+                <a href="characters.html">Characters</a>
+                <a href="rankings.html">Rankings</a>
+                <a href="releases.html">Releases</a>
+                <a href="vault.html">Vault</a>
+                <a href="community.html">Community</a>
+                <a href="news.html">News</a>
+            </nav>
+            <div class="header-right">
+                <a href="search.html" class="header-icon-btn" aria-label="Search" title="Search (Ctrl+K)">🔍</a>
+                <a href="profile.html" class="header-icon-btn" aria-label="Profile">👤</a>
+            </div>
         </div>
     </header>
 
-    <!-- ════════════════════════════════════════════════ -->
-    <!-- SIDEBAR -->
-    <!-- ════════════════════════════════════════════════ -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
-    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Sidebar navigation">
-        <button class="close-side" id="closeSidebar" aria-label="Close sidebar">✕</button>
-        <div class="logo-side">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube Infinity Logo" />
-            <span>Infinity</span>
-        </div>
-        <nav>
-            <a href="index.html" class="active"><span class="icon">🏠</span> Home</a>
-            <a href="discover.html"><span class="icon">🔍</span> Discover</a>
-            <a href="collections.html"><span class="icon">📚</span> Collections</a>
-            <a href="studios.html"><span class="icon">🎬</span> Studios</a>
-            <a href="characters.html"><span class="icon">👤</span> Characters</a>
-            <a href="rankings.html"><span class="icon">🏆</span> Rankings</a>
-            <a href="releases.html"><span class="icon">📅</span> Releases</a>
-            <a href="vault.html"><span class="icon">🏛️</span> Vault</a>
-            <a href="community.html"><span class="icon">💬</span> Community</a>
-            <a href="news.html"><span class="icon">📰</span> News</a>
-            <a href="profile.html"><span class="icon">👤</span> Profile</a>
-        </nav>
+    <aside class="sidebar" id="sidebar" aria-label="Mobile navigation">
+        <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">✕</button>
+        <a href="index.html" class="active">🏠 Home</a>
+        <a href="discover.html">🔍 Discover</a>
+        <a href="collections.html">💎 Collections</a>
+        <a href="studios.html">🏢 Studios</a>
+        <a href="characters.html">🎭 Characters</a>
+        <a href="rankings.html">🏆 Rankings</a>
+        <a href="releases.html">📅 Releases</a>
+        <a href="vault.html">🏛️ Vault</a>
+        <a href="community.html">💬 Community</a>
+        <a href="news.html">📰 News</a>
+        <a href="search.html">🔍 Search</a>
+        <a href="profile.html">👤 Profile</a>
     </aside>
 
-    <!-- ════════════════════════════════════════════════ -->
-    <!-- SEARCH MODAL -->
-    <!-- ════════════════════════════════════════════════ -->
-    <div class="search-modal" id="searchModal" role="dialog" aria-label="Search anime">
-        <div class="search-container">
-            <div class="search-bar">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="searchInput" placeholder="Search anime, studios, characters…" autocomplete="off" aria-label="Search input" />
-                <button class="close-search" id="closeSearch" aria-label="Close search">✕</button>
-            </div>
-            <div class="search-hints">
-                <span data-hint="Attack on Titan">Attack on Titan</span>
-                <span data-hint="Demon Slayer">Demon Slayer</span>
-                <span data-hint="One Piece">One Piece</span>
-                <span data-hint="Spy x Family">Spy x Family</span>
-                <span data-hint="Jujutsu Kaisen">Jujutsu Kaisen</span>
-            </div>
-            <div class="search-results" id="searchResults" role="listbox">
-                <div class="empty"><div class="big">⌨️</div>Start typing to search…</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ════════════════════════════════════════════════ -->
-    <!-- MAIN CONTENT -->
-    <!-- ════════════════════════════════════════════════ -->
-    <main role="main">
-
-        <!-- ─── HERO ─── -->
-        <section class="hero" id="hero" aria-label="Featured anime showcase">
-            <div class="hero-slide active" data-index="0">
-                <div class="bg" style="background-image:url('https://image.tmdb.org/t/p/original/1E5baAaEse26fej7uHcjOgEE2t2.jpg')"></div>
-                <div class="content">
-                    <span class="badge">⭐ Trending Now</span>
-                    <h1 id="heroTitle">Attack on Titan</h1>
-                    <p class="synopsis" id="heroSynopsis">In a world where humanity lives inside cities surrounded by enormous walls, a young man named Eren Yeager vows to exterminate the Titans who devoured his mother.</p>
-                    <div class="meta-row">
-                        <span class="score">★ 9.0</span>
-                        <span>📺 TV</span>
-                        <span>🗓️ 2013</span>
-                        <span>⚡ 4 Seasons</span>
-                    </div>
-                    <div class="actions-row">
-                        <a href="watch.html?id=21" class="btn btn-primary">▶ Watch Now</a>
-                        <a href="anime.html?id=21" class="btn btn-secondary">Details</a>
-                    </div>
+    <main>
+        <section class="hero-section" id="heroSection" aria-label="Featured anime showcase">
+            <div class="hero-bg" id="heroBg"></div>
+            <div class="hero-content" id="heroContent">
+                <div class="hero-badge">✨ Featured Showcase</div>
+                <h1 class="hero-title" id="heroTitle">Loading...</h1>
+                <p class="hero-synopsis" id="heroSynopsis"></p>
+                <div class="hero-meta" id="heroMeta"></div>
+                <div class="hero-actions">
+                    <a href="#" class="btn btn-primary" id="heroWatchBtn">▶ Watch Now</a>
+                    <a href="#" class="btn btn-glass" id="heroDetailsBtn">ℹ Details</a>
                 </div>
             </div>
-            <div class="hero-slide" data-index="1">
-                <div class="bg" style="background-image:url('https://image.tmdb.org/t/p/original/2CAL2433ZeIihfX1Hb2139CX0pW.jpg')"></div>
-                <div class="content">
-                    <span class="badge">🔥 Airing Now</span>
-                    <h1 id="heroTitle2">Demon Slayer: Kimetsu no Yaiba</h1>
-                    <p class="synopsis" id="heroSynopsis2">Tanjiro Kamado, a kind-hearted boy, becomes a demon slayer after his family is slaughtered and his sister Nezuko is turned into a demon.</p>
-                    <div class="meta-row">
-                        <span class="score">★ 8.8</span>
-                        <span>📺 TV</span>
-                        <span>🗓️ 2019</span>
-                        <span>⚡ 3 Seasons</span>
-                    </div>
-                    <div class="actions-row">
-                        <a href="watch.html?id=38000" class="btn btn-primary">▶ Watch Now</a>
-                        <a href="anime.html?id=38000" class="btn btn-secondary">Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-slide" data-index="2">
-                <div class="bg" style="background-image:url('https://image.tmdb.org/t/p/original/3V4kLwGkP5oQYjXwLpZ8QJk5oZ.jpg')"></div>
-                <div class="content">
-                    <span class="badge">🏆 Masterpiece</span>
-                    <h1 id="heroTitle3">Fullmetal Alchemist: Brotherhood</h1>
-                    <p class="synopsis" id="heroSynopsis3">Two brothers search for the Philosopher's Stone in order to restore their bodies after a failed attempt to revive their mother using alchemy.</p>
-                    <div class="meta-row">
-                        <span class="score">★ 9.1</span>
-                        <span>📺 TV</span>
-                        <span>🗓️ 2009</span>
-                        <span>⚡ 64 Episodes</span>
-                    </div>
-                    <div class="actions-row">
-                        <a href="watch.html?id=5114" class="btn btn-primary">▶ Watch Now</a>
-                        <a href="anime.html?id=5114" class="btn btn-secondary">Details</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="hero-dots" id="heroDots">
-                <button class="active" data-index="0" aria-label="Slide 1"></button>
-                <button data-index="1" aria-label="Slide 2"></button>
-                <button data-index="2" aria-label="Slide 3"></button>
-            </div>
-            <div class="hero-nav">
-                <button id="heroPrev" aria-label="Previous slide">◀</button>
-                <button id="heroNext" aria-label="Next slide">▶</button>
-            </div>
+            <button class="hero-nav-btn prev" id="heroPrev" aria-label="Previous slide">◀</button>
+            <button class="hero-nav-btn next" id="heroNext" aria-label="Next slide">▶</button>
+            <div class="hero-dots" id="heroDots"></div>
         </section>
 
-        <div class="container">
+        <div id="trendingSection">
+            <div class="section-header"><h2 class="section-title"><span class="icon-accent">🔥</span> Trending Now</h2><a href="rankings.html" class="section-link">View All →</a></div>
+            <div class="slider-container"><div class="slider-track" id="trendingTrack"></div></div>
+        </div>
 
-            <!-- ─── TRENDING NOW ─── -->
-            <section aria-labelledby="trendingHeading">
-                <div class="section-header">
-                    <h2 id="trendingHeading">🔥 Trending Now</h2>
-                    <a href="discover.html" class="view-all">View all →</a>
-                </div>
-                <div class="slider-wrap" id="trendingSlider">
-                    <div class="slider-container" id="trendingContainer"></div>
-                    <button class="slider-nav prev" data-slider="trending" aria-label="Previous">◀</button>
-                    <button class="slider-nav next" data-slider="trending" aria-label="Next">▶</button>
-                </div>
-            </section>
+        <div id="editorsChoiceSection">
+            <div class="section-header"><h2 class="section-title"><span class="icon-accent">⭐</span> Editor's Choice</h2></div>
+            <div class="slider-container"><div class="slider-track" id="editorsTrack"></div></div>
+        </div>
 
-            <!-- ─── TOP RATED ─── -->
-            <section aria-labelledby="topRatedHeading">
-                <div class="section-header">
-                    <h2 id="topRatedHeading">⭐ Top Rated</h2>
-                    <a href="rankings.html" class="view-all">View all →</a>
-                </div>
-                <div class="grid-cards" id="topRatedGrid"></div>
-            </section>
+        <div id="seasonalSection">
+            <div class="section-header"><h2 class="section-title"><span class="icon-accent">🌸</span> Seasonal Highlights</h2><a href="releases.html" class="section-link">View All →</a></div>
+            <div class="slider-container"><div class="slider-track" id="seasonalTrack"></div></div>
+        </div>
 
-            <!-- ─── AIRING NOW ─── -->
-            <section aria-labelledby="airingHeading">
-                <div class="section-header">
-                    <h2 id="airingHeading">📺 Airing Now</h2>
-                    <a href="releases.html" class="view-all">View all →</a>
-                </div>
-                <div class="slider-wrap" id="airingSlider">
-                    <div class="slider-container" id="airingContainer"></div>
-                    <button class="slider-nav prev" data-slider="airing" aria-label="Previous">◀</button>
-                    <button class="slider-nav next" data-slider="airing" aria-label="Next">▶</button>
-                </div>
-            </section>
+        <div id="upcomingSection">
+            <div class="section-header"><h2 class="section-title"><span class="icon-accent">📅</span> Upcoming Releases</h2></div>
+            <div class="slider-container"><div class="slider-track" id="upcomingTrack"></div></div>
+        </div>
 
-            <!-- ─── SEASONAL HIGHLIGHTS ─── -->
-            <section aria-labelledby="seasonalHeading">
-                <div class="section-header">
-                    <h2 id="seasonalHeading">🌸 Seasonal Highlights</h2>
-                    <a href="discover.html" class="view-all">View all →</a>
-                </div>
-                <div class="grid-cards" id="seasonalGrid"></div>
-            </section>
+        <div id="topRatedSection">
+            <div class="section-header"><h2 class="section-title"><span class="icon-accent">👑</span> Top Rated Masterpieces</h2><a href="vault.html" class="section-link">View All →</a></div>
+            <div class="slider-container"><div class="slider-track" id="topRatedTrack"></div></div>
+        </div>
 
-            <!-- ─── UPCOMING ─── -->
-            <section aria-labelledby="upcomingHeading">
-                <div class="section-header">
-                    <h2 id="upcomingHeading">🚀 Upcoming</h2>
-                    <a href="releases.html" class="view-all">View all →</a>
-                </div>
-                <div class="slider-wrap" id="upcomingSlider">
-                    <div class="slider-container" id="upcomingContainer"></div>
-                    <button class="slider-nav prev" data-slider="upcoming" aria-label="Previous">◀</button>
-                    <button class="slider-nav next" data-slider="upcoming" aria-label="Next">▶</button>
-                </div>
-            </section>
-
+        <div id="popularMoviesSection">
+            <div class="section-header"><h2 class="section-title"><span class="icon-accent">🎬</span> Popular Movies</h2></div>
+            <div class="slider-container"><div class="slider-track" id="moviesTrack"></div></div>
         </div>
     </main>
 
-    <!-- ════════════════════════════════════════════════ -->
-    <!-- FOOTER -->
-    <!-- ════════════════════════════════════════════════ -->
     <footer class="footer" role="contentinfo">
-        <div class="container">
-            <div class="inner">
-                <div class="brand">✦ NamiTube Infinity</div>
-                <p class="manifesto">A luxury anime ecosystem — curated for the discerning viewer. Every frame, every story, every moment elevated.</p>
-                <div class="socials">
-                    <a href="#" aria-label="Twitter">🐦</a>
-                    <a href="#" aria-label="Discord">💬</a>
-                    <a href="#" aria-label="GitHub">🐙</a>
-                    <a href="#" aria-label="YouTube">▶</a>
-                </div>
-                <p class="disclaimer">This site does not store any files on its server. All contents are provided by non-affiliated third parties.</p>
-                <p class="copy">&copy; 2026 NamiTube Infinity. All rights reserved. Built with ♥ for the anime community.</p>
-            </div>
+        <div class="footer-links">
+            <a href="index.html">Home</a><a href="discover.html">Discover</a><a href="collections.html">Collections</a>
+            <a href="rankings.html">Rankings</a><a href="vault.html">Vault</a><a href="community.html">Community</a>
+            <a href="news.html">News</a><a href="profile.html">Profile</a>
         </div>
+        <p>© 2026 NamiTube Infinity. Crafted with passion for anime fans worldwide.</p>
+        <p class="footer-disclaimer">This site does not store any files on its server. All contents are provided by non-affiliated third parties.</p>
     </footer>
 
-    <!-- ════════════════════════════════════════════════ -->
-    <!-- JAVASCRIPT -->
-    <!-- ════════════════════════════════════════════════ -->
     <script>
         (function() {
-            'use strict';
+            const JIKAN_BASE = 'https://api.jikan.moe/v4';
+            const CACHE_PREFIX = 'namitube_cache_';
+            const CACHE_TTL = 1000 * 60 * 30;
 
-            /* ── CONSTANTS ── */
-            const API_BASE = 'https://api.jikan.moe/v4';
-            const CACHE_TTL = 1000 * 60 * 15; // 15 min
+            function getCache(key) {
+                try {
+                    const entry = JSON.parse(localStorage.getItem(CACHE_PREFIX + key));
+                    if (entry && Date.now() - entry.t < CACHE_TTL) return entry.d;
+                } catch (e) {}
+                return null;
+            }
 
-            /* ── UTILITY ── */
-            function fetchWithRetry(url, options = {}, retries = 3, delay = 800) {
+            function setCache(key, data) {
+                try {
+                    localStorage.setItem(CACHE_PREFIX + key, JSON.stringify({ d: data, t: Date.now() }));
+                } catch (e) {}
+            }
+
+            async function fetchJikan(endpoint, cacheKey = null) {
+                if (cacheKey) {
+                    const cached = getCache(cacheKey);
+                    if (cached) return cached;
+                }
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 12000);
-                const fetchOpts = { ...options, signal: controller.signal };
-
-                const attempt = (n) => {
-                    return fetch(url, fetchOpts).then(res => {
-                        clearTimeout(timeoutId);
-                        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                        return res.json();
-                    }).catch(err => {
-                        if (n <= 0) throw err;
-                        return new Promise(resolve => setTimeout(resolve, delay)).then(() => attempt(n - 1));
-                    });
-                };
-                return attempt(retries);
-            }
-
-            function getCached(key) {
+                const timeout = setTimeout(() => controller.abort(), 12000);
                 try {
-                    const raw = localStorage.getItem(`nt_${key}`);
-                    if (!raw) return null;
-                    const entry = JSON.parse(raw);
-                    if (Date.now() - entry.ts > CACHE_TTL) {
-                        localStorage.removeItem(`nt_${key}`);
-                        return null;
+                    const res = await fetch(JIKAN_BASE + endpoint, { signal: controller.signal });
+                    if (!res.ok) throw new Error('API error ' + res.status);
+                    const json = await res.json();
+                    if (cacheKey) setCache(cacheKey, json);
+                    return json;
+                } catch (e) {
+                    if (cacheKey) {
+                        const stale = getCache(cacheKey);
+                        if (stale) return stale;
                     }
-                    return entry.data;
-                } catch { return null; }
+                    console.warn('Jikan fetch failed:', endpoint, e.message);
+                    return null;
+                } finally {
+                    clearTimeout(timeout);
+                }
             }
 
-            function setCached(key, data) {
-                try {
-                    localStorage.setItem(`nt_${key}`, JSON.stringify({ data, ts: Date.now() }));
-                } catch { /* ignore */ }
-            }
-
-            function debounce(fn, ms = 300) {
-                let timer;
-                return (...args) => {
-                    clearTimeout(timer);
-                    timer = setTimeout(() => fn(...args), ms);
-                };
-            }
-
-            function truncate(str, len = 120) {
-                if (!str) return '';
-                return str.length > len ? str.slice(0, len) + '…' : str;
-            }
-
-            function escapeHtml(text) {
-                const div = document.createElement('div');
-                div.textContent = text;
-                return div.innerHTML;
-            }
-
-            /* ── DOM REFS ── */
-            const $ = (sel) => document.querySelector(sel);
-            const $$ = (sel) => document.querySelectorAll(sel);
-
-            /* ── CARD BUILDER ── */
-            function buildAnimeCard(anime, linkPrefix = 'anime.html') {
-                const title = anime.title || 'Untitled';
-                const image = anime.images?.jpg?.image_url || anime.images?.jpg?.small_image_url || '';
-                const score = anime.score ? `★ ${anime.score.toFixed(1)}` : '★ --';
-                const year = anime.year || anime.start_date?.slice(0, 4) || '';
-                const type = anime.type || '';
-                const malId = anime.mal_id || 0;
-                const episodes = anime.episodes ? `${anime.episodes} eps` : '';
-
-                const card = document.createElement('div');
-                card.className = 'card-anime';
-                card.setAttribute('role', 'listitem');
-                card.setAttribute('aria-label', title);
-                card.dataset.malId = malId;
-
-                const link = document.createElement('a');
-                link.href = `${linkPrefix}?id=${malId}`;
-                link.style.textDecoration = 'none';
-                link.style.color = 'inherit';
-                link.style.display = 'block';
-
-                link.innerHTML = `
-              <div class="poster">
-                <img src="${image || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="300" viewBox="0 0 200 300"%3E%3Crect fill="%2312121c" width="200" height="300"/%3E%3Ctext x="50%25" y="50%25" fill="%235a5290" font-family="sans-serif" font-size="14" text-anchor="middle" dy=".3em"%3ENo Image%3C/text%3E%3C/svg%3E'}" alt="${escapeHtml(title)}" loading="lazy" />
-                <div class="overlay">
-                  <span class="score-badge">${score}</span>
+            function createAnimeCard(anime) {
+                const card = document.createElement('a');
+                card.className = 'anime-card';
+                card.href = 'anime.html?id=' + anime.mal_id;
+                card.setAttribute('aria-label', anime.title);
+                const img = anime.images?.jpg?.large_image_url || anime.images?.jpg?.image_url || '';
+                const score = anime.score ? parseFloat(anime.score).toFixed(1) : null;
+                card.innerHTML = `
+                <div class="anime-card-img-wrap">
+                  <img class="anime-card-img" src="${img}" alt="${anime.title}" loading="lazy" onerror="this.style.opacity='0.3';this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 300%22><rect fill=%22%231a1a1a%22 width=%22200%22 height=%22300%22/><text fill=%22%23555%22 x=%22100%22 y=%22150%22 text-anchor=%22middle%22 font-size=%2214%22>No Image</text></svg>';">
+                  ${score ? `<span class="anime-card-badge score">★ ${score}</span>` : ''}
                 </div>
-              </div>
-              <div class="info">
-                <div class="title">${escapeHtml(title)}</div>
-                <div class="meta">
-                  ${type ? `<span>${type}</span>` : ''}
-                  ${year ? `<span>${year}</span>` : ''}
-                  ${episodes ? `<span>${episodes}</span>` : ''}
-                </div>
-              </div>
-            `;
-
-                card.appendChild(link);
+                <div class="anime-card-info">
+                  <span class="anime-card-title">${anime.title}</span>
+                  <span class="anime-card-meta">${anime.type || ''} ${anime.year ? '· ' + anime.year : ''}</span>
+                </div>`;
                 return card;
             }
 
-            /* ── SLIDER HELPERS ── */
-            function initSlider(containerId, prevBtn, nextBtn) {
-                const container = document.getElementById(containerId);
-                if (!container) return;
-
-                const scrollAmount = 240;
-
-                const prev = document.querySelector(prevBtn);
-                const next = document.querySelector(nextBtn);
-
-                if (prev) {
-                    prev.addEventListener('click', () => {
-                        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-                    });
+            function createSkeletonCards(count = 8) {
+                const fragment = document.createDocumentFragment();
+                for (let i = 0; i < count; i++) {
+                    const skel = document.createElement('div');
+                    skel.className = 'skeleton skeleton-card';
+                    fragment.appendChild(skel);
                 }
-                if (next) {
-                    next.addEventListener('click', () => {
-                        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                    });
-                }
-
-                // keyboard support
-                container.addEventListener('keydown', (e) => {
-                    if (e.key === 'ArrowLeft') { e.preventDefault();
-                        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' }); }
-                    if (e.key === 'ArrowRight') { e.preventDefault();
-                        container.scrollBy({ left: scrollAmount, behavior: 'smooth' }); }
-                });
-                container.setAttribute('tabindex', '0');
-                container.setAttribute('role', 'list');
+                return fragment;
             }
 
-            /* ── HERO ENGINE ── */
-            function initHero() {
-                const slides = document.querySelectorAll('.hero-slide');
-                const dots = document.querySelectorAll('.hero-dots button');
-                const prevBtn = document.getElementById('heroPrev');
-                const nextBtn = document.getElementById('heroNext');
-                let current = 0;
-                let interval;
-
-                function goTo(index) {
-                    if (index < 0) index = slides.length - 1;
-                    if (index >= slides.length) index = 0;
-                    slides.forEach((s, i) => {
-                        s.classList.toggle('active', i === index);
-                    });
-                    dots.forEach((d, i) => {
-                        d.classList.toggle('active', i === index);
-                    });
-                    current = index;
+            function populateTrack(trackId, animeList) {
+                const track = document.getElementById(trackId);
+                if (!track) return;
+                track.innerHTML = '';
+                if (!animeList || animeList.length === 0) {
+                    track.appendChild(createSkeletonCards(6));
+                    return;
                 }
+                const fragment = document.createDocumentFragment();
+                animeList.forEach(a => fragment.appendChild(createAnimeCard(a)));
+                track.appendChild(fragment);
+            }
 
-                function next() { goTo(current + 1); }
+            function setupSliderDrag(track) {
+                let isDown = false,
+                    startX, scrollLeft;
+                track.addEventListener('mousedown', (e) => { isDown = true;
+                    track.classList.add('dragging');
+                    startX = e.pageX - track.offsetLeft;
+                    scrollLeft = track.scrollLeft; });
+                track.addEventListener('mouseleave', () => { isDown = false;
+                    track.classList.remove('dragging'); });
+                track.addEventListener('mouseup', () => { isDown = false;
+                    track.classList.remove('dragging'); });
+                track.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - track.offsetLeft;
+                    track.scrollLeft = scrollLeft - (x - startX) * 1.6;
+                });
+                track.addEventListener('wheel', (e) => {
+                    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                        e.preventDefault();
+                        track.scrollLeft += e.deltaY * 1.2;
+                    }
+                }, { passive: false });
+            }
 
-                function prev() { goTo(current - 1); }
+            const heroBg = document.getElementById('heroBg');
+            const heroTitle = document.getElementById('heroTitle');
+            const heroSynopsis = document.getElementById('heroSynopsis');
+            const heroMeta = document.getElementById('heroMeta');
+            const heroWatchBtn = document.getElementById('heroWatchBtn');
+            const heroDetailsBtn = document.getElementById('heroDetailsBtn');
+            const heroDots = document.getElementById('heroDots');
+            const heroPrev = document.getElementById('heroPrev');
+            const heroNext = document.getElementById('heroNext');
+            let heroAnimeList = [];
+            let heroIndex = 0;
+            let heroInterval;
 
-                function startAuto() {
-                    stopAuto();
-                    interval = setInterval(next, 6000);
-                }
-
-                function stopAuto() {
-                    if (interval) { clearInterval(interval);
-                        interval = null; }
-                }
-
-                dots.forEach((dot) => {
+            async function loadHero() {
+                const data = await fetchJikan('/top/anime?filter=airing&limit=8', 'hero_airing');
+                if (!data || !data.data || data.data.length === 0) return;
+                heroAnimeList = data.data.filter(a => a.images?.jpg?.large_image_url);
+                if (heroAnimeList.length === 0) return;
+                heroDots.innerHTML = heroAnimeList.map((_, i) =>
+                    `<button class="hero-dot${i===0?' active':''}" data-index="${i}" aria-label="Slide ${i+1}"></button>`
+                ).join('');
+                heroDots.querySelectorAll('.hero-dot').forEach(dot => {
                     dot.addEventListener('click', () => {
-                        const idx = parseInt(dot.dataset.index, 10);
-                        goTo(idx);
-                        stopAuto();
-                        startAuto();
+                        heroIndex = parseInt(dot.dataset.index);
+                        updateHeroSlide();
+                        resetHeroInterval();
                     });
                 });
-
-                if (prevBtn) prevBtn.addEventListener('click', () => { prev();
-                    stopAuto();
-                    startAuto(); });
-                if (nextBtn) nextBtn.addEventListener('click', () => { next();
-                    stopAuto();
-                    startAuto(); });
-
-                // touch drag support
+                updateHeroSlide();
+                resetHeroInterval();
+                heroPrev.addEventListener('click', () => { heroIndex = (heroIndex - 1 + heroAnimeList.length) %
+                        heroAnimeList.length;
+                    updateHeroSlide();
+                    resetHeroInterval(); });
+                heroNext.addEventListener('click', () => { heroIndex = (heroIndex + 1) % heroAnimeList.length;
+                    updateHeroSlide();
+                    resetHeroInterval(); });
+                const heroSection = document.getElementById('heroSection');
                 let touchStartX = 0;
-                let touchEndX = 0;
-                const heroEl = document.getElementById('hero');
-                if (heroEl) {
-                    heroEl.addEventListener('touchstart', (e) => {
-                        touchStartX = e.changedTouches[0].screenX;
-                    }, { passive: true });
-                    heroEl.addEventListener('touchend', (e) => {
-                        touchEndX = e.changedTouches[0].screenX;
-                        const diff = touchStartX - touchEndX;
-                        if (Math.abs(diff) > 60) {
-                            if (diff > 0) { next();
-                                stopAuto();
-                                startAuto(); } else { prev();
-                                stopAuto();
-                                startAuto(); }
-                        }
-                    }, { passive: true });
-                }
-
-                // keyboard
-                document.addEventListener('keydown', (e) => {
-                    if (e.target.tagName === 'INPUT') return;
-                    if (e.key === 'ArrowLeft') { prev();
-                        stopAuto();
-                        startAuto();
-                        e.preventDefault(); }
-                    if (e.key === 'ArrowRight') { next();
-                        stopAuto();
-                        startAuto();
-                        e.preventDefault(); }
-                });
-
-                startAuto();
-                goTo(0);
-            }
-
-            /* ── FETCH SECTIONS ── */
-            async function fetchTrending() {
-                const cacheKey = 'trending';
-                const cached = getCached(cacheKey);
-                if (cached) return cached;
-
-                try {
-                    const data = await fetchWithRetry(`${API_BASE}/top/anime?limit=12&filter=airing`);
-                    const results = data.data || [];
-                    setCached(cacheKey, results);
-                    return results;
-                } catch {
-                    return [];
-                }
-            }
-
-            async function fetchTopRated() {
-                const cacheKey = 'top_rated';
-                const cached = getCached(cacheKey);
-                if (cached) return cached;
-
-                try {
-                    const data = await fetchWithRetry(`${API_BASE}/top/anime?limit=8&filter=bypopularity`);
-                    const results = data.data || [];
-                    setCached(cacheKey, results);
-                    return results;
-                } catch {
-                    return [];
-                }
-            }
-
-            async function fetchAiring() {
-                const cacheKey = 'airing';
-                const cached = getCached(cacheKey);
-                if (cached) return cached;
-
-                try {
-                    const data = await fetchWithRetry(`${API_BASE}/seasons/now?limit=10`);
-                    const results = data.data || [];
-                    setCached(cacheKey, results);
-                    return results;
-                } catch {
-                    return [];
-                }
-            }
-
-            async function fetchSeasonal() {
-                const cacheKey = 'seasonal';
-                const cached = getCached(cacheKey);
-                if (cached) return cached;
-
-                try {
-                    const data = await fetchWithRetry(`${API_BASE}/seasons/2025/spring?limit=8`);
-                    const results = data.data || [];
-                    setCached(cacheKey, results);
-                    return results;
-                } catch {
-                    return [];
-                }
-            }
-
-            async function fetchUpcoming() {
-                const cacheKey = 'upcoming';
-                const cached = getCached(cacheKey);
-                if (cached) return cached;
-
-                try {
-                    const data = await fetchWithRetry(`${API_BASE}/seasons/upcoming?limit=10`);
-                    const results = data.data || [];
-                    setCached(cacheKey, results);
-                    return results;
-                } catch {
-                    return [];
-                }
-            }
-
-            /* ── RENDER SECTIONS ── */
-            function renderTrending(items) {
-                const container = document.getElementById('trendingContainer');
-                if (!container) return;
-                container.innerHTML = '';
-                if (!items || items.length === 0) {
-                    container.innerHTML =
-                        '<div class="empty" style="color:var(--text-muted);padding:40px;text-align:center;">No trending anime available</div>';
-                    return;
-                }
-                items.forEach(anime => {
-                    const card = buildAnimeCard(anime, 'anime.html');
-                    container.appendChild(card);
-                });
-                initSlider('trendingContainer', '#trendingSlider .prev', '#trendingSlider .next');
-            }
-
-            function renderTopRated(items) {
-                const grid = document.getElementById('topRatedGrid');
-                if (!grid) return;
-                grid.innerHTML = '';
-                if (!items || items.length === 0) {
-                    grid.innerHTML =
-                        '<div class="empty" style="color:var(--text-muted);padding:40px;text-align:center;">No top rated anime available</div>';
-                    return;
-                }
-                items.forEach(anime => {
-                    const card = buildAnimeCard(anime, 'anime.html');
-                    grid.appendChild(card);
-                });
-            }
-
-            function renderAiring(items) {
-                const container = document.getElementById('airingContainer');
-                if (!container) return;
-                container.innerHTML = '';
-                if (!items || items.length === 0) {
-                    container.innerHTML =
-                        '<div class="empty" style="color:var(--text-muted);padding:40px;text-align:center;">No airing anime available</div>';
-                    return;
-                }
-                items.forEach(anime => {
-                    const card = buildAnimeCard(anime, 'anime.html');
-                    container.appendChild(card);
-                });
-                initSlider('airingContainer', '#airingSlider .prev', '#airingSlider .next');
-            }
-
-            function renderSeasonal(items) {
-                const grid = document.getElementById('seasonalGrid');
-                if (!grid) return;
-                grid.innerHTML = '';
-                if (!items || items.length === 0) {
-                    grid.innerHTML =
-                        '<div class="empty" style="color:var(--text-muted);padding:40px;text-align:center;">No seasonal anime available</div>';
-                    return;
-                }
-                items.forEach(anime => {
-                    const card = buildAnimeCard(anime, 'anime.html');
-                    grid.appendChild(card);
-                });
-            }
-
-            function renderUpcoming(items) {
-                const container = document.getElementById('upcomingContainer');
-                if (!container) return;
-                container.innerHTML = '';
-                if (!items || items.length === 0) {
-                    container.innerHTML =
-                        '<div class="empty" style="color:var(--text-muted);padding:40px;text-align:center;">No upcoming anime available</div>';
-                    return;
-                }
-                items.forEach(anime => {
-                    const card = buildAnimeCard(anime, 'anime.html');
-                    container.appendChild(card);
-                });
-                initSlider('upcomingContainer', '#upcomingSlider .prev', '#upcomingSlider .next');
-            }
-
-            /* ── SEARCH SYSTEM ── */
-            function initSearch() {
-                const modal = document.getElementById('searchModal');
-                const trigger = document.getElementById('searchTrigger');
-                const close = document.getElementById('closeSearch');
-                const overlay = document.getElementById('searchModal');
-                const input = document.getElementById('searchInput');
-                const results = document.getElementById('searchResults');
-
-                let activeIndex = -1;
-                let searchAbort = null;
-                let searchData = [];
-
-                function openSearch() {
-                    modal.classList.add('open');
-                    document.body.style.overflow = 'hidden';
-                    setTimeout(() => input.focus(), 100);
-                    activeIndex = -1;
-                    searchData = [];
-                    // show recent
-                    const recent = getCached('recent_searches') || [];
-                    if (recent.length > 0) {
-                        renderSearchResults(recent.slice(0, 5), true);
-                    } else {
-                        results.innerHTML =
-                            '<div class="empty"><div class="big">⌨️</div>Start typing to search…</div>';
-                    }
-                }
-
-                function closeSearch() {
-                    modal.classList.remove('open');
-                    document.body.style.overflow = '';
-                    if (searchAbort) { searchAbort.abort();
-                        searchAbort = null; }
-                    input.value = '';
-                    activeIndex = -1;
-                    searchData = [];
-                }
-
-                function renderSearchResults(items, isRecent = false) {
-                    if (!items || items.length === 0) {
-                        results.innerHTML =
-                            '<div class="empty"><div class="big">🔍</div>No results found</div>';
-                        return;
-                    }
-                    let html = '';
-                    items.forEach((item, idx) => {
-                        const title = item.title || 'Untitled';
-                        const image = item.images?.jpg?.image_url || '';
-                        const score = item.score ? `★ ${item.score.toFixed(1)}` : '';
-                        const type = item.type || '';
-                        const year = item.year || '';
-                        const malId = item.mal_id || 0;
-                        html += `
-                  <div class="result-item ${idx === activeIndex ? 'active' : ''}" data-index="${idx}" data-malid="${malId}" role="option" aria-selected="${idx === activeIndex}">
-                    <img src="${image || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="48" height="68" viewBox="0 0 48 68"%3E%3Crect fill="%2312121c" width="48" height="68"/%3E%3Ctext x="50%25" y="50%25" fill="%235a5290" font-family="sans-serif" font-size="8" text-anchor="middle" dy=".3em"%3ENo Image%3C/text%3E%3C/svg%3E'}" alt="${escapeHtml(title)}" loading="lazy" />
-                    <div class="info">
-                      <div class="title">${escapeHtml(title)}</div>
-                      <div class="meta">${type ? `${type} ` : ''}${year ? ` ${year}` : ''}${score ? ` · ${score}` : ''}</div>
-                    </div>
-                  </div>
-                `;
-                    });
-                    results.innerHTML = html;
-
-                    // click handlers
-                    results.querySelectorAll('.result-item').forEach(el => {
-                        el.addEventListener('click', () => {
-                            const malId = parseInt(el.dataset.malid, 10);
-                            if (malId) {
-                                // save to recent
-                                const found = searchData.find(d => d.mal_id === malId) || { mal_id: malId,
-                                    title: el.querySelector('.title')?.textContent || 'Untitled' };
-                                saveRecent(found);
-                                window.location.href = `anime.html?id=${malId}`;
-                            }
-                        });
-                        el.addEventListener('mouseenter', () => {
-                            const idx = parseInt(el.dataset.index, 10);
-                            activeIndex = idx;
-                            updateActive();
-                        });
-                    });
-                }
-
-                function updateActive() {
-                    results.querySelectorAll('.result-item').forEach((el, i) => {
-                        el.classList.toggle('active', i === activeIndex);
-                        el.setAttribute('aria-selected', i === activeIndex);
-                    });
-                    if (activeIndex >= 0) {
-                        const el = results.querySelector(`.result-item[data-index="${activeIndex}"]`);
-                        if (el) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-                    }
-                }
-
-                function saveRecent(item) {
-                    let recent = getCached('recent_searches') || [];
-                    recent = recent.filter(r => r.mal_id !== item.mal_id);
-                    recent.unshift({ mal_id: item.mal_id, title: item.title, images: item.images });
-                    if (recent.length > 20) recent = recent.slice(0, 20);
-                    setCached('recent_searches', recent);
-                }
-
-                const debouncedSearch = debounce(async (query) => {
-                    if (searchAbort) { searchAbort.abort();
-                        searchAbort = null; }
-                    if (!query || query.length < 2) {
-                        const recent = getCached('recent_searches') || [];
-                        if (recent.length > 0) {
-                            renderSearchResults(recent.slice(0, 5), true);
-                        } else {
-                            results.innerHTML =
-                                '<div class="empty"><div class="big">⌨️</div>Start typing to search…</div>';
-                        }
-                        return;
-                    }
-
-                    try {
-                        const controller = new AbortController();
-                        searchAbort = controller;
-                        const url = `${API_BASE}/anime?q=${encodeURIComponent(query)}&limit=10&sfw=true`;
-                        const resp = await fetch(url, { signal: controller.signal });
-                        if (!resp.ok) throw new Error('Search failed');
-                        const json = await resp.json();
-                        const items = json.data || [];
-                        searchData = items;
-                        activeIndex = -1;
-                        renderSearchResults(items);
-                    } catch (err) {
-                        if (err.name !== 'AbortError') {
-                            results.innerHTML =
-                                '<div class="empty"><div class="big">⚠️</div>Search error. Try again.</div>';
-                        }
-                    } finally {
-                        if (searchAbort && searchAbort.signal.aborted === false) {
-                            searchAbort = null;
-                        }
-                    }
-                }, 350);
-
-                input.addEventListener('input', (e) => {
-                    debouncedSearch(e.target.value);
-                });
-
-                input.addEventListener('keydown', (e) => {
-                    const items = results.querySelectorAll('.result-item');
-                    if (items.length === 0) return;
-                    if (e.key === 'ArrowDown') {
-                        e.preventDefault();
-                        activeIndex = Math.min(activeIndex + 1, items.length - 1);
-                        updateActive();
-                    } else if (e.key === 'ArrowUp') {
-                        e.preventDefault();
-                        activeIndex = Math.max(activeIndex - 1, 0);
-                        updateActive();
-                    } else if (e.key === 'Enter') {
-                        e.preventDefault();
-                        if (activeIndex >= 0 && activeIndex < items.length) {
-                            const el = items[activeIndex];
-                            const malId = parseInt(el.dataset.malid, 10);
-                            if (malId) {
-                                const found = searchData.find(d => d.mal_id === malId);
-                                if (found) saveRecent(found);
-                                window.location.href = `anime.html?id=${malId}`;
-                            }
-                        } else if (items.length > 0) {
-                            // select first
-                            const el = items[0];
-                            const malId = parseInt(el.dataset.malid, 10);
-                            if (malId) {
-                                const found = searchData.find(d => d.mal_id === malId);
-                                if (found) saveRecent(found);
-                                window.location.href = `anime.html?id=${malId}`;
-                            }
-                        }
-                    } else if (e.key === 'Escape') {
-                        closeSearch();
-                    }
-                });
-
-                trigger.addEventListener('click', openSearch);
-                close.addEventListener('click', closeSearch);
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) closeSearch();
-                });
-
-                document.addEventListener('keydown', (e) => {
-                    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-                        e.preventDefault();
-                        if (modal.classList.contains('open')) {
-                            closeSearch();
-                        } else {
-                            openSearch();
-                        }
-                    }
-                    if (e.key === 'Escape' && modal.classList.contains('open')) {
-                        closeSearch();
-                    }
-                });
-
-                // hint clicks
-                document.querySelectorAll('.search-hints span').forEach(el => {
-                    el.addEventListener('click', () => {
-                        input.value = el.dataset.hint || '';
-                        debouncedSearch(input.value);
-                        input.focus();
-                    });
-                });
-            }
-
-            /* ── SIDEBAR ── */
-            function initSidebar() {
-                const hamburger = document.getElementById('hamburgerBtn');
-                const sidebar = document.getElementById('sidebar');
-                const overlay = document.getElementById('sidebarOverlay');
-                const closeBtn = document.getElementById('closeSidebar');
-
-                function openSidebar() {
-                    sidebar.classList.add('open');
-                    overlay.classList.add('open');
-                    hamburger.classList.add('active');
-                    hamburger.setAttribute('aria-expanded', 'true');
-                    document.body.style.overflow = 'hidden';
-                }
-
-                function closeSidebar() {
-                    sidebar.classList.remove('open');
-                    overlay.classList.remove('open');
-                    hamburger.classList.remove('active');
-                    hamburger.setAttribute('aria-expanded', 'false');
-                    document.body.style.overflow = '';
-                }
-
-                hamburger.addEventListener('click', () => {
-                    if (sidebar.classList.contains('open')) {
-                        closeSidebar();
-                    } else {
-                        openSidebar();
-                    }
-                });
-
-                overlay.addEventListener('click', closeSidebar);
-                closeBtn.addEventListener('click', closeSidebar);
-
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && sidebar.classList.contains('open')) {
-                        closeSidebar();
+                heroSection.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+                heroSection.addEventListener('touchend', (e) => {
+                    const diff = touchStartX - e.changedTouches[0].clientX;
+                    if (Math.abs(diff) > 60) {
+                        if (diff > 0) { heroIndex = (heroIndex + 1) % heroAnimeList.length; } else { heroIndex = (
+                                heroIndex - 1 + heroAnimeList.length) % heroAnimeList.length; }
+                        updateHeroSlide();
+                        resetHeroInterval();
                     }
                 });
             }
 
-            /* ── INIT ── */
-            async function init() {
-                initSidebar();
-                initSearch();
-                initHero();
+            function updateHeroSlide() {
+                const anime = heroAnimeList[heroIndex];
+                if (!anime) return;
+                heroBg.style.backgroundImage = `url(${anime.images.jpg.large_image_url})`;
+                heroTitle.textContent = anime.title;
+                heroSynopsis.textContent = anime.synopsis || 'No synopsis available.';
+                const score = anime.score ? `★ ${parseFloat(anime.score).toFixed(1)}` : '';
+                const year = anime.year || '';
+                const type = anime.type || '';
+                heroMeta.innerHTML =
+                    `<span>${score}</span><span>${type}</span>${year?`<span>${year}</span>`:''}<span>${anime.episodes?anime.episodes+' ep':'?'}</span>`;
+                heroWatchBtn.href = `watch.html?id=${anime.mal_id}`;
+                heroDetailsBtn.href = `anime.html?id=${anime.mal_id}`;
+                document.querySelectorAll('.hero-dot').forEach((d, i) => d.classList.toggle('active', i === heroIndex));
+            }
 
-                // show loading states
-                const containers = ['trendingContainer', 'topRatedGrid', 'airingContainer', 'seasonalGrid',
-                    'upcomingContainer'
+            function resetHeroInterval() {
+                clearInterval(heroInterval);
+                heroInterval = setInterval(() => {
+                    heroIndex = (heroIndex + 1) % heroAnimeList.length;
+                    updateHeroSlide();
+                }, 6000);
+            }
+
+            async function loadAllSections() {
+                const sections = [
+                    { id: 'trendingTrack', endpoint: '/top/anime?filter=airing&limit=15', cache: 'trending' },
+                    { id: 'editorsTrack', endpoint: '/top/anime?filter=favorite&limit=15', cache: 'editors' },
+                    { id: 'seasonalTrack', endpoint: '/seasons/now?limit=15', cache: 'seasonal' },
+                    { id: 'upcomingTrack', endpoint: '/seasons/upcoming?limit=15', cache: 'upcoming' },
+                    { id: 'topRatedTrack', endpoint: '/top/anime?filter=bypopularity&limit=15', cache: 'toprated' },
+                    { id: 'moviesTrack', endpoint: '/top/anime?type=movie&filter=bypopularity&limit=15',
+                    cache: 'movies' },
                 ];
-                containers.forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el) {
-                        el.innerHTML =
-                            '<div class="loading-spinner"><div class="spinner"></div><span>Loading…</span></div>';
-                    }
+                const results = await Promise.allSettled(sections.map(s => fetchJikan(s.endpoint, s.cache)));
+                results.forEach((r, i) => {
+                    const data = r.status === 'fulfilled' && r.value ? r.value.data : null;
+                    populateTrack(sections[i].id, data);
                 });
+                document.querySelectorAll('.slider-track').forEach(track => setupSliderDrag(track));
+            }
 
-                try {
-                    const [trending, topRated, airing, seasonal, upcoming] = await Promise.allSettled([
-                        fetchTrending(),
-                        fetchTopRated(),
-                        fetchAiring(),
-                        fetchSeasonal(),
-                        fetchUpcoming()
-                    ]);
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const sidebarClose = document.getElementById('sidebarClose');
 
-                    renderTrending(trending.status === 'fulfilled' ? trending.value : []);
-                    renderTopRated(topRated.status === 'fulfilled' ? topRated.value : []);
-                    renderAiring(airing.status === 'fulfilled' ? airing.value : []);
-                    renderSeasonal(seasonal.status === 'fulfilled' ? seasonal.value : []);
-                    renderUpcoming(upcoming.status === 'fulfilled' ? upcoming.value : []);
-                } catch (err) {
-                    console.warn('Initial load error:', err);
-                    // show fallback
-                    const containers2 = ['trendingContainer', 'topRatedGrid', 'airingContainer', 'seasonalGrid',
-                        'upcomingContainer'
-                    ];
-                    containers2.forEach(id => {
-                        const el = document.getElementById(id);
-                        if (el && el.querySelector('.loading-spinner')) {
-                            el.innerHTML =
-                                '<div class="error-state"><div class="icon">⚠️</div>Could not load content. <button class="retry" onclick="location.reload()">Retry</button></div>';
-                        }
-                    });
+            function openSidebar() {
+                sidebar.classList.add('active');
+                sidebarOverlay.classList.add('active');
+                hamburgerBtn.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                hamburgerBtn.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+            hamburgerBtn.addEventListener('click', openSidebar);
+            sidebarClose.addEventListener('click', closeSidebar);
+            sidebarOverlay.addEventListener('click', closeSidebar);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeSidebar();
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault();
+                    window.location.href = 'search.html'; }
+            });
+            let touchStartXSidebar = 0;
+            document.addEventListener('touchstart', (e) => { touchStartXSidebar = e.touches[0].clientX; }, { passive: true });
+            document.addEventListener('touchend', (e) => {
+                const diff = e.changedTouches[0].clientX - touchStartXSidebar;
+                if (diff > 80 && touchStartXSidebar < 30) openSidebar();
+                if (diff < -80 && sidebar.classList.contains('active')) closeSidebar();
+            });
+            const header = document.getElementById('globalHeader');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('scrolled', window.scrollY > 30);
+            }, { passive: true });
+
+            loadHero();
+            loadAllSections();
+            const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.header-nav-desktop a, .sidebar a').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPath || (currentPath === '' && href === 'index.html')) {
+                    link.classList.add('active');
                 }
-
-                // Prefetch for hover
-                const links = document.querySelectorAll('.card-anime a');
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const img = entry.target.querySelector('img');
-                            if (img && img.dataset.src) {
-                                img.src = img.dataset.src;
-                                img.removeAttribute('data-src');
-                            }
-                        }
-                    });
-                }, { rootMargin: '200px' });
-
-                links.forEach(link => {
-                    const img = link.querySelector('img');
-                    if (img && img.src && img.src.includes('data:image')) {
-                        // already handled
-                    }
-                });
-            }
-
-            document.addEventListener('DOMContentLoaded', init);
-            // fallback if DOM already loaded
-            if (document.readyState === 'complete' || document.readyState === 'interactive') {
-                init();
-            }
-
+            });
         })();
     </script>
-
 </body>
 </html>
