@@ -13,10 +13,285 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <title>NamiTube Infinity - Premium Anime Streaming</title>
 <style>
-{SHARED_CSS}
+
+:root {
+  --bg-primary: #050508;
+  --bg-secondary: #0a0a12;
+  --bg-tertiary: #11111a;
+  --bg-glass: rgba(10, 10, 18, 0.72);
+  --bg-glass-hover: rgba(20, 20, 35, 0.85);
+  --surface: rgba(255, 255, 255, 0.03);
+  --surface-hover: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(255, 255, 255, 0.12);
+  --text-primary: #f0f0f5;
+  --text-secondary: #a0a0b0;
+  --text-muted: #606070;
+  --accent: #7c3aed;
+  --accent-light: #a78bfa;
+  --accent-glow: rgba(124, 58, 237, 0.4);
+  --accent-secondary: #c084fc;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --gradient-hero: linear-gradient(135deg, #1a0b2e 0%, #0f0518 50%, #050508 100%);
+  --gradient-card: linear-gradient(180deg, rgba(124,58,237,0.08) 0%, rgba(10,10,18,0.95) 100%);
+  --gradient-glow: radial-gradient(ellipse at center, rgba(124,58,237,0.15) 0%, transparent 70%);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 40px rgba(124,58,237,0.15);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Inter', sans-serif;
+  --header-height: 72px;
+  --sidebar-width: 280px;
+  --max-content: 1440px;
+  --safe-area: clamp(16px, 4vw, 48px);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: rgba(124, 58, 237, 0.4);
+  color: var(--text-primary);
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(124, 58, 237, 0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(124, 58, 237, 0.5); }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+@keyframes slideInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(124,58,237,0.2); }
+  50% { box-shadow: 0 0 40px rgba(124,58,237,0.4); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-tertiary) 25%, var(--bg-secondary) 50%, var(--bg-tertiary) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+.glass {
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid var(--border);
+}
+
+.glass-strong {
+  background: var(--bg-glass-hover);
+  backdrop-filter: blur(40px) saturate(1.4);
+  -webkit-backdrop-filter: blur(40px) saturate(1.4);
+  border: 1px solid var(--border-hover);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition-base);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent) 0%, #6d28d9 100%);
+  color: white;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 8px 16px;
+}
+
+.btn-ghost:hover {
+  color: var(--text-primary);
+  background: var(--surface);
+}
+
+.section-title {
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-title .icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-glow);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card:hover::before { opacity: 1; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-accent {
+  background: rgba(124, 58, 237, 0.15);
+  color: var(--accent-light);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+}
+
+.badge-success {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-warning {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--warning);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.score-ring {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  position: relative;
+  background: conic-gradient(var(--accent) calc(var(--score) * 10%), var(--bg-tertiary) 0);
+}
+
+.score-ring::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  background: var(--bg-secondary);
+  border-radius: 50%;
+}
+
+.score-ring span {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 
 /* Header */
-.main-header {{
+.main-header {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: var(--header-height);
@@ -27,58 +302,58 @@
   padding: 0 var(--safe-area);
   transition: all var(--transition-base);
   border-bottom: 1px solid transparent;
-}}
+}
 
-.main-header.scrolled {{
+.main-header.scrolled {
   background: rgba(5, 5, 8, 0.85);
   backdrop-filter: blur(20px) saturate(1.2);
   -webkit-backdrop-filter: blur(20px) saturate(1.2);
   border-bottom-color: var(--border);
-}}
+}
 
-.header-left, .header-right {{
+.header-left, .header-right {
   display: flex;
   align-items: center;
   gap: 16px;
-}}
+}
 
-.hamburger {{
+.hamburger {
   width: 40px; height: 40px;
   display: flex; flex-direction: column;
   justify-content: center; align-items: center;
   gap: 5px; cursor: pointer;
   background: none; border: none;
-}}
+}
 
-.hamburger span {{
+.hamburger span {
   width: 22px; height: 2px;
   background: var(--text-primary);
   border-radius: 2px;
   transition: all var(--transition-base);
   transform-origin: center;
-}}
+}
 
-.hamburger.active span:nth-child(1) {{ transform: translateY(7px) rotate(45deg); }}
-.hamburger.active span:nth-child(2) {{ opacity: 0; }}
-.hamburger.active span:nth-child(3) {{ transform: translateY(-7px) rotate(-45deg); }}
+.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-.logo {{
+.logo {
   height: 36px;
   filter: drop-shadow(0 0 12px rgba(124, 58, 237, 0.4));
   transition: filter var(--transition-base);
-}}
+}
 
-.logo:hover {{
+.logo:hover {
   filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.6));
-}}
+}
 
-.desktop-nav {{
+.desktop-nav {
   display: flex;
   align-items: center;
   gap: 4px;
-}}
+}
 
-.desktop-nav a {{
+.desktop-nav a {
   padding: 8px 14px;
   border-radius: var(--radius-sm);
   color: var(--text-secondary);
@@ -87,14 +362,14 @@
   font-weight: 500;
   transition: all var(--transition-fast);
   white-space: nowrap;
-}}
+}
 
-.desktop-nav a:hover, .desktop-nav a.active {{
+.desktop-nav a:hover, .desktop-nav a.active {
   color: var(--text-primary);
   background: var(--surface);
-}}
+}
 
-.header-btn {{
+.header-btn {
   width: 40px; height: 40px;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
@@ -103,17 +378,17 @@
   color: var(--text-secondary);
   cursor: pointer;
   transition: all var(--transition-fast);
-}}
+}
 
-.header-btn:hover {{
+.header-btn:hover {
   background: var(--surface-hover);
   border-color: var(--border-hover);
   color: var(--text-primary);
-}}
+}
 
-.search-btn {{ position: relative; }}
+.search-btn { position: relative; }
 
-.search-btn kbd {{
+.search-btn kbd {
   position: absolute;
   bottom: -4px; right: -4px;
   padding: 1px 4px;
@@ -122,9 +397,9 @@
   color: white;
   border-radius: 4px;
   border: none;
-}}
+}
 
-.profile-avatar {{
+.profile-avatar {
   width: 36px; height: 36px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
@@ -135,15 +410,15 @@
   cursor: pointer;
   border: 2px solid transparent;
   transition: all var(--transition-fast);
-}}
+}
 
-.profile-avatar:hover {{
+.profile-avatar:hover {
   border-color: var(--accent-light);
   box-shadow: 0 0 16px rgba(124, 58, 237, 0.3);
-}}
+}
 
 /* Mobile Sidebar */
-.mobile-sidebar {{
+.mobile-sidebar {
   position: fixed;
   top: 0; left: 0;
   width: var(--sidebar-width);
@@ -157,13 +432,13 @@
   transition: transform var(--transition-base);
   padding: calc(var(--header-height) + 20px) 24px 24px;
   overflow-y: auto;
-}}
+}
 
-.mobile-sidebar.open {{
+.mobile-sidebar.open {
   transform: translateX(0);
-}}
+}
 
-.sidebar-overlay {{
+.sidebar-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.6);
@@ -172,20 +447,20 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--transition-base);
-}}
+}
 
-.mobile-sidebar.open + .sidebar-overlay {{
+.mobile-sidebar.open + .sidebar-overlay {
   opacity: 1;
   pointer-events: auto;
-}}
+}
 
-.sidebar-nav {{
+.sidebar-nav {
   display: flex;
   flex-direction: column;
   gap: 4px;
-}}
+}
 
-.sidebar-nav a {{
+.sidebar-nav a {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -195,20 +470,20 @@
   text-decoration: none;
   font-weight: 500;
   transition: all var(--transition-fast);
-}}
+}
 
-.sidebar-nav a:hover, .sidebar-nav a.active {{
+.sidebar-nav a:hover, .sidebar-nav a.active {
   background: var(--surface);
   color: var(--text-primary);
-}}
+}
 
-.sidebar-nav a svg {{
+.sidebar-nav a svg {
   width: 20px; height: 20px;
   opacity: 0.7;
-}}
+}
 
 /* Hero Showcase */
-.hero-showcase {{
+.hero-showcase {
   position: relative;
   width: 100%;
   height: 85vh;
@@ -216,23 +491,23 @@
   max-height: 900px;
   overflow: hidden;
   background: var(--gradient-hero);
-}}
+}
 
-.hero-slide {{
+.hero-slide {
   position: absolute;
   inset: 0;
   opacity: 0;
   transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: flex-end;
-}}
+}
 
-.hero-slide.active {{
+.hero-slide.active {
   opacity: 1;
   z-index: 2;
-}}
+}
 
-.hero-bg {{
+.hero-bg {
   position: absolute;
   inset: 0;
   background-size: cover;
@@ -240,20 +515,20 @@
   filter: brightness(0.4) saturate(1.2);
   transform: scale(1.05);
   transition: transform 8s ease;
-}}
+}
 
-.hero-slide.active .hero-bg {{
+.hero-slide.active .hero-bg {
   transform: scale(1);
-}}
+}
 
-.hero-gradient {{
+.hero-gradient {
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, var(--bg-primary) 0%, transparent 50%, rgba(5,5,8,0.4) 100%);
   z-index: 1;
-}}
+}
 
-.hero-content {{
+.hero-content {
   position: relative;
   z-index: 2;
   padding: 0 var(--safe-area) 80px;
@@ -261,9 +536,9 @@
   width: 100%;
   margin: 0 auto;
   animation: fadeUp 0.8s ease 0.3s both;
-}}
+}
 
-.hero-badge {{
+.hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -276,18 +551,18 @@
   color: var(--accent-light);
   margin-bottom: 20px;
   backdrop-filter: blur(10px);
-}}
+}
 
-.hero-title {{
+.hero-title {
   font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 800;
   line-height: 1.1;
   margin-bottom: 16px;
   max-width: 700px;
   text-shadow: 0 4px 24px rgba(0,0,0,0.5);
-}}
+}
 
-.hero-synopsis {{
+.hero-synopsis {
   font-size: clamp(0.9rem, 1.5vw, 1.1rem);
   color: var(--text-secondary);
   max-width: 560px;
@@ -297,60 +572,60 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}}
+}
 
-.hero-meta {{
+.hero-meta {
   display: flex;
   align-items: center;
   gap: 20px;
   margin-bottom: 28px;
   flex-wrap: wrap;
-}}
+}
 
-.hero-meta .score {{
+.hero-meta .score {
   display: flex;
   align-items: center;
   gap: 6px;
   font-weight: 700;
   font-size: 1rem;
-}}
+}
 
-.hero-meta .score svg {{
+.hero-meta .score svg {
   width: 18px; height: 18px;
   fill: #fbbf24;
-}}
+}
 
-.hero-meta .meta-item {{
+.hero-meta .meta-item {
   display: flex;
   align-items: center;
   gap: 6px;
   color: var(--text-secondary);
   font-size: 0.9rem;
-}}
+}
 
-.hero-genres {{
+.hero-genres {
   display: flex;
   gap: 8px;
   margin-bottom: 28px;
   flex-wrap: wrap;
-}}
+}
 
-.hero-actions {{
+.hero-actions {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-}}
+}
 
-.hero-nav {{
+.hero-nav {
   position: absolute;
   bottom: 40px;
   right: var(--safe-area);
   z-index: 10;
   display: flex;
   gap: 8px;
-}}
+}
 
-.hero-nav-btn {{
+.hero-nav-btn {
   width: 44px; height: 44px;
   border-radius: 50%;
   background: var(--bg-glass);
@@ -362,14 +637,14 @@
   align-items: center;
   justify-content: center;
   transition: all var(--transition-fast);
-}}
+}
 
-.hero-nav-btn:hover {{
+.hero-nav-btn:hover {
   background: var(--surface-hover);
   border-color: var(--border-hover);
-}}
+}
 
-.hero-indicators {{
+.hero-indicators {
   position: absolute;
   bottom: 52px;
   left: 50%;
@@ -377,9 +652,9 @@
   z-index: 10;
   display: flex;
   gap: 8px;
-}}
+}
 
-.hero-indicator {{
+.hero-indicator {
   width: 32px;
   height: 3px;
   border-radius: 2px;
@@ -388,44 +663,44 @@
   transition: all var(--transition-base);
   position: relative;
   overflow: hidden;
-}}
+}
 
-.hero-indicator.active {{
+.hero-indicator.active {
   background: rgba(255,255,255,0.5);
-}}
+}
 
-.hero-indicator .progress {{
+.hero-indicator .progress {
   position: absolute;
   left: 0; top: 0; bottom: 0;
   background: var(--accent);
   border-radius: 2px;
   width: 0%;
   transition: width 0.1s linear;
-}}
+}
 
-.hero-indicator.active .progress {{
+.hero-indicator.active .progress {
   width: 100%;
   transition: width 5s linear;
-}}
+}
 
 /* Content Sections */
-.content-section {{
+.content-section {
   padding: 48px var(--safe-area);
   max-width: var(--max-content);
   margin: 0 auto;
-}}
+}
 
-.content-section + .content-section {{
+.content-section + .content-section {
   padding-top: 24px;
-}}
+}
 
 /* Slider */
-.slider-container {{
+.slider-container {
   position: relative;
   overflow: hidden;
-}}
+}
 
-.slider-track {{
+.slider-track {
   display: flex;
   gap: var(--gap, 16px);
   overflow-x: auto;
@@ -435,22 +710,22 @@
   -ms-overflow-style: none;
   padding: 8px 4px;
   cursor: grab;
-}}
+}
 
-.slider-track::-webkit-scrollbar {{
+.slider-track::-webkit-scrollbar {
   display: none;
-}}
+}
 
-.slider-track:active {{
+.slider-track:active {
   cursor: grabbing;
-}}
+}
 
-.slider-item {{
+.slider-item {
   scroll-snap-align: start;
   flex-shrink: 0;
-}}
+}
 
-.slider-btn {{
+.slider-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -468,26 +743,26 @@
   opacity: 0;
   transition: opacity var(--transition-base), background var(--transition-fast);
   border-radius: var(--radius-md);
-}}
+}
 
-.slider-container:hover .slider-btn {{
+.slider-container:hover .slider-btn {
   opacity: 1;
-}}
+}
 
-.slider-btn:hover {{
+.slider-btn:hover {
   background: rgba(20, 20, 35, 0.9);
-}}
+}
 
-.slider-btn.prev {{
+.slider-btn.prev {
   left: 0;
-}}
+}
 
-.slider-btn.next {{
+.slider-btn.next {
   right: 0;
-}}
+}
 
 /* Anime Card */
-.anime-card {{
+.anime-card {
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -497,53 +772,53 @@
   text-decoration: none;
   color: inherit;
   display: block;
-}}
+}
 
-.anime-card:hover {{
+.anime-card:hover {
   transform: translateY(-6px) scale(1.02);
   box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(124, 58, 237, 0.15);
   z-index: 10;
-}}
+}
 
-.anime-card .card-image {{
+.anime-card .card-image {
   position: relative;
   aspect-ratio: 3/4;
   overflow: hidden;
-}}
+}
 
-.anime-card .card-image img {{
+.anime-card .card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform var(--transition-slow);
-}}
+}
 
-.anime-card:hover .card-image img {{
+.anime-card:hover .card-image img {
   transform: scale(1.08);
-}}
+}
 
-.anime-card .card-overlay {{
+.anime-card .card-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, rgba(5,5,8,0.95) 0%, transparent 60%);
   opacity: 0.8;
   transition: opacity var(--transition-base);
-}}
+}
 
-.anime-card:hover .card-overlay {{
+.anime-card:hover .card-overlay {
   opacity: 1;
-}}
+}
 
-.anime-card .card-content {{
+.anime-card .card-content {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   padding: 16px;
   z-index: 2;
-}}
+}
 
-.anime-card .card-title {{
+.anime-card .card-title {
   font-weight: 700;
   font-size: 0.95rem;
   line-height: 1.3;
@@ -552,32 +827,32 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}}
+}
 
-.anime-card .card-meta {{
+.anime-card .card-meta {
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: 0.8rem;
   color: var(--text-secondary);
-}}
+}
 
-.anime-card .card-score {{
+.anime-card .card-score {
   display: flex;
   align-items: center;
   gap: 4px;
   color: #fbbf24;
   font-weight: 700;
-}}
+}
 
-.anime-card .card-badge {{
+.anime-card .card-badge {
   position: absolute;
   top: 10px;
   left: 10px;
   z-index: 3;
-}}
+}
 
-.anime-card .card-rank {{
+.anime-card .card-rank {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -593,9 +868,9 @@
   font-size: 0.8rem;
   color: white;
   z-index: 3;
-}}
+}
 
-.anime-card .play-icon {{
+.anime-card .play-icon {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -611,21 +886,21 @@
   opacity: 0;
   transition: all var(--transition-base);
   z-index: 3;
-}}
+}
 
-.anime-card:hover .play-icon {{
+.anime-card:hover .play-icon {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
-}}
+}
 
 /* Featured Grid */
-.featured-grid {{
+.featured-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
-}}
+}
 
-.featured-card {{
+.featured-card {
   display: flex;
   gap: 16px;
   padding: 16px;
@@ -635,40 +910,40 @@
   transition: all var(--transition-base);
   text-decoration: none;
   color: inherit;
-}}
+}
 
-.featured-card:hover {{
+.featured-card:hover {
   background: var(--surface-hover);
   border-color: var(--border-hover);
   transform: translateY(-2px);
-}}
+}
 
-.featured-card img {{
+.featured-card img {
   width: 80px;
   height: 110px;
   object-fit: cover;
   border-radius: var(--radius-sm);
   flex-shrink: 0;
-}}
+}
 
-.featured-card .info {{
+.featured-card .info {
   flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-}}
+}
 
-.featured-card .info h4 {{
+.featured-card .info h4 {
   font-weight: 700;
   font-size: 0.95rem;
   margin-bottom: 6px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}}
+}
 
-.featured-card .info p {{
+.featured-card .info p {
   font-size: 0.8rem;
   color: var(--text-secondary);
   margin-bottom: 8px;
@@ -676,20 +951,20 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}}
+}
 
 /* Continue Watching Bar */
-.continue-bar {{
+.continue-bar {
   display: flex;
   gap: 16px;
   overflow-x: auto;
   padding: 4px;
   scrollbar-width: none;
-}}
+}
 
-.continue-bar::-webkit-scrollbar {{ display: none; }}
+.continue-bar::-webkit-scrollbar { display: none; }
 
-.continue-item {{
+.continue-item {
   flex-shrink: 0;
   width: 280px;
   display: flex;
@@ -702,113 +977,113 @@
   cursor: pointer;
   text-decoration: none;
   color: inherit;
-}}
+}
 
-.continue-item:hover {{
+.continue-item:hover {
   background: var(--surface-hover);
   border-color: var(--border-hover);
-}}
+}
 
-.continue-item img {{
+.continue-item img {
   width: 60px;
   height: 80px;
   object-fit: cover;
   border-radius: var(--radius-sm);
   flex-shrink: 0;
-}}
+}
 
-.continue-item .info {{
+.continue-item .info {
   flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-}}
+}
 
-.continue-item .info h5 {{
+.continue-item .info h5 {
   font-weight: 600;
   font-size: 0.9rem;
   margin-bottom: 4px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}}
+}
 
-.continue-item .info span {{
+.continue-item .info span {
   font-size: 0.8rem;
   color: var(--text-muted);
-}}
+}
 
-.continue-item .progress-bar {{
+.continue-item .progress-bar {
   width: 100%;
   height: 3px;
   background: var(--bg-tertiary);
   border-radius: 2px;
   margin-top: 8px;
   overflow: hidden;
-}}
+}
 
-.continue-item .progress-bar .fill {{
+.continue-item .progress-bar .fill {
   height: 100%;
   background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 100%);
   border-radius: 2px;
-}}
+}
 
 /* Footer */
-.site-footer {{
+.site-footer {
   margin-top: 80px;
   padding: 48px var(--safe-area);
   border-top: 1px solid var(--border);
   background: linear-gradient(180deg, transparent 0%, rgba(124,58,237,0.03) 100%);
-}}
+}
 
-.footer-content {{
+.footer-content {
   max-width: var(--max-content);
   margin: 0 auto;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 48px;
-}}
+}
 
-.footer-brand {{
+.footer-brand {
   display: flex;
   flex-direction: column;
   gap: 16px;
-}}
+}
 
-.footer-brand img {{
+.footer-brand img {
   height: 40px;
   width: auto;
-}}
+}
 
-.footer-brand p {{
+.footer-brand p {
   color: var(--text-secondary);
   font-size: 0.9rem;
   line-height: 1.7;
   max-width: 320px;
-}}
+}
 
-.footer-links h4 {{
+.footer-links h4 {
   font-weight: 700;
   font-size: 0.9rem;
   margin-bottom: 16px;
   color: var(--text-primary);
-}}
+}
 
-.footer-links a {{
+.footer-links a {
   display: block;
   padding: 6px 0;
   color: var(--text-secondary);
   text-decoration: none;
   font-size: 0.85rem;
   transition: color var(--transition-fast);
-}}
+}
 
-.footer-links a:hover {{
+.footer-links a:hover {
   color: var(--accent-light);
-}}
+}
 
-.footer-bottom {{
+.footer-bottom {
   max-width: var(--max-content);
   margin: 48px auto 0;
   padding-top: 24px;
@@ -818,19 +1093,19 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 16px;
-}}
+}
 
-.footer-bottom p {{
+.footer-bottom p {
   font-size: 0.8rem;
   color: var(--text-muted);
-}}
+}
 
-.footer-social {{
+.footer-social {
   display: flex;
   gap: 12px;
-}}
+}
 
-.footer-social a {{
+.footer-social a {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -841,60 +1116,61 @@
   justify-content: center;
   color: var(--text-secondary);
   transition: all var(--transition-fast);
-}}
+}
 
-.footer-social a:hover {{
+.footer-social a:hover {
   background: var(--surface-hover);
   border-color: var(--accent);
   color: var(--accent-light);
-}}
+}
 
 /* Responsive */
-@media (max-width: 1024px) {{
-  .desktop-nav {{ display: none; }}
-  .footer-content {{ grid-template-columns: 1fr 1fr; }}
-}}
+@media (max-width: 1024px) {
+  .desktop-nav { display: none; }
+  .footer-content { grid-template-columns: 1fr 1fr; }
+}
 
-@media (max-width: 768px) {{
-  .hero-showcase {{ height: 70vh; min-height: 500px; }}
-  .hero-content {{ padding-bottom: 60px; }}
-  .hero-actions {{ width: 100%; }}
-  .hero-actions .btn {{ flex: 1; justify-content: center; }}
-  .hero-nav {{ bottom: 20px; }}
-  .hero-indicators {{ bottom: 28px; }}
-  .featured-grid {{ grid-template-columns: 1fr; }}
-  .footer-content {{ grid-template-columns: 1fr; gap: 32px; }}
-  .footer-bottom {{ flex-direction: column; text-align: center; }}
-  .slider-btn {{ display: none; }}
-}}
+@media (max-width: 768px) {
+  .hero-showcase { height: 70vh; min-height: 500px; }
+  .hero-content { padding-bottom: 60px; }
+  .hero-actions { width: 100%; }
+  .hero-actions .btn { flex: 1; justify-content: center; }
+  .hero-nav { bottom: 20px; }
+  .hero-indicators { bottom: 28px; }
+  .featured-grid { grid-template-columns: 1fr; }
+  .footer-content { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .slider-btn { display: none; }
+}
 
-@media (min-width: 1025px) {{
-  .hamburger {{ display: none; }}
-}}
+@media (min-width: 1025px) {
+  .hamburger { display: none; }
+}
 
 /* Loading States */
-.loading-hero {{
+.loading-hero {
   height: 85vh;
   background: linear-gradient(135deg, #0a0a12 0%, #11111a 50%, #0a0a12 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-}}
+}
 
-.spinner {{
+.spinner {
   width: 48px;
   height: 48px;
   border: 3px solid var(--bg-tertiary);
   border-top-color: var(--accent);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
-}}
+}
 
-.skeleton-card {{
+.skeleton-card {
   aspect-ratio: 3/4;
   border-radius: var(--radius-lg);
-}}
+}
 </style>
+<base target="_blank">
 </head>
 <body>
 
@@ -1124,46 +1400,686 @@
 </footer>
 
 <script>
-{SHARED_JS}
+
+const NamiTube = {
+  API_BASE: 'https://api.jikan.moe/v4',
+  CACHE_TTL: 5 * 60 * 1000,
+  RATE_LIMIT_DELAY: 400,
+  lastRequestTime: 0,
+  pendingRequests: new Map(),
+  cache: new Map(),
+
+  async fetch(endpoint, options = {}) {
+    const cacheKey = endpoint + JSON.stringify(options);
+    const cached = this.cache.get(cacheKey);
+    if (cached && Date.now() - cached.time < this.CACHE_TTL) {
+      return cached.data;
+    }
+
+    if (this.pendingRequests.has(cacheKey)) {
+      return this.pendingRequests.get(cacheKey);
+    }
+
+    const now = Date.now();
+    const delay = Math.max(0, this.RATE_LIMIT_DELAY - (now - this.lastRequestTime));
+
+    const promise = new Promise((resolve, reject) => {
+      setTimeout(async () => {
+        try {
+          const controller = new AbortController();
+          const timeout = setTimeout(() => controller.abort(), 15000);
+
+          const response = await fetch(this.API_BASE + endpoint, {
+            ...options,
+            signal: controller.signal,
+            headers: {
+              'Accept': 'application/json',
+              ...options.headers
+            }
+          });
+
+          clearTimeout(timeout);
+          this.lastRequestTime = Date.now();
+
+          if (!response.ok) {
+            if (response.status === 429) {
+              await new Promise(r => setTimeout(r, 2000));
+              return resolve(this.fetch(endpoint, options));
+            }
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+
+          const data = await response.json();
+          this.cache.set(cacheKey, { data, time: Date.now() });
+          resolve(data);
+        } catch (error) {
+          reject(error);
+        } finally {
+          this.pendingRequests.delete(cacheKey);
+        }
+      }, delay);
+    });
+
+    this.pendingRequests.set(cacheKey, promise);
+    return promise;
+  },
+
+  getTopAnime(page = 1, limit = 25) {
+    return this.fetch(`/top/anime?page=${page}&limit=${limit}`);
+  },
+
+  getAiringAnime(page = 1, limit = 25) {
+    return this.fetch(`/seasons/now?page=${page}&limit=${limit}`);
+  },
+
+  getUpcomingAnime(page = 1, limit = 25) {
+    return this.fetch(`/seasons/upcoming?page=${page}&limit=${limit}`);
+  },
+
+  getSeasonalAnime(year, season, page = 1, limit = 25) {
+    return this.fetch(`/seasons/${year}/${season}?page=${page}&limit=${limit}`);
+  },
+
+  getAnimeDetails(id) {
+    return this.fetch(`/anime/${id}/full`);
+  },
+
+  getAnimeCharacters(id) {
+    return this.fetch(`/anime/${id}/characters`);
+  },
+
+  getAnimeStaff(id) {
+    return this.fetch(`/anime/${id}/staff`);
+  },
+
+  getAnimeEpisodes(id, page = 1) {
+    return this.fetch(`/anime/${id}/episodes?page=${page}`);
+  },
+
+  getAnimeRecommendations(id) {
+    return this.fetch(`/anime/${id}/recommendations`);
+  },
+
+  getAnimeReviews(id, page = 1) {
+    return this.fetch(`/anime/${id}/reviews?page=${page}`);
+  },
+
+  getAnimeStatistics(id) {
+    return this.fetch(`/anime/${id}/statistics`);
+  },
+
+  getSearchAnime(query, filters = {}) {
+    const params = new URLSearchParams({ q: query, page: 1, limit: 25, ...filters });
+    return this.fetch(`/anime?${params}`);
+  },
+
+  getGenres() {
+    return this.fetch('/genres/anime');
+  },
+
+  getStudios(page = 1, limit = 25) {
+    return this.fetch(`/producers?page=${page}&limit=${limit}`);
+  },
+
+  getStudioDetails(id) {
+    return this.fetch(`/producers/${id}/full`);
+  },
+
+  getTopCharacters(page = 1, limit = 25) {
+    return this.fetch(`/top/characters?page=${page}&limit=${limit}`);
+  },
+
+  getCharacterDetails(id) {
+    return this.fetch(`/characters/${id}/full`);
+  },
+
+  getSchedule(day = '') {
+    const endpoint = day ? `/schedules?filter=${day}` : '/schedules';
+    return this.fetch(endpoint);
+  },
+
+  getSeasonList() {
+    return this.fetch('/seasons');
+  },
+
+  formatNumber(num) {
+    if (!num) return '0';
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+    return num.toString();
+  },
+
+  formatDate(dateStr) {
+    if (!dateStr) return 'TBA';
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return dateStr;
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  },
+
+  getScoreColor(score) {
+    if (score >= 8) return '#10b981';
+    if (score >= 7) return '#7c3aed';
+    if (score >= 6) return '#f59e0b';
+    return '#ef4444';
+  },
+
+  truncate(str, len = 150) {
+    if (!str) return '';
+    if (str.length <= len) return str;
+    return str.substring(0, len).trim() + '...';
+  },
+
+  escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  },
+
+  debounce(fn, ms = 300) {
+    let timeout;
+    return (...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => fn(...args), ms);
+    };
+  },
+
+  throttle(fn, ms = 100) {
+    let last = 0;
+    return (...args) => {
+      const now = Date.now();
+      if (now - last >= ms) {
+        last = now;
+        fn(...args);
+      }
+    };
+  },
+
+  observeLazyImages() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+            img.classList.add('loaded');
+          }
+          observer.unobserve(img);
+        }
+      });
+    }, { rootMargin: '50px' });
+
+    document.querySelectorAll('img[data-src]').forEach(img => observer.observe(img));
+    return observer;
+  },
+
+  initTooltips() {
+    document.querySelectorAll('[data-tooltip]').forEach(el => {
+      el.addEventListener('mouseenter', (e) => {
+        const tooltip = document.createElement('div');
+        tooltip.className = 'glass tooltip';
+        tooltip.textContent = el.dataset.tooltip;
+        tooltip.style.cssText = 'position:fixed;z-index:9999;padding:8px 12px;border-radius:8px;font-size:0.8rem;pointer-events:none;white-space:nowrap;';
+        document.body.appendChild(tooltip);
+
+        const rect = el.getBoundingClientRect();
+        tooltip.style.left = rect.left + rect.width / 2 - tooltip.offsetWidth / 2 + 'px';
+        tooltip.style.top = rect.top - tooltip.offsetHeight - 8 + 'px';
+
+        el._tooltip = tooltip;
+      });
+
+      el.addEventListener('mouseleave', () => {
+        if (el._tooltip) {
+          el._tooltip.remove();
+          el._tooltip = null;
+        }
+      });
+    });
+  },
+
+  showToast(message, type = 'info', duration = 3000) {
+    const existing = document.querySelector('.nami-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.className = `nami-toast glass ${type}`;
+    toast.innerHTML = `
+      <span class="toast-icon">${type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ'}</span>
+      <span class="toast-message">${this.escapeHtml(message)}</span>
+    `;
+    toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9999;padding:12px 20px;border-radius:12px;display:flex;align-items:center;gap:10px;animation:fadeUp 0.3s ease;max-width:400px;';
+
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.style.animation = 'fadeUp 0.3s ease reverse';
+      setTimeout(() => toast.remove(), 300);
+    }, duration);
+  },
+
+  getLocalProfile() {
+    try {
+      return JSON.parse(localStorage.getItem('nami_profile') || '{}');
+    } catch {
+      return {};
+    }
+  },
+
+  setLocalProfile(data) {
+    localStorage.setItem('nami_profile', JSON.stringify(data));
+  },
+
+  addToHistory(malId, title, image, episode = 1) {
+    const profile = this.getLocalProfile();
+    profile.history = profile.history || [];
+    profile.history = profile.history.filter(h => h.malId !== malId);
+    profile.history.unshift({ malId, title, image, episode, timestamp: Date.now() });
+    profile.history = profile.history.slice(0, 50);
+    this.setLocalProfile(profile);
+  },
+
+  addToFavorites(malId, title, image) {
+    const profile = this.getLocalProfile();
+    profile.favorites = profile.favorites || [];
+    if (!profile.favorites.find(f => f.malId === malId)) {
+      profile.favorites.push({ malId, title, image, added: Date.now() });
+      this.setLocalProfile(profile);
+      this.showToast('Added to favorites', 'success');
+    }
+  },
+
+  removeFromFavorites(malId) {
+    const profile = this.getLocalProfile();
+    profile.favorites = (profile.favorites || []).filter(f => f.malId !== malId);
+    this.setLocalProfile(profile);
+    this.showToast('Removed from favorites', 'info');
+  },
+
+  isFavorite(malId) {
+    const profile = this.getLocalProfile();
+    return (profile.favorites || []).some(f => f.malId === malId);
+  },
+
+  addToWatchlist(malId, title, image) {
+    const profile = this.getLocalProfile();
+    profile.watchlist = profile.watchlist || [];
+    if (!profile.watchlist.find(w => w.malId === malId)) {
+      profile.watchlist.push({ malId, title, image, added: Date.now() });
+      this.setLocalProfile(profile);
+      this.showToast('Added to watchlist', 'success');
+    }
+  },
+
+  getContinueWatching() {
+    const profile = this.getLocalProfile();
+    return (profile.history || []).slice(0, 12);
+  },
+
+  getFavorites() {
+    const profile = this.getLocalProfile();
+    return (profile.favorites || []).slice().reverse();
+  },
+
+  getWatchlist() {
+    const profile = this.getLocalProfile();
+    return (profile.watchlist || []).slice().reverse();
+  }
+};
+
+// Slider/Carousel System
+class NamiSlider {
+  constructor(container, options = {}) {
+    this.container = container;
+    this.track = container.querySelector('.slider-track');
+    this.items = [];
+    this.currentIndex = 0;
+    this.options = {
+      gap: 16,
+      visibleItems: { mobile: 2, tablet: 3, desktop: 5, wide: 6 },
+      autoplay: false,
+      autoplayDelay: 5000,
+      loop: false,
+      ...options
+    };
+    this.isDragging = false;
+    this.startX = 0;
+    this.scrollLeft = 0;
+    this.autoplayTimer = null;
+
+    this.init();
+  }
+
+  init() {
+    if (!this.track) return;
+    this.items = Array.from(this.track.children);
+    if (this.items.length === 0) return;
+
+    this.container.addEventListener('mousedown', this.onMouseDown.bind(this));
+    this.container.addEventListener('mousemove', this.onMouseMove.bind(this));
+    this.container.addEventListener('mouseup', this.onMouseUp.bind(this));
+    this.container.addEventListener('mouseleave', this.onMouseUp.bind(this));
+
+    this.container.addEventListener('touchstart', this.onTouchStart.bind(this), { passive: true });
+    this.container.addEventListener('touchmove', this.onTouchMove.bind(this), { passive: true });
+    this.container.addEventListener('touchend', this.onTouchEnd.bind(this));
+
+    this.container.addEventListener('wheel', this.onWheel.bind(this), { passive: true });
+
+    const prevBtn = this.container.querySelector('.slider-prev');
+    const nextBtn = this.container.querySelector('.slider-next');
+    if (prevBtn) prevBtn.addEventListener('click', () => this.prev());
+    if (nextBtn) nextBtn.addEventListener('click', () => this.next());
+
+    window.addEventListener('resize', NamiTube.throttle(() => this.update(), 200));
+    this.update();
+
+    if (this.options.autoplay) this.startAutoplay();
+  }
+
+  getVisibleCount() {
+    const w = window.innerWidth;
+    if (w >= 1400) return this.options.visibleItems.wide;
+    if (w >= 1024) return this.options.visibleItems.desktop;
+    if (w >= 768) return this.options.visibleItems.tablet;
+    return this.options.visibleItems.mobile;
+  }
+
+  update() {
+    const count = this.getVisibleCount();
+    const width = (this.container.offsetWidth - (count - 1) * this.options.gap) / count;
+    this.items.forEach(item => {
+      item.style.minWidth = `${width}px`;
+      item.style.maxWidth = `${width}px`;
+    });
+  }
+
+  scrollToIndex(index) {
+    const count = this.getVisibleCount();
+    const maxIndex = Math.max(0, this.items.length - count);
+    this.currentIndex = Math.max(0, Math.min(index, maxIndex));
+
+    const item = this.items[this.currentIndex];
+    if (item) {
+      this.track.scrollTo({ left: item.offsetLeft, behavior: 'smooth' });
+    }
+  }
+
+  next() {
+    this.scrollToIndex(this.currentIndex + 1);
+  }
+
+  prev() {
+    this.scrollToIndex(this.currentIndex - 1);
+  }
+
+  onMouseDown(e) {
+    this.isDragging = true;
+    this.startX = e.pageX - this.track.offsetLeft;
+    this.scrollLeft = this.track.scrollLeft;
+    this.track.style.cursor = 'grabbing';
+  }
+
+  onMouseMove(e) {
+    if (!this.isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - this.track.offsetLeft;
+    const walk = (x - this.startX) * 1.5;
+    this.track.scrollLeft = this.scrollLeft - walk;
+  }
+
+  onMouseUp() {
+    this.isDragging = false;
+    this.track.style.cursor = 'grab';
+  }
+
+  onTouchStart(e) {
+    this.startX = e.touches[0].clientX;
+    this.scrollLeft = this.track.scrollLeft;
+  }
+
+  onTouchMove(e) {
+    const x = e.touches[0].clientX;
+    const walk = (x - this.startX) * 1.5;
+    this.track.scrollLeft = this.scrollLeft - walk;
+  }
+
+  onTouchEnd() {
+    // Snap to nearest item
+  }
+
+  onWheel(e) {
+    if (Math.abs(e.deltaY) < Math.abs(e.deltaX) || Math.abs(e.deltaY) > 10) return;
+    e.preventDefault();
+    this.track.scrollLeft += e.deltaY > 0 ? 300 : -300;
+  }
+
+  startAutoplay() {
+    this.autoplayTimer = setInterval(() => {
+      const count = this.getVisibleCount();
+      if (this.currentIndex >= this.items.length - count) {
+        this.scrollToIndex(0);
+      } else {
+        this.next();
+      }
+    }, this.options.autoplayDelay);
+  }
+
+  stopAutoplay() {
+    if (this.autoplayTimer) {
+      clearInterval(this.autoplayTimer);
+      this.autoplayTimer = null;
+    }
+  }
+}
+
+// Command Palette
+class CommandPalette {
+  constructor() {
+    this.isOpen = false;
+    this.selectedIndex = -1;
+    this.results = [];
+    this.init();
+  }
+
+  init() {
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        this.toggle();
+      }
+      if (e.key === 'Escape' && this.isOpen) {
+        this.close();
+      }
+    });
+  }
+
+  toggle() {
+    if (this.isOpen) this.close();
+    else this.open();
+  }
+
+  open() {
+    this.isOpen = true;
+    const existing = document.getElementById('command-palette');
+    if (existing) existing.remove();
+
+    const palette = document.createElement('div');
+    palette.id = 'command-palette';
+    palette.innerHTML = `
+      <div class="palette-overlay" style="position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);animation:fadeIn 0.2s;"></div>
+      <div class="palette-container" style="position:fixed;top:15%;left:50%;transform:translateX(-50%);width:min(640px,90vw);z-index:10001;animation:fadeScale 0.2s;">
+        <div class="glass" style="border-radius:16px;overflow:hidden;border:1px solid var(--border-hover);box-shadow:0 25px 50px rgba(0,0,0,0.5);">
+          <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" placeholder="Search anime, characters, studios..." style="flex:1;background:transparent;border:none;color:var(--text-primary);font-size:1rem;outline:none;" id="palette-input" autocomplete="off">
+            <kbd style="padding:4px 8px;border-radius:6px;background:var(--surface);font-size:0.75rem;color:var(--text-muted);border:1px solid var(--border);">ESC</kbd>
+          </div>
+          <div id="palette-results" style="max-height:400px;overflow-y:auto;padding:8px;"></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:12px 20px;border-top:1px solid var(--border);font-size:0.75rem;color:var(--text-muted);">
+            <span><kbd style="padding:2px 6px;border-radius:4px;background:var(--surface);border:1px solid var(--border);">↑↓</kbd> Navigate</span>
+            <span><kbd style="padding:2px 6px;border-radius:4px;background:var(--surface);border:1px solid var(--border);">Enter</kbd> Select</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(palette);
+
+    const input = document.getElementById('palette-input');
+    input.focus();
+
+    const debouncedSearch = NamiTube.debounce((query) => this.search(query), 300);
+    input.addEventListener('input', (e) => debouncedSearch(e.target.value));
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        this.selectedIndex = Math.min(this.selectedIndex + 1, this.results.length - 1);
+        this.updateSelection();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        this.selectedIndex = Math.max(this.selectedIndex - 1, -1);
+        this.updateSelection();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (this.selectedIndex >= 0 && this.results[this.selectedIndex]) {
+          window.location.href = this.results[this.selectedIndex].url;
+        }
+      }
+    });
+
+    palette.querySelector('.palette-overlay').addEventListener('click', () => this.close());
+  }
+
+  close() {
+    this.isOpen = false;
+    const palette = document.getElementById('command-palette');
+    if (palette) palette.remove();
+  }
+
+  async search(query) {
+    if (!query || query.length < 2) {
+      this.renderResults([]);
+      return;
+    }
+
+    try {
+      const data = await NamiTube.getSearchAnime(query, { limit: 8 });
+      this.results = (data.data || []).map(anime => ({
+        title: anime.title,
+        subtitle: anime.type + (anime.year ? ` • ${anime.year}` : ''),
+        image: anime.images?.jpg?.small_image_url,
+        url: `anime.html?id=${anime.mal_id}`,
+        score: anime.score
+      }));
+      this.selectedIndex = -1;
+      this.renderResults(this.results);
+    } catch (e) {
+      console.error('Search error:', e);
+    }
+  }
+
+  renderResults(results) {
+    const container = document.getElementById('palette-results');
+    if (!container) return;
+
+    if (results.length === 0) {
+      container.innerHTML = '<div style="padding:24px;text-align:center;color:var(--text-muted);">Start typing to search...</div>';
+      return;
+    }
+
+    container.innerHTML = results.map((r, i) => `
+      <a href="${r.url}" class="palette-item ${i === this.selectedIndex ? 'selected' : ''}" style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;text-decoration:none;color:inherit;transition:background 0.15s;">
+        <img src="${r.image || ''}" style="width:40px;height:56px;object-fit:cover;border-radius:6px;background:var(--bg-tertiary);" loading="lazy">
+        <div style="flex:1;min-width:0;">
+          <div style="font-weight:600;font-size:0.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${NamiTube.escapeHtml(r.title)}</div>
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-top:2px;">${r.subtitle}</div>
+        </div>
+        ${r.score ? `<span style="font-weight:700;color:${NamiTube.getScoreColor(r.score)};font-size:0.85rem;">${r.score}</span>` : ''}
+      </a>
+    `).join('');
+
+    container.querySelectorAll('.palette-item').forEach((item, i) => {
+      item.addEventListener('mouseenter', () => {
+        this.selectedIndex = i;
+        this.updateSelection();
+      });
+    });
+  }
+
+  updateSelection() {
+    document.querySelectorAll('.palette-item').forEach((item, i) => {
+      item.style.background = i === this.selectedIndex ? 'var(--surface-hover)' : 'transparent';
+    });
+  }
+}
+
+// Initialize
+let commandPalette;
+document.addEventListener('DOMContentLoaded', () => {
+  NamiTube.observeLazyImages();
+  NamiTube.initTooltips();
+  commandPalette = new CommandPalette();
+
+  // Mobile menu
+  const hamburger = document.querySelector('.hamburger');
+  const sidebar = document.querySelector('.mobile-sidebar');
+  if (hamburger && sidebar) {
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      hamburger.classList.toggle('active');
+      document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+    });
+  }
+
+  // Header scroll effect
+  const header = document.querySelector('.main-header');
+  if (header) {
+    window.addEventListener('scroll', NamiTube.throttle(() => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    }, 50));
+  }
+});
+
 
 // Homepage specific code
-(function() {{
+(function() {
   let heroSlides = [];
   let currentHeroIndex = 0;
   let heroInterval;
   const HERO_DURATION = 6000;
 
-  function createHeroSlide(anime, index) {{
-    const genres = (anime.genres || []).slice(0, 3).map(g => `<span class="badge badge-accent">${{NamiTube.escapeHtml(g.name)}}</span>`).join('');
-    const score = anime.score ? `<div class="score"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>${{anime.score}}</div>` : '';
-    const year = anime.year ? `<span class="meta-item">${{anime.year}}</span>` : '';
-    const episodes = anime.episodes ? `<span class="meta-item">${{anime.episodes}} EPS</span>` : '';
-    const type = anime.type ? `<span class="meta-item">${{anime.type}}</span>` : '';
-    
+  function createHeroSlide(anime, index) {
+    const genres = (anime.genres || []).slice(0, 3).map(g => `<span class="badge badge-accent">${NamiTube.escapeHtml(g.name)}</span>`).join('');
+    const score = anime.score ? `<div class="score"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>${anime.score}</div>` : '';
+    const year = anime.year ? `<span class="meta-item">${anime.year}</span>` : '';
+    const episodes = anime.episodes ? `<span class="meta-item">${anime.episodes} EPS</span>` : '';
+    const type = anime.type ? `<span class="meta-item">${anime.type}</span>` : '';
+
     return `
-      <div class="hero-slide ${{index === 0 ? 'active' : ''}}" data-index="${{index}}">
-        <div class="hero-bg" style="background-image:url('${{anime.images?.jpg?.large_image_url || anime.images?.jpg?.image_url || ''}}')"></div>
+      <div class="hero-slide ${index === 0 ? 'active' : ''}" data-index="${index}">
+        <div class="hero-bg" style="background-image:url('${anime.images?.jpg?.large_image_url || anime.images?.jpg?.image_url || ''}')"></div>
         <div class="hero-gradient"></div>
         <div class="hero-content">
           <div class="hero-badge">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            #${{index + 1}} Top Rated
+            #${index + 1} Top Rated
           </div>
-          <h1 class="hero-title">${{NamiTube.escapeHtml(anime.title)}}</h1>
-          <p class="hero-synopsis">${{NamiTube.truncate(anime.synopsis, 200)}}</p>
+          <h1 class="hero-title">${NamiTube.escapeHtml(anime.title)}</h1>
+          <p class="hero-synopsis">${NamiTube.truncate(anime.synopsis, 200)}</p>
           <div class="hero-meta">
-            ${{score}}
-            ${{type}}
-            ${{year}}
-            ${{episodes}}
+            ${score}
+            ${type}
+            ${year}
+            ${episodes}
           </div>
-          <div class="hero-genres">${{genres}}</div>
+          <div class="hero-genres">${genres}</div>
           <div class="hero-actions">
-            <a href="watch.html?id=${{anime.mal_id}}" class="btn btn-primary">
+            <a href="watch.html?id=${anime.mal_id}" class="btn btn-primary">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
               Watch Now
             </a>
-            <a href="anime.html?id=${{anime.mal_id}}" class="btn btn-secondary">
+            <a href="anime.html?id=${anime.mal_id}" class="btn btn-secondary">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
               Details
             </a>
@@ -1171,123 +2087,123 @@
         </div>
       </div>
     `;
-  }}
+  }
 
-  function createAnimeCard(anime, rank = null) {{
-    const score = anime.score ? `<div class="card-score"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>${{anime.score}}</div>` : '';
-    const badge = anime.type ? `<span class="card-badge badge badge-accent">${{anime.type}}</span>` : '';
-    const rankBadge = rank ? `<span class="card-rank">${{rank}}</span>` : '';
-    
+  function createAnimeCard(anime, rank = null) {
+    const score = anime.score ? `<div class="card-score"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>${anime.score}</div>` : '';
+    const badge = anime.type ? `<span class="card-badge badge badge-accent">${anime.type}</span>` : '';
+    const rankBadge = rank ? `<span class="card-rank">${rank}</span>` : '';
+
     return `
-      <a href="anime.html?id=${{anime.mal_id}}" class="anime-card slider-item">
-        ${{badge}}
-        ${{rankBadge}}
+      <a href="anime.html?id=${anime.mal_id}" class="anime-card slider-item">
+        ${badge}
+        ${rankBadge}
         <div class="card-image">
-          <img data-src="${{anime.images?.jpg?.image_url || anime.images?.jpg?.small_image_url || ''}}" alt="${{NamiTube.escapeHtml(anime.title)}}" loading="lazy">
+          <img data-src="${anime.images?.jpg?.image_url || anime.images?.jpg?.small_image_url || ''}" alt="${NamiTube.escapeHtml(anime.title)}" loading="lazy">
           <div class="card-overlay"></div>
           <div class="play-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
           </div>
         </div>
         <div class="card-content">
-          <div class="card-title">${{NamiTube.escapeHtml(anime.title)}}</div>
+          <div class="card-title">${NamiTube.escapeHtml(anime.title)}</div>
           <div class="card-meta">
-            ${{score}}
-            <span>${{anime.year || 'TBA'}}</span>
+            ${score}
+            <span>${anime.year || 'TBA'}</span>
           </div>
         </div>
       </a>
     `;
-  }}
+  }
 
-  function createContinueItem(item) {{
+  function createContinueItem(item) {
     return `
-      <a href="watch.html?id=${{item.malId}}&ep=${{item.episode}}" class="continue-item">
-        <img src="${{item.image}}" alt="${{NamiTube.escapeHtml(item.title)}}">
+      <a href="watch.html?id=${item.malId}&ep=${item.episode}" class="continue-item">
+        <img src="${item.image}" alt="${NamiTube.escapeHtml(item.title)}">
         <div class="info">
-          <h5>${{NamiTube.escapeHtml(item.title)}}</h5>
-          <span>Episode ${{item.episode}}</span>
-          <div class="progress-bar"><div class="fill" style="width:${{Math.random() * 60 + 20}}%"></div></div>
+          <h5>${NamiTube.escapeHtml(item.title)}</h5>
+          <span>Episode ${item.episode}</span>
+          <div class="progress-bar"><div class="fill" style="width:${Math.random() * 60 + 20}%"></div></div>
         </div>
       </a>
     `;
-  }}
+  }
 
-  function initHero() {{
+  function initHero() {
     const slidesContainer = document.getElementById('hero-slides');
     const indicators = document.getElementById('hero-indicators');
     const nav = document.getElementById('hero-nav');
-    
+
     slidesContainer.innerHTML = heroSlides.map((anime, i) => createHeroSlide(anime, i)).join('');
     indicators.innerHTML = heroSlides.map((_, i) => `
-      <div class="hero-indicator ${{i === 0 ? 'active' : ''}}" data-index="${{i}}">
+      <div class="hero-indicator ${i === 0 ? 'active' : ''}" data-index="${i}">
         <div class="progress"></div>
       </div>
     `).join('');
-    
+
     document.getElementById('hero-loader').style.display = 'none';
     slidesContainer.style.display = 'block';
     indicators.style.display = 'flex';
     nav.style.display = 'flex';
-    
-    // Indicator clicks
-    indicators.querySelectorAll('.hero-indicator').forEach(ind => {{
-      ind.addEventListener('click', () => {{
-        goToHeroSlide(parseInt(ind.dataset.index));
-      }});
-    }});
-    
-    startHeroAutoplay();
-  }}
 
-  function goToHeroSlide(index) {{
+    // Indicator clicks
+    indicators.querySelectorAll('.hero-indicator').forEach(ind => {
+      ind.addEventListener('click', () => {
+        goToHeroSlide(parseInt(ind.dataset.index));
+      });
+    });
+
+    startHeroAutoplay();
+  }
+
+  function goToHeroSlide(index) {
     if (index === currentHeroIndex) return;
-    
+
     const slides = document.querySelectorAll('.hero-slide');
     const indicators = document.querySelectorAll('.hero-indicator');
-    
+
     slides[currentHeroIndex].classList.remove('active');
     indicators[currentHeroIndex].classList.remove('active');
-    
+
     currentHeroIndex = index;
-    
+
     slides[currentHeroIndex].classList.add('active');
     indicators[currentHeroIndex].classList.add('active');
-    
+
     resetHeroAutoplay();
-  }}
+  }
 
-  function nextHeroSlide() {{
+  function nextHeroSlide() {
     goToHeroSlide((currentHeroIndex + 1) % heroSlides.length);
-  }}
+  }
 
-  function prevHeroSlide() {{
+  function prevHeroSlide() {
     goToHeroSlide((currentHeroIndex - 1 + heroSlides.length) % heroSlides.length);
-  }}
+  }
 
-  function startHeroAutoplay() {{
+  function startHeroAutoplay() {
     heroInterval = setInterval(nextHeroSlide, HERO_DURATION);
-  }}
+  }
 
-  function resetHeroAutoplay() {{
+  function resetHeroAutoplay() {
     clearInterval(heroInterval);
     startHeroAutoplay();
-  }}
+  }
 
-  function renderSlider(trackId, animes, rankStart = null) {{
+  function renderSlider(trackId, animes, rankStart = null) {
     const track = document.getElementById(trackId);
     if (!track) return;
-    
-    track.innerHTML = animes.map((anime, i) => createAnimeCard(anime, rankStart ? rankStart + i : null)).join('');
-    
-    // Add skeleton placeholders initially
-    if (animes.length === 0) {{
-      track.innerHTML = Array(6).fill('<div class="skeleton skeleton-card slider-item"></div>').join('');
-    }}
-  }}
 
-  async function loadHomepage() {{
-    try {{
+    track.innerHTML = animes.map((anime, i) => createAnimeCard(anime, rankStart ? rankStart + i : null)).join('');
+
+    // Add skeleton placeholders initially
+    if (animes.length === 0) {
+      track.innerHTML = Array(6).fill('<div class="skeleton skeleton-card slider-item"></div>').join('');
+    }
+  }
+
+  async function loadHomepage() {
+    try {
       // Fetch all data in parallel
       const [topData, airingData, upcomingData, seasonalData] = await Promise.allSettled([
         NamiTube.getTopAnime(1, 25),
@@ -1295,106 +2211,106 @@
         NamiTube.getUpcomingAnime(1, 15),
         NamiTube.getSeasonalAnime(new Date().getFullYear(), getCurrentSeason(), 1, 15)
       ]);
-      
+
       // Hero slides from top anime
       const topAnimes = topData.status === 'fulfilled' ? topData.value.data || [] : [];
       heroSlides = topAnimes.slice(0, 6);
       if (heroSlides.length > 0) initHero();
-      
+
       // Trending (airing)
       const airing = airingData.status === 'fulfilled' ? airingData.value.data || [] : [];
       renderSlider('trending-track', airing.slice(0, 15));
       new NamiSlider(document.getElementById('trending-slider'));
-      
+
       // Editor's Choice (top rated mixed)
       renderSlider('editors-track', topAnimes.slice(6, 21));
       new NamiSlider(document.getElementById('editors-slider'));
-      
+
       // Seasonal
       const seasonal = seasonalData.status === 'fulfilled' ? seasonalData.value.data || [] : [];
       renderSlider('seasonal-track', seasonal.slice(0, 15));
       new NamiSlider(document.getElementById('seasonal-slider'));
-      
+
       // Top Rated
       renderSlider('toprated-track', topAnimes.slice(0, 15), 1);
       new NamiSlider(document.getElementById('toprated-slider'));
-      
+
       // Movies
-      try {{
+      try {
         const moviesData = await NamiTube.fetch('/anime?type=movie&order_by=popularity&sort=desc&limit=15');
         renderSlider('movies-track', moviesData.data || []);
         new NamiSlider(document.getElementById('movies-slider'));
-      }} catch(e) {{ console.error('Movies error:', e); }}
-      
+      } catch(e) { console.error('Movies error:', e); }
+
       // Upcoming
       const upcoming = upcomingData.status === 'fulfilled' ? upcomingData.value.data || [] : [];
       renderSlider('upcoming-track', upcoming.slice(0, 15));
       new NamiSlider(document.getElementById('upcoming-slider'));
-      
+
       // Continue watching
       const history = NamiTube.getContinueWatching();
-      if (history.length > 0) {{
+      if (history.length > 0) {
         document.getElementById('continue-section').style.display = 'block';
         document.getElementById('continue-bar').innerHTML = history.map(createContinueItem).join('');
-      }}
-      
+      }
+
       // Studios
-      try {{
+      try {
         const studiosData = await NamiTube.getStudios(1, 8);
         const studios = studiosData.data || [];
         document.getElementById('studios-grid').innerHTML = studios.map(studio => `
-          <a href="studios.html?id=${{studio.mal_id}}" class="featured-card">
-            <img src="${{studio.images?.jpg?.image_url || ''}}" alt="${{NamiTube.escapeHtml(studio.titles?.[0]?.title || studio.name)}}">
+          <a href="studios.html?id=${studio.mal_id}" class="featured-card">
+            <img src="${studio.images?.jpg?.image_url || ''}" alt="${NamiTube.escapeHtml(studio.titles?.[0]?.title || studio.name)}">
             <div class="info">
-              <h4>${{NamiTube.escapeHtml(studio.titles?.[0]?.title || studio.name)}}</h4>
-              <p>${{NamiTube.truncate(studio.about, 80)}}</p>
-              <span style="color:var(--accent-light);font-size:0.8rem;font-weight:600;">${{studio.count || 0}} titles</span>
+              <h4>${NamiTube.escapeHtml(studio.titles?.[0]?.title || studio.name)}</h4>
+              <p>${NamiTube.truncate(studio.about, 80)}</p>
+              <span style="color:var(--accent-light);font-size:0.8rem;font-weight:600;">${studio.count || 0} titles</span>
             </div>
           </a>
         `).join('');
-      }} catch(e) {{ console.error('Studios error:', e); }}
-      
+      } catch(e) { console.error('Studios error:', e); }
+
       // Re-observe lazy images
       NamiTube.observeLazyImages();
-      
-    }} catch (error) {{
+
+    } catch (error) {
       console.error('Homepage load error:', error);
       document.getElementById('hero-loader').innerHTML = '<p style="color:var(--text-secondary)">Failed to load content. Please refresh.</p>';
-    }}
-  }}
+    }
+  }
 
-  function getCurrentSeason() {{
+  function getCurrentSeason() {
     const month = new Date().getMonth() + 1;
     if (month <= 3) return 'winter';
     if (month <= 6) return 'spring';
     if (month <= 9) return 'summer';
     return 'fall';
-  }}
+  }
 
   // Event listeners
-  document.getElementById('hero-prev')?.addEventListener('click', () => {{
+  document.getElementById('hero-prev')?.addEventListener('click', () => {
     prevHeroSlide();
     resetHeroAutoplay();
-  }});
-  
-  document.getElementById('hero-next')?.addEventListener('click', () => {{
+  });
+
+  document.getElementById('hero-next')?.addEventListener('click', () => {
     nextHeroSlide();
     resetHeroAutoplay();
-  }});
-  
-  document.getElementById('search-trigger')?.addEventListener('click', () => {{
+  });
+
+  document.getElementById('search-trigger')?.addEventListener('click', () => {
     if (window.commandPalette) window.commandPalette.open();
-  }});
-  
-  document.getElementById('sidebar-overlay')?.addEventListener('click', () => {{
+  });
+
+  document.getElementById('sidebar-overlay')?.addEventListener('click', () => {
     document.getElementById('mobile-sidebar').classList.remove('open');
     document.querySelector('.hamburger').classList.remove('active');
     document.body.style.overflow = '';
-  }});
+  });
 
   // Load data
   loadHomepage();
-}})();
+})();
 </script>
 </body>
 </html>
