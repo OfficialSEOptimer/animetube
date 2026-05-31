@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rankings — NamiTube Infinity</title>
+<meta name="description" content="Explore the definitive anime rankings on NamiTube Infinity. Top rated, most popular, most favorited.">
+<link rel="icon" type="image/png" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHE6pMgjbJ6YDLaMAtDUZCs6Zhkvxl0_fQnb0c0ZCmJOYRB_4N8dQ0ZWosBq_sZPK2wFel2E43Z2meo25JL3i7IZYkJ35FZ7lZ_BZfwlWofAKGhF1gWpFsxofeGUr87Peu6s7xtgvJMnrbtNnd4vJPtB7uG3L_wJ9tT8PKRCh-PXSxlyY9Ufn8OAzDY_Y/s320/NamiTube%20Original%20Favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg-void:#030308;--bg-deep:#07070f;--bg-surface:#0d0d1a;--bg-elevated:#141425;--bg-card:#181830;--accent-violet:#7c3aed;--accent-purple:#9333ea;--accent-neon:#a855f7;--accent-glow:#c084fc;--text-primary:#f8f8ff;--text-secondary:#a8a8c8;--text-muted:#5a5a7a;--text-dim:#3a3a55;--border-subtle:rgba(124,58,237,0.15);--border-glass:rgba(255,255,255,0.06);--shadow-card:0 8px 32px rgba(0,0,0,0.6);--radius-sm:8px;--radius-md:12px;--radius-lg:20px;--header-height:70px;--transition-fast:0.15s cubic-bezier(0.4,0,0.2,1);--transition-smooth:0.3s cubic-bezier(0.4,0,0.2,1);--transition-spring:0.5s cubic-bezier(0.34,1.56,0.64,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Outfit',sans-serif;background:var(--bg-void);color:var(--text-primary);overflow-x:hidden;max-width:100%;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(124,58,237,0.4);color:#fff}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg-deep)}::-webkit-scrollbar-thumb{background:var(--accent-violet);border-radius:2px}
+#site-header{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--header-height);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2.5rem);background:rgba(3,3,8,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-subtle);transition:all var(--transition-smooth)}
+.header-left{display:flex;align-items:center;gap:1rem}
+.hamburger-btn{width:40px;height:40px;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;border-radius:var(--radius-sm)}
+.hamburger-btn span{display:block;width:22px;height:2px;background:var(--text-primary);border-radius:1px}
+.header-logo img{height:36px;filter:drop-shadow(0 0 12px rgba(168,85,247,0.5))}
+.header-center{position:absolute;left:50%;transform:translateX(-50%)}
+.desktop-nav{display:flex;align-items:center;gap:.25rem}
+.desktop-nav a{padding:.5rem .75rem;border-radius:var(--radius-sm);color:var(--text-secondary);text-decoration:none;font-size:.85rem;font-weight:500;transition:all var(--transition-fast);white-space:nowrap}
+.desktop-nav a:hover,.desktop-nav a.active{color:var(--text-primary);background:var(--bg-elevated)}
+.desktop-nav a.active{color:var(--accent-neon)}
+.header-right{display:flex;align-items:center;gap:.75rem}
+.icon-btn{width:40px;height:40px;background:none;border:1px solid var(--border-glass);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:all var(--transition-fast);text-decoration:none}
+.icon-btn:hover{border-color:var(--accent-violet);color:var(--text-primary);background:var(--bg-elevated)}
+.icon-btn svg{width:18px;height:18px}
+#mobile-sidebar{position:fixed;top:0;left:0;bottom:0;width:min(320px,85vw);background:rgba(7,7,15,0.97);backdrop-filter:blur(30px);border-right:1px solid var(--border-subtle);z-index:2000;transform:translateX(-100%);transition:transform var(--transition-spring);display:flex;flex-direction:column;padding:2rem 1.5rem;gap:.5rem}
+#mobile-sidebar.open{transform:translateX(0)}
+.sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:1999;opacity:0;pointer-events:none;transition:opacity var(--transition-smooth)}
+.sidebar-overlay.visible{opacity:1;pointer-events:all}
+.sidebar-close{position:absolute;top:1rem;right:1rem;background:var(--bg-elevated);border:none;cursor:pointer;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--text-secondary)}
+.sidebar-logo{display:flex;align-items:center;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border-subtle)}
+.sidebar-logo img{height:30px;filter:drop-shadow(0 0 10px rgba(168,85,247,0.5))}
+.sidebar-nav-link{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border-radius:var(--radius-md);color:var(--text-secondary);text-decoration:none;font-size:.95rem;font-weight:500;transition:all var(--transition-fast)}
+.sidebar-nav-link:hover,.sidebar-nav-link.active{color:var(--text-primary);background:var(--bg-elevated)}
+.sidebar-nav-link.active{color:var(--accent-neon)}
+.sidebar-nav-link svg{width:20px;height:20px;flex-shrink:0}
+
+/* PAGE HERO */
+.page-hero{padding:calc(var(--header-height) + 3rem) clamp(1rem,4vw,2.5rem) 2.5rem;background:linear-gradient(135deg,rgba(124,58,237,0.1) 0%,transparent 60%);border-bottom:1px solid var(--border-subtle)}
+.page-hero-eyebrow{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--accent-neon);margin-bottom:.75rem}
+.page-hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:700;margin-bottom:.75rem;line-height:1.1}
+.page-hero-sub{color:var(--text-muted);font-size:1rem;max-width:500px;line-height:1.6}
+
+/* RANKING TABS */
+.rank-tabs{display:flex;gap:0;border-bottom:1px solid var(--border-subtle);overflow-x:auto;scrollbar-width:none;padding:0 clamp(1rem,4vw,2.5rem)}
+.rank-tabs::-webkit-scrollbar{display:none}
+.rank-tab{padding:.875rem 1.5rem;background:none;border:none;border-bottom:3px solid transparent;color:var(--text-muted);font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all var(--transition-fast);margin-bottom:-1px;letter-spacing:.02em}
+.rank-tab.active{color:var(--accent-neon);border-bottom-color:var(--accent-neon)}
+.rank-tab:hover:not(.active){color:var(--text-primary)}
+
+/* MAIN LAYOUT */
+.rankings-main{padding:0 clamp(1rem,4vw,2.5rem);margin-top:2rem}
+.rankings-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+@media(max-width:900px){.rankings-grid{grid-template-columns:1fr}}
+
+/* RANK LIST */
+.rank-list{display:flex;flex-direction:column;gap:.5rem}
+.rank-item{display:flex;align-items:center;gap:1rem;padding:1rem;border-radius:var(--radius-md);background:var(--bg-card);border:1px solid transparent;cursor:pointer;text-decoration:none;color:inherit;transition:all var(--transition-smooth)}
+.rank-item:hover{border-color:var(--border-subtle);background:var(--bg-elevated);transform:translateX(4px)}
+.rank-item.rank-top-3{background:linear-gradient(135deg,rgba(124,58,237,0.08),var(--bg-card))}
+.rank-num{width:44px;flex-shrink:0;text-align:center}
+.rank-num-badge{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:900}
+.rank-1 .rank-num-badge{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#000}
+.rank-2 .rank-num-badge{background:linear-gradient(135deg,#94a3b8,#cbd5e1);color:#000}
+.rank-3 .rank-num-badge{background:linear-gradient(135deg,#b45309,#d97706);color:#000}
+.rank-n .rank-num-badge{background:var(--bg-elevated);color:var(--text-muted);font-size:.8rem}
+.rank-thumb{width:52px;height:74px;object-fit:cover;border-radius:var(--radius-sm);flex-shrink:0;border:1px solid var(--border-glass)}
+.rank-info{flex:1;min-width:0}
+.rank-title{font-size:.92rem;font-weight:700;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:.35rem}
+.rank-meta{font-size:.75rem;color:var(--text-muted);display:flex;gap:.5rem;flex-wrap:wrap}
+.rank-genres{font-size:.7rem;color:var(--accent-glow)}
+.rank-stat{flex-shrink:0;text-align:right}
+.rank-score{font-size:1rem;font-weight:800;color:#fbbf24}
+.rank-score-label{font-size:.65rem;color:var(--text-muted);text-align:center}
+
+/* CHART */
+.chart-container{background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-glass);padding:1.5rem;margin-bottom:2rem}
+.chart-title{font-size:.95rem;font-weight:700;margin-bottom:1.25rem;display:flex;align-items:center;gap:.5rem}
+.chart-title::before{content:'';display:block;width:3px;height:1em;background:var(--accent-violet);border-radius:2px}
+.chart-bars{display:flex;flex-direction:column;gap:.75rem}
+.chart-bar-row{display:flex;align-items:center;gap.75rem;gap:.75rem}
+.chart-bar-label{width:100px;font-size:.78rem;font-weight:600;color:var(--text-secondary);flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chart-bar-track{flex:1;height:28px;background:var(--bg-elevated);border-radius:6px;overflow:hidden;position:relative}
+.chart-bar-fill{height:100%;border-radius:6px;background:linear-gradient(to right,var(--accent-violet),var(--accent-neon));transition:width 1.2s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;padding-left:.75rem;min-width:40px}
+.chart-bar-val{font-size:.72rem;font-weight:700;color:rgba(255,255,255,0.9)}
+
+/* TOP CARD HERO */
+.top-card-hero{background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-glass);overflow:hidden;position:relative;margin-bottom:2rem}
+.top-card-bg{height:200px;background-size:cover;background-position:center;position:relative}
+.top-card-bg-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--bg-card) 0%,transparent 60%)}
+.top-card-content{padding:0 1.5rem 1.5rem;display:flex;gap:1rem;align-items:flex-end;margin-top:-60px;position:relative}
+.top-card-poster{width:100px;height:140px;object-fit:cover;border-radius:var(--radius-md);border:3px solid var(--bg-card);flex-shrink:0;box-shadow:0 8px 24px rgba(0,0,0,0.5)}
+.top-card-info{flex:1;min-width:0}
+.top-card-crown{font-size:1.5rem;margin-bottom:.25rem}
+.top-card-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;line-height:1.2;margin-bottom:.35rem}
+.top-card-meta{font-size:.8rem;color:var(--text-muted);margin-bottom:.5rem}
+.top-card-score{font-size:1.6rem;font-weight:900;color:#fbbf24}
+.top-card-actions{display:flex;gap:.5rem;margin-top:.75rem}
+.tc-btn{display:flex;align-items:center;gap:.4rem;padding:.45rem 1rem;border-radius:50px;font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;transition:all var(--transition-fast);text-decoration:none}
+.tc-btn.primary{background:var(--accent-violet);color:#fff;border:none}
+.tc-btn.secondary{background:var(--bg-elevated);color:var(--text-secondary);border:1px solid var(--border-glass)}
+.tc-btn svg{width:13px;height:13px}
+
+/* SKELETON */
+.skeleton{background:linear-gradient(90deg,var(--bg-card) 25%,var(--bg-elevated) 50%,var(--bg-card) 75%);background-size:200% 100%;animation:skeleton-wave 1.5s infinite;border-radius:var(--radius-md)}
+@keyframes skeleton-wave{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.skel-rank-item{height:90px;margin-bottom:.5rem}
+
+/* TAB PANELS */
+.rank-panel{display:none}
+.rank-panel.active{display:block}
+
+/* FOOTER */
+#site-footer{background:var(--bg-deep);border-top:1px solid var(--border-subtle);padding:clamp(2rem,4vw,3rem) clamp(1rem,4vw,2.5rem) 1.5rem;margin-top:4rem}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-top:1.5rem;border-top:1px solid var(--border-subtle)}
+.footer-copyright{font-size:.75rem;color:var(--text-dim)}
+.footer-disclaimer{font-size:.7rem;color:var(--text-dim);max-width:500px;text-align:right}
+@media(max-width:768px){.desktop-nav{display:none}.header-center{position:static;transform:none}.footer-disclaimer{text-align:left}}
+@media(min-width:769px){.hamburger-btn{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+</style>
+</head>
+<body>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+<aside id="mobile-sidebar">
+  <button class="sidebar-close" id="sidebar-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  <div class="sidebar-logo"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube"></div>
+  <a href="index.html" class="sidebar-nav-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</a>
+  <a href="discover.html" class="sidebar-nav-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>Discover</a>
+  <a href="rankings.html" class="sidebar-nav-link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>Rankings</a>
+  <a href="releases.html" class="sidebar-nav-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Releases</a>
+  <a href="profile.html" class="sidebar-nav-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</a>
+</aside>
+
+<header id="site-header">
+  <div class="header-left">
+    <button class="hamburger-btn" id="hamburger-btn"><span></span><span></span><span></span></button>
+    <a href="index.html" class="header-logo"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube Infinity"></a>
+  </div>
+  <nav class="header-center"><div class="desktop-nav">
+    <a href="index.html">Home</a><a href="discover.html">Discover</a><a href="collections.html">Collections</a><a href="studios.html">Studios</a><a href="characters.html">Characters</a><a href="rankings.html" class="active">Rankings</a><a href="releases.html">Releases</a><a href="vault.html">Vault</a><a href="community.html">Community</a><a href="news.html">News</a>
+  </div></nav>
+  <div class="header-right">
+    <a href="search.html" class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></a>
+    <a href="profile.html" class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="page-hero-eyebrow">Intelligence Dashboard</div>
+  <h1 class="page-hero-title">Anime Rankings</h1>
+  <p class="page-hero-sub">The definitive hierarchy of anime excellence, powered by millions of community scores and data points.</p>
+</div>
+
+<div class="rank-tabs">
+  <button class="rank-tab active" data-panel="top-rated">⭐ Top Rated</button>
+  <button class="rank-tab" data-panel="most-popular">🔥 Most Popular</button>
+  <button class="rank-tab" data-panel="most-favorited">♥ Most Favorited</button>
+  <button class="rank-tab" data-panel="airing">📡 Airing Now</button>
+  <button class="rank-tab" data-panel="upcoming">🚀 Upcoming</button>
+  <button class="rank-tab" data-panel="movies">🎬 Movies</button>
+</div>
+
+<div class="rankings-main">
+
+  <!-- TOP RATED PANEL -->
+  <div class="rank-panel active" id="panel-top-rated">
+    <div class="rankings-grid">
+      <div>
+        <div id="top-hero-card"></div>
+        <div class="rank-list" id="rank-list-top"></div>
+      </div>
+      <div>
+        <div class="chart-container">
+          <div class="chart-title">Score Distribution</div>
+          <div class="chart-bars" id="chart-top"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOST POPULAR PANEL -->
+  <div class="rank-panel" id="panel-most-popular">
+    <div class="rankings-grid">
+      <div>
+        <div id="pop-hero-card"></div>
+        <div class="rank-list" id="rank-list-pop"></div>
+      </div>
+      <div>
+        <div class="chart-container">
+          <div class="chart-title">Members Count</div>
+          <div class="chart-bars" id="chart-pop"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOST FAVORITED -->
+  <div class="rank-panel" id="panel-most-favorited">
+    <div class="rankings-grid">
+      <div>
+        <div id="fav-hero-card"></div>
+        <div class="rank-list" id="rank-list-fav"></div>
+      </div>
+      <div>
+        <div class="chart-container">
+          <div class="chart-title">Favorites Count</div>
+          <div class="chart-bars" id="chart-fav"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AIRING -->
+  <div class="rank-panel" id="panel-airing">
+    <div class="rank-list" id="rank-list-airing" style="max-width:700px"></div>
+  </div>
+
+  <!-- UPCOMING -->
+  <div class="rank-panel" id="panel-upcoming">
+    <div class="rank-list" id="rank-list-upcoming" style="max-width:700px"></div>
+  </div>
+
+  <!-- MOVIES -->
+  <div class="rank-panel" id="panel-movies">
+    <div class="rankings-grid">
+      <div>
+        <div id="movie-hero-card"></div>
+        <div class="rank-list" id="rank-list-movies"></div>
+      </div>
+      <div>
+        <div class="chart-container">
+          <div class="chart-title">Movie Score Leaders</div>
+          <div class="chart-bars" id="chart-movies"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer id="site-footer">
+  <div class="footer-bottom">
+    <div class="footer-copyright">© 2025 NamiTube Infinity. Powered by Jikan API & MyAnimeList.</div>
+    <div class="footer-disclaimer">This site does not store any files on its server. All contents are provided by non-affiliated third parties.</div>
+  </div>
+</footer>
+
+<script>
+const JIKAN='https://api.jikan.moe/v4';
+const cache=new Map(),pending=new Map();
+async function jikanFetch(ep,retries=3){
+  if(cache.has(ep))return cache.get(ep);
+  if(pending.has(ep))return pending.get(ep);
+  const p=(async()=>{for(let i=0;i<retries;i++){try{const c=new AbortController(),t=setTimeout(()=>c.abort(),10000);const r=await fetch(JIKAN+ep,{signal:c.signal});clearTimeout(t);if(r.status===429){await sleep(1500*(i+1));continue}if(!r.ok)throw new Error('HTTP '+r.status);const d=await r.json();cache.set(ep,d);pending.delete(ep);return d}catch(e){if(i===retries-1){pending.delete(ep);throw e}await sleep(1000*(i+1))}}})();
+  pending.set(ep,p);return p;
+}
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+function safeImg(u){return u||'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="52" height="74"><rect fill="%23141425" width="52" height="74"/></svg>'}
+function fmtNum(n){if(!n)return'0';if(n>=1000000)return(n/1000000).toFixed(1)+'M';if(n>=1000)return(n/1000).toFixed(0)+'K';return n.toString()}
+
+// TABS
+const loadedPanels=new Set(['top-rated']);
+document.querySelectorAll('.rank-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.rank-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.rank-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    const panel=tab.dataset.panel;
+    document.getElementById('panel-'+panel).classList.add('active');
+    if(!loadedPanels.has(panel)){loadedPanels.add(panel);loadPanel(panel)}
+  });
+});
+
+// PANEL LOADERS
+async function loadPanel(panel){
+  const endpointMap={
+    'top-rated':'/top/anime?limit=25&filter=byrating',
+    'most-popular':'/top/anime?limit=25&filter=bypopularity',
+    'most-favorited':'/top/anime?limit=25&filter=favorite',
+    'airing':'/top/anime?limit=25&filter=airing',
+    'upcoming':'/top/anime?limit=25&filter=upcoming',
+    'movies':'/top/anime?limit=25&type=movie'
+  };
+  try{
+    const data=await jikanFetch(endpointMap[panel]);
+    const results=data.data||[];
+    if(!results.length)return;
+    const listId={'top-rated':'rank-list-top','most-popular':'rank-list-pop','most-favorited':'rank-list-fav','airing':'rank-list-airing','upcoming':'rank-list-upcoming','movies':'rank-list-movies'}[panel];
+    const heroId={'top-rated':'top-hero-card','most-popular':'pop-hero-card','most-favorited':'fav-hero-card','movies':'movie-hero-card'}[panel];
+    const chartId={'top-rated':'chart-top','most-popular':'chart-pop','most-favorited':'chart-fav','movies':'chart-movies'}[panel];
+    const statKey={'top-rated':'score','most-popular':'members','most-favorited':'favorites','movies':'score'}[panel]||'score';
+    
+    if(heroId)buildHeroCard(results[0],heroId);
+    buildRankList(results.slice(heroId?1:0,heroId?26:25),listId);
+    if(chartId)buildChart(results.slice(0,10),chartId,statKey);
+  }catch(e){console.error('Panel load failed:',panel,e)}
+}
+
+function buildHeroCard(a,containerId){
+  const container=document.getElementById(containerId);
+  if(!container)return;
+  const bg=a.images?.jpg?.large_image_url||a.images?.webp?.large_image_url||'';
+  const img=a.images?.webp?.image_url||a.images?.jpg?.image_url||'';
+  const title=a.title_english||a.title||'Unknown';
+  container.innerHTML=`<div class="top-card-hero">
+    <div class="top-card-bg" style="background-image:url('${bg}')">
+      <div class="top-card-bg-overlay"></div>
+    </div>
+    <div class="top-card-content">
+      <img class="top-card-poster" src="${safeImg(img)}" alt="${title}" loading="lazy">
+      <div class="top-card-info">
+        <div class="top-card-crown">👑</div>
+        <div class="top-card-title">${title}</div>
+        <div class="top-card-meta">${[a.type,a.year,(a.genres||[]).slice(0,2).map(g=>g.name).join(', ')].filter(Boolean).join(' · ')}</div>
+        <div class="top-card-score">${a.score?`★ ${a.score}`:a.members?fmtNum(a.members)+' members':a.favorites?fmtNum(a.favorites)+' fav':''}</div>
+        <div class="top-card-actions">
+          <a href="watch.html?id=${a.mal_id}&ep=1" class="tc-btn primary"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>Watch</a>
+          <a href="anime.html?id=${a.mal_id}" class="tc-btn secondary">Details</a>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function buildRankList(results,listId){
+  const container=document.getElementById(listId);
+  if(!container)return;
+  container.innerHTML=results.map((a,i)=>{
+    const rank=i+2; // hero takes #1
+    const actualRank=a.rank||rank;
+    const img=safeImg(a.images?.webp?.image_url||a.images?.jpg?.image_url);
+    const title=a.title_english||a.title||'Unknown';
+    const rankClass=actualRank===1?'rank-1':actualRank===2?'rank-2':actualRank===3?'rank-3':'rank-n';
+    const meta=[a.type,a.year,a.episodes?`${a.episodes} eps`:null].filter(Boolean).join(' · ');
+    return `<a href="anime.html?id=${a.mal_id}" class="rank-item ${actualRank<=3?'rank-top-3':''} ${rankClass}">
+      <div class="rank-num"><div class="rank-num-badge">${actualRank}</div></div>
+      <img class="rank-thumb" src="${img}" alt="${title}" loading="lazy">
+      <div class="rank-info">
+        <div class="rank-title">${title}</div>
+        <div class="rank-meta">${meta}</div>
+        <div class="rank-genres">${(a.genres||[]).slice(0,3).map(g=>g.name).join(' · ')}</div>
+      </div>
+      <div class="rank-stat">
+        <div class="rank-score">${a.score?`★ ${a.score.toFixed(1)}`:a.members?fmtNum(a.members):a.favorites?fmtNum(a.favorites)+' ♥':''}</div>
+        <div class="rank-score-label">${a.score?'Score':a.members?'Members':'Favorites'}</div>
+      </div>
+    </a>`;
+  }).join('');
+}
+
+function buildChart(results,chartId,statKey){
+  const container=document.getElementById(chartId);
+  if(!container)return;
+  const maxVal=Math.max(...results.map(a=>a[statKey]||0));
+  if(!maxVal)return;
+  container.innerHTML=results.map(a=>{
+    const val=a[statKey]||0;
+    const pct=Math.max(8,(val/maxVal*100)).toFixed(1);
+    const title=(a.title_english||a.title||'').slice(0,18);
+    return `<div class="chart-bar-row">
+      <div class="chart-bar-label" title="${a.title_english||a.title}">${title}</div>
+      <div class="chart-bar-track">
+        <div class="chart-bar-fill" style="width:${pct}%">
+          <span class="chart-bar-val">${statKey==='score'?val.toFixed(1):fmtNum(val)}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// HEADER
+const hdr=document.getElementById('site-header');
+window.addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>50),{passive:true});
+document.getElementById('hamburger-btn').addEventListener('click',()=>{document.getElementById('mobile-sidebar').classList.add('open');document.getElementById('sidebar-overlay').classList.add('visible');document.body.style.overflow='hidden'});
+document.getElementById('sidebar-close').addEventListener('click',()=>{document.getElementById('mobile-sidebar').classList.remove('open');document.getElementById('sidebar-overlay').classList.remove('visible');document.body.style.overflow=''});
+document.getElementById('sidebar-overlay').addEventListener('click',()=>{document.getElementById('mobile-sidebar').classList.remove('open');document.getElementById('sidebar-overlay').classList.remove('visible');document.body.style.overflow=''});
+
+// INIT
+loadPanel('top-rated');
+</script>
+</body>
+</html>
