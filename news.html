@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anime News — NamiTube Infinity</title>
+<meta name="description" content="Latest anime news, release announcements, industry updates and more on NamiTube Infinity.">
+<link rel="canonical" href="https://namitube.pages.dev/news.html">
+<meta property="og:title" content="Anime News — NamiTube Infinity">
+<meta property="og:description" content="Stay updated with the latest anime news, releases, and industry updates.">
+<link rel="icon" type="image/png" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHE6pMgjbJ6YDLaMAtDUZCs6Zhkvxl0_fQnb0c0ZCmJOYRB_4N8dQ0ZWosBq_sZPK2wFel2E43Z2meo25JL3i7IZYkJ35FZ7lZ_BZfwlWofAKGhF1gWpFsxofeGUr87Peu6s7xtgvJMnrbtNnd4vJPtB7uG3L_wJ9tT8PKRCh-PXSxlyY9Ufn8OAzDY_Y/s320/NamiTube%20Original%20Favicon.png">
+<style>
+:root{--black:#000;--black-1:#0a0a0f;--black-2:#0f0f1a;--black-3:#13131f;--black-4:#1a1a2e;--violet-mid:#3d1a6e;--violet-bright:#7c3aed;--violet-neon:#a855f7;--violet-glow:#c084fc;--violet-soft:#e9d5ff;--white:#fff;--white-90:rgba(255,255,255,.9);--white-70:rgba(255,255,255,.7);--white-50:rgba(255,255,255,.5);--white-30:rgba(255,255,255,.3);--white-10:rgba(255,255,255,.1);--white-05:rgba(255,255,255,.05);--glass-bg:rgba(15,15,26,.7);--glass-border:rgba(124,58,237,.2);--glass-blur:blur(20px);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;--radius-full:9999px;--shadow-card:0 8px 32px rgba(0,0,0,.6);--transition-fast:.15s cubic-bezier(.4,0,.2,1);--transition-base:.3s cubic-bezier(.4,0,.2,1);--header-h:70px;--font-sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden;max-width:100%;background:var(--black-1);color:var(--white);font-family:var(--font-sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;border:none;background:none;color:inherit;font:inherit}
+:focus-visible{outline:2px solid var(--violet-neon);outline-offset:3px;border-radius:4px}
+::selection{background:rgba(168,85,247,.35)}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--black-2)}
+::-webkit-scrollbar-thumb{background:var(--violet-mid);border-radius:3px}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+#site-header{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--header-h);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,4vw,48px);background:var(--glass-bg);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-bottom:1px solid var(--glass-border);transition:background var(--transition-base)}
+#site-header.scrolled{background:rgba(10,10,15,.92);box-shadow:0 4px 32px rgba(0,0,0,.5)}
+.header-left,.header-right{display:flex;align-items:center;gap:12px}
+.header-center{display:flex;align-items:center}
+.hamburger-btn{width:44px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border-radius:var(--radius-sm);transition:background var(--transition-fast)}
+.hamburger-btn:hover{background:var(--white-10)}
+.hamburger-btn span{display:block;width:22px;height:2px;background:var(--white-90);border-radius:2px;transition:transform var(--transition-base),opacity var(--transition-base)}
+.hamburger-btn.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger-btn.active span:nth-child(2){opacity:0}
+.hamburger-btn.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.logo-link img{height:36px;width:auto}
+.main-nav{display:flex;align-items:center;gap:4px}
+.main-nav a{padding:8px 16px;border-radius:var(--radius-full);font-size:.875rem;font-weight:500;color:var(--white-70);transition:all var(--transition-fast)}
+.main-nav a:hover,.main-nav a.active{color:var(--white);background:rgba(124,58,237,.2)}
+.icon-btn{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-full);color:var(--white-70);transition:all var(--transition-fast)}
+.icon-btn:hover{color:var(--white);background:var(--white-10)}
+.icon-btn svg{width:20px;height:20px}
+#sidebar-overlay{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity var(--transition-base)}
+#sidebar-overlay.open{opacity:1;pointer-events:all}
+#sidebar{position:fixed;top:0;left:0;bottom:0;z-index:1101;width:min(320px,85vw);background:var(--black-2);border-right:1px solid var(--glass-border);padding:24px 0;transform:translateX(-100%);transition:transform var(--transition-base);overflow-y:auto;display:flex;flex-direction:column}
+#sidebar.open{transform:translateX(0)}
+.sidebar-header{display:flex;align-items:center;justify-content:space-between;padding:0 24px 24px;border-bottom:1px solid var(--white-10)}
+.sidebar-close{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-full);color:var(--white-70);transition:all var(--transition-fast)}
+.sidebar-close:hover{color:var(--white);background:var(--white-10)}
+.sidebar-nav{padding:16px 0;flex:1}
+.sidebar-nav a{display:flex;align-items:center;gap:14px;padding:14px 24px;font-size:1rem;font-weight:500;color:var(--white-70);transition:all var(--transition-fast)}
+.sidebar-nav a:hover{color:var(--white);background:var(--white-05)}
+.sidebar-nav a.active{color:var(--violet-glow);background:rgba(124,58,237,.1)}
+.sidebar-nav a svg{width:20px;height:20px}
+.sidebar-divider{height:1px;background:var(--white-10);margin:8px 24px}
+#toast-container{position:fixed;bottom:24px;right:24px;z-index:2000;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.toast{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--black-2);border:1px solid var(--glass-border);border-radius:var(--radius-md);font-size:.875rem;font-weight:500;transform:translateX(120%);transition:transform var(--transition-base);pointer-events:all;max-width:340px}
+.toast.show{transform:translateX(0)}
+.toast-icon{width:18px;height:18px;flex-shrink:0}
+.toast.info{border-color:rgba(124,58,237,.4)}.toast.info .toast-icon{color:var(--violet-neon)}
+#site-footer{background:var(--black);border-top:1px solid rgba(124,58,237,.15);padding:clamp(40px,6vw,80px) clamp(16px,4vw,48px) clamp(24px,4vw,40px);text-align:center;position:relative;overflow:hidden}
+#site-footer::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:160px;background:radial-gradient(ellipse,rgba(124,58,237,.15) 0%,transparent 70%);pointer-events:none}
+.footer-logo{display:inline-flex;margin-bottom:20px}
+.footer-logo img{height:40px}
+.footer-manifesto{max-width:520px;margin:0 auto 28px;font-size:clamp(.85rem,2vw,.95rem);line-height:1.7;color:var(--white-50);font-style:italic}
+.footer-socials{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:28px}
+.social-link{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-full);border:1px solid var(--white-10);color:var(--white-50);transition:all var(--transition-base)}
+.social-link:hover{color:var(--violet-glow);border-color:rgba(168,85,247,.5);background:rgba(124,58,237,.1)}
+.social-link svg{width:18px;height:18px}
+.footer-disclaimer{font-size:.75rem;color:var(--white-30);max-width:600px;margin:0 auto 16px;line-height:1.6}
+.footer-copyright{font-size:.75rem;color:var(--white-20)}
+.footer-copyright span{color:var(--violet-glow)}
+
+/* NEWS PAGE */
+.news-page{padding-top:var(--header-h);min-height:100vh}
+.news-hero{
+  position:relative;height:clamp(300px,40vw,480px);overflow:hidden;
+  background:var(--black-4);cursor:pointer;
+}
+.news-hero-bg{width:100%;height:100%;object-fit:cover;transition:transform var(--transition-slow)}
+.news-hero:hover .news-hero-bg{transform:scale(1.03)}
+.news-hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,10,15,.95) 0%,rgba(10,10,15,.5) 50%,rgba(10,10,15,.2) 100%),
+             linear-gradient(to right,rgba(10,10,15,.6) 0%,transparent 60%);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:clamp(24px,5vw,60px);
+}
+.news-hero-category{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:var(--radius-full);background:rgba(124,58,237,.3);border:1px solid rgba(168,85,247,.4);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--violet-glow);margin-bottom:12px}
+.news-hero-title{font-size:clamp(1.2rem,4vw,2.2rem);font-weight:800;letter-spacing:-.02em;max-width:700px;line-height:1.2;margin-bottom:12px}
+.news-hero-excerpt{font-size:clamp(.8rem,1.8vw,.95rem);color:var(--white-70);max-width:520px;line-height:1.6;margin-bottom:16px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.news-hero-meta{display:flex;align-items:center;gap:12px;font-size:.8rem;color:var(--white-50)}
+.news-layout{
+  display:grid;grid-template-columns:1fr 320px;gap:0;
+  max-width:1400px;margin:0 auto;
+}
+@media(max-width:1000px){.news-layout{grid-template-columns:1fr}}
+.news-main{padding:clamp(24px,4vw,40px) clamp(16px,4vw,48px) clamp(40px,6vw,80px)}
+.news-sidebar{padding:clamp(24px,4vw,40px) 24px clamp(40px,6vw,80px);border-left:1px solid var(--white-05)}
+@media(max-width:1000px){.news-sidebar{border-left:none;border-top:1px solid var(--white-05)}}
+.news-section-title{font-size:clamp(1rem,2vw,1.2rem);font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.news-section-title::before{content:'';display:block;width:3px;height:1em;background:linear-gradient(to bottom,var(--violet-bright),var(--violet-neon));border-radius:2px}
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(240px,28vw,320px),1fr));gap:clamp(12px,2vw,20px);margin-bottom:32px}
+.news-card{
+  border-radius:var(--radius-xl);overflow:hidden;background:var(--black-3);
+  border:1px solid var(--white-05);cursor:pointer;
+  transition:all var(--transition-base);
+}
+.news-card:hover{transform:translateY(-6px);border-color:rgba(168,85,247,.3);box-shadow:0 20px 48px rgba(0,0,0,.6)}
+.news-card-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--black-4)}
+.news-card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform var(--transition-slow)}
+.news-card:hover .news-card-thumb img{transform:scale(1.06)}
+.news-card-category{position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:var(--radius-full);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;backdrop-filter:blur(8px)}
+.cat-release{background:rgba(16,185,129,.2);border:1px solid rgba(16,185,129,.4);color:#6ee7b7}
+.cat-industry{background:rgba(59,130,246,.2);border:1px solid rgba(59,130,246,.4);color:#93c5fd}
+.cat-trending{background:rgba(245,158,11,.2);border:1px solid rgba(245,158,11,.4);color:#fcd34d}
+.cat-review{background:rgba(168,85,247,.2);border:1px solid rgba(168,85,247,.4);color:var(--violet-glow)}
+.cat-event{background:rgba(236,72,153,.2);border:1px solid rgba(236,72,153,.4);color:#f9a8d4}
+.news-card-body{padding:16px 18px 20px}
+.news-card-title{font-size:.95rem;font-weight:700;line-height:1.4;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.news-card-excerpt{font-size:.8rem;color:var(--white-50);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:12px}
+.news-card-meta{display:flex;align-items:center;justify-content:space-between;font-size:.75rem;color:var(--white-30)}
+.news-card-read-time{display:flex;align-items:center;gap:4px}
+.news-card-read-time svg{width:12px;height:12px}
+/* Compact list */
+.news-list-item{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:14px 0;border-bottom:1px solid var(--white-05);
+  cursor:pointer;transition:all var(--transition-fast);
+}
+.news-list-item:last-child{border-bottom:none}
+.news-list-item:hover .news-list-title{color:var(--violet-glow)}
+.news-list-thumb{width:80px;height:52px;border-radius:var(--radius-sm);object-fit:cover;flex-shrink:0;background:var(--black-4)}
+.news-list-info{flex:1;min-width:0}
+.news-list-category{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--violet-glow);margin-bottom:4px}
+.news-list-title{font-size:.85rem;font-weight:700;line-height:1.4;transition:color var(--transition-fast);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.news-list-time{font-size:.7rem;color:var(--white-30);margin-top:4px}
+.cat-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.cat-pill{padding:7px 16px;border-radius:var(--radius-full);font-size:.78rem;font-weight:600;background:var(--black-3);border:1px solid var(--white-10);color:var(--white-50);cursor:pointer;transition:all var(--transition-fast)}
+.cat-pill:hover{color:var(--white);border-color:rgba(168,85,247,.4)}
+.cat-pill.active{background:rgba(124,58,237,.2);border-color:var(--violet-bright);color:var(--violet-glow)}
+.newsletter-box{
+  background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(168,85,247,.08));
+  border:1px solid rgba(168,85,247,.3);border-radius:var(--radius-xl);
+  padding:24px;text-align:center;margin-bottom:24px;
+}
+.newsletter-icon{width:48px;height:48px;border-radius:var(--radius-full);background:rgba(124,58,237,.2);border:1px solid rgba(168,85,247,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;color:var(--violet-glow)}
+.newsletter-icon svg{width:22px;height:22px}
+.newsletter-title{font-size:.95rem;font-weight:700;margin-bottom:6px}
+.newsletter-sub{font-size:.8rem;color:var(--white-50);margin-bottom:16px;line-height:1.5}
+.newsletter-btn{display:block;padding:10px 24px;border-radius:var(--radius-full);background:var(--violet-bright);color:var(--white);font-size:.875rem;font-weight:700;transition:background var(--transition-fast);cursor:pointer}
+.newsletter-btn:hover{background:var(--violet-neon)}
+.spinner{width:36px;height:36px;border-radius:50%;border:3px solid var(--white-10);border-top-color:var(--violet-neon);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-center{display:flex;align-items:center;justify-content:center;padding:48px}
+.skeleton-anim{background:linear-gradient(90deg,var(--black-4) 25%,var(--black-3) 50%,var(--black-4) 75%);background-size:200% 100%;animation:shimmer 1.6s infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@media(max-width:768px){.main-nav{display:none}.header-center{display:none}}
+@media(min-width:769px){.hamburger-btn{display:none}}
+</style>
+</head>
+<body>
+<header id="site-header" role="banner">
+  <div class="header-left">
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+    <a href="index.html" class="logo-link"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube Infinity" loading="eager"></a>
+  </div>
+  <div class="header-center">
+    <nav class="main-nav"><a href="index.html">Home</a><a href="discover.html">Discover</a><a href="spotlight.html">Spotlight</a><a href="community.html">Community</a><a href="news.html" class="active" aria-current="page">News</a></nav>
+  </div>
+  <div class="header-right">
+    <a href="search.html" class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></a>
+    <a href="profile.html" class="icon-btn" aria-label="Profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+  </div>
+</header>
+<div id="sidebar-overlay" aria-hidden="true"></div>
+<nav id="sidebar" aria-label="Mobile navigation" aria-hidden="true">
+  <div class="sidebar-header">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="" style="height:28px">
+    <button class="sidebar-close" id="sidebar-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="sidebar-nav">
+    <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</a>
+    <a href="discover.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>Discover</a>
+    <a href="news.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0-1.16 1.83A2 2 0 0 0 4 22Z"/></svg>News</a>
+    <div class="sidebar-divider"></div>
+    <a href="library.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>Library</a>
+  </div>
+</nav>
+<div id="toast-container" aria-live="polite"></div>
+
+<main class="news-page" role="main" aria-label="Anime News">
+  <!-- FEATURED HERO -->
+  <div class="news-hero" id="news-hero" role="banner" aria-label="Featured news article">
+    <img class="news-hero-bg" id="hero-bg" src="" alt="" loading="eager">
+    <div class="news-hero-overlay">
+      <div class="news-hero-category" id="hero-category">Loading…</div>
+      <h1 class="news-hero-title" id="hero-title">Loading latest news…</h1>
+      <p class="news-hero-excerpt" id="hero-excerpt"></p>
+      <div class="news-hero-meta" id="hero-meta"></div>
+    </div>
+  </div>
+
+  <div class="news-layout">
+    <!-- MAIN -->
+    <div class="news-main">
+      <div class="cat-filter" role="group" aria-label="Filter news by category">
+        <button class="cat-pill active" onclick="filterNews('all',this)">All News</button>
+        <button class="cat-pill" onclick="filterNews('release',this)">New Releases</button>
+        <button class="cat-pill" onclick="filterNews('industry',this)">Industry</button>
+        <button class="cat-pill" onclick="filterNews('trending',this)">Trending</button>
+        <button class="cat-pill" onclick="filterNews('review',this)">Reviews</button>
+        <button class="cat-pill" onclick="filterNews('event',this)">Events</button>
+      </div>
+
+      <h2 class="news-section-title">Latest News</h2>
+      <div class="news-grid" id="news-grid"></div>
+
+      <h2 class="news-section-title">More Stories</h2>
+      <div id="news-list"></div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="news-sidebar" aria-label="News sidebar">
+      <div class="newsletter-box">
+        <div class="newsletter-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div class="newsletter-title">Stay in the Loop</div>
+        <div class="newsletter-sub">Bookmark this page and check back daily for the latest anime news and updates.</div>
+        <button class="newsletter-btn" onclick="bookmarkPage()">Bookmark Page</button>
+      </div>
+
+      <h2 class="news-section-title">Trending Anime</h2>
+      <div id="trending-anime" style="margin-bottom:24px"></div>
+
+      <h2 class="news-section-title">Upcoming This Week</h2>
+      <div id="upcoming-list"></div>
+    </aside>
+  </div>
+</main>
+
+<footer id="site-footer" role="contentinfo">
+  <div class="footer-logo"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwxClcajSZy1q1gj_1kf_9y1J7mutn4jWfqdhlBVbFjLkViz_Z3-nuIZ11W0qOd1jlFgMFYi-g_XrpIiRbQjZd-wPwg4RWWyhbR0QLw0-ZgX5DFncVPNOxrDBouMlbdz2sLvQS65JbQaLJpQReWhjceG8Rn5cxrNusoQAXieXFcX_q_LZthCYS1AsCR30/s320/NamiTube%20Original%20banner.png" alt="NamiTube Infinity" loading="lazy"></div>
+  <p class="footer-manifesto">"Where every frame tells a story. NamiTube Infinity — your gateway to the infinite worlds of anime."</p>
+  <div class="footer-socials">
+    <a href="#" class="social-link" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.259 5.631ZM17.083 20h1.833L7.084 4h-1.97Z"/></svg></a>
+    <a href="#" class="social-link" aria-label="Discord"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.08.11 18.102.129 18.117a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg></a>
+  </div>
+  <p class="footer-disclaimer">This site does not store any files on its server. All contents are provided by non-affiliated third parties.</p>
+  <p class="footer-copyright">© 2025 <span>NamiTube Infinity</span>. All rights reserved.</p>
+</footer>
+
+<script>
+const CACHE_PREFIX='namitube_';const CACHE_TTL=5*60*1000;const API_BASE='https://api.jikan.moe/v4';const pendingR=new Map();
+const LSCache={get(k){try{const i=JSON.parse(localStorage.getItem(CACHE_PREFIX+k));if(!i)return null;if(Date.now()-i.ts>CACHE_TTL){localStorage.removeItem(CACHE_PREFIX+k);return null}return i.data}catch{return null}},set(k,d){try{localStorage.setItem(CACHE_PREFIX+k,JSON.stringify({data:d,ts:Date.now()}))}catch{}}};
+async function apiFetch(ep){const ck=ep.replace(/[/?&=]/g,'_');const c=LSCache.get(ck);if(c)return c;if(pendingR.has(ep))return pendingR.get(ep);const fr=async(a)=>{const ctrl=new AbortController();const t=setTimeout(()=>ctrl.abort(),10000);try{const r=await fetch(API_BASE+ep,{signal:ctrl.signal});clearTimeout(t);if(!r.ok)throw new Error();const j=await r.json();LSCache.set(ck,j);return j}catch(e){clearTimeout(t);if(a<3&&!ctrl.signal.aborted){await new Promise(r=>setTimeout(r,800*a));return fr(a+1)}throw e}};const p=fr(1).finally(()=>pendingR.delete(ep));pendingR.set(ep,p);return p}
+function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+const header=document.getElementById('site-header');window.addEventListener('scroll',()=>header.classList.toggle('scrolled',window.scrollY>20),{passive:true});
+const hamburger=document.getElementById('hamburger-btn'),sidebar=document.getElementById('sidebar'),overlay=document.getElementById('sidebar-overlay'),sbClose=document.getElementById('sidebar-close');
+function openSB(){sidebar.classList.add('open');overlay.classList.add('open');sidebar.setAttribute('aria-hidden','false');hamburger.setAttribute('aria-expanded','true');hamburger.classList.add('active');document.body.style.overflow='hidden'}
+function closeSB(){sidebar.classList.remove('open');overlay.classList.remove('open');sidebar.setAttribute('aria-hidden','true');hamburger.setAttribute('aria-expanded','false');hamburger.classList.remove('active');document.body.style.overflow=''}
+hamburger.addEventListener('click',openSB);sbClose.addEventListener('click',closeSB);overlay.addEventListener('click',closeSB);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSB()});
+function showToast(msg,type='info',dur=3000){const c=document.getElementById('toast-container');const t=document.createElement('div');t.className=`toast ${type}`;t.innerHTML=`<svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg><span>${msg}</span>`;c.appendChild(t);requestAnimationFrame(()=>requestAnimationFrame(()=>t.classList.add('show')));setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),400)},dur)}
+
+const NEWS_ARTICLES=[
+  {id:1,category:'release',catClass:'cat-release',title:'Jujutsu Kaisen Season 3 Confirms Spring 2025 Premiere Date',excerpt:'MAPPA Studio has officially confirmed that Jujutsu Kaisen Season 3 will premiere in April 2025, adapting the highly anticipated Culling Game arc. The new season promises even more intense animation.',readTime:'4 min',time:'2 hours ago',img:'',animeId:40748},
+  {id:2,category:'industry',catClass:'cat-industry',title:'Crunchyroll Announces Record 13 Million Subscribers Worldwide',excerpt:'The anime streaming giant continues its dominance as global anime fandom reaches unprecedented levels, with Asia Pacific markets showing the strongest growth.',readTime:'3 min',time:'5 hours ago',img:'',animeId:null},
+  {id:3,category:'release',catClass:'cat-release',title:'Demon Slayer: Infinity Castle Arc Movie Trilogy Dates Revealed',excerpt:'Ufotable has announced the theatrical release schedule for the Infinity Castle arc, spanning three feature films beginning summer 2025. Early tickets already selling out across Japan.',readTime:'5 min',time:'1 day ago',img:'',animeId:47778},
+  {id:4,category:'trending',catClass:'cat-trending',title:'Solo Leveling Season 2 Breaks Streaming Records',excerpt:'The manhwa adaptation continues its meteoric rise, becoming the most-watched anime premiere of 2025 with over 100 million views in its first week.',readTime:'3 min',time:'2 days ago',img:'',animeId:55048},
+  {id:5,category:'review',catClass:'cat-review',title:"Frieren: Beyond Journey's End Wins Anime of the Year at All Major Awards",excerpt:"Madhouse's adaptation of the beloved manga swept the anime awards season, praised for its emotional depth, breathtaking animation, and philosophical storytelling.",readTime:'6 min',time:'3 days ago',img:'',animeId:52991},
+  {id:6,category:'event',catClass:'cat-event',title:'Anime Expo 2025 Announces 200+ Exclusive World Premieres',excerpt:'The largest anime convention in North America promises its biggest year ever, with major studios announcing simultaneous global premieres and exclusive merchandise.',readTime:'4 min',time:'4 days ago',img:'',animeId:null},
+  {id:7,category:'industry',catClass:'cat-industry',title:'Netflix Anime Division Expands with 50 New Original Productions',excerpt:'The streaming giant doubles down on anime investment with a massive production slate covering every genre and targeting both Japanese and international audiences.',readTime:'5 min',time:'5 days ago',img:'',animeId:null},
+  {id:8,category:'release',catClass:'cat-release',title:'Chainsaw Man Part 2 Anime Adaptation Officially Announced',excerpt:'MAPPA confirms they will adapt the continuation of Tatsuki Fujimoto\'s manga, with production already well underway. No premiere date announced yet.',readTime:'3 min',time:'6 days ago',img:'',animeId:44511},
+];
+
+let allArticles=[...NEWS_ARTICLES];
+let animeCache={};
+let currentFilter='all';
+
+async function loadAnimeImages(){
+  const ids=[40748,47778,55048,52991,44511,16498,5114,9253];
+  const results=await Promise.allSettled(ids.map(id=>apiFetch(`/anime/${id}`)));
+  results.forEach((r,i)=>{
+    if(r.status==='fulfilled'&&r.value?.data){
+      animeCache[ids[i]]=r.value.data;
+    }
+  });
+}
+
+function getAnimeImg(animeId){
+  const a=animeCache[animeId];
+  return a?.images?.jpg?.large_image_url||'';
+}
+
+function renderHero(articles){
+  const a=articles[0];
+  if(!a)return;
+  const img=a.animeId?getAnimeImg(a.animeId):'';
+  const heroBg=document.getElementById('hero-bg');
+  heroBg.src=img;
+  heroBg.style.opacity=img?'1':'0';
+  document.getElementById('hero-category').textContent=a.category.charAt(0).toUpperCase()+a.category.slice(1);
+  document.getElementById('hero-title').textContent=a.title;
+  document.getElementById('hero-excerpt').textContent=a.excerpt;
+  document.getElementById('hero-meta').innerHTML=`<span>${a.time}</span><span>·</span><span>${a.readTime} read</span>`;
+  document.getElementById('news-hero').onclick=()=>{if(a.animeId)window.location.href=`anime.html?id=${a.animeId}`};
+  document.getElementById('news-hero').setAttribute('aria-label',`Featured: ${a.title}`);
+}
+
+function renderNewsGrid(articles){
+  const grid=document.getElementById('news-grid');
+  grid.innerHTML=articles.slice(1,5).map(a=>{
+    const img=a.animeId?getAnimeImg(a.animeId):'';
+    return`<article class="news-card" tabindex="0" aria-label="${escapeHtml(a.title)}" onclick="${a.animeId?`window.location.href='anime.html?id=${a.animeId}'`:''}" onkeydown="if(event.key==='Enter'&&this.onclick)this.onclick()">
+      <div class="news-card-thumb">
+        ${img?`<img src="${img}" alt="${escapeHtml(a.title)}" loading="lazy">`:'<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--violet-deep),var(--black-4))"></div>'}
+        <div class="news-card-category ${a.catClass}">${a.category}</div>
+      </div>
+      <div class="news-card-body">
+        <div class="news-card-title">${escapeHtml(a.title)}</div>
+        <div class="news-card-excerpt">${escapeHtml(a.excerpt)}</div>
+        <div class="news-card-meta">
+          <span>${a.time}</span>
+          <span class="news-card-read-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${a.readTime}</span>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+function renderNewsList(articles){
+  const list=document.getElementById('news-list');
+  list.innerHTML=articles.slice(5).map(a=>{
+    const img=a.animeId?getAnimeImg(a.animeId):'';
+    return`<article class="news-list-item" tabindex="0" aria-label="${escapeHtml(a.title)}" onclick="${a.animeId?`window.location.href='anime.html?id=${a.animeId}'`:''}" onkeydown="if(event.key==='Enter'&&this.onclick)this.onclick()">
+      ${img?`<img class="news-list-thumb" src="${img}" alt="${escapeHtml(a.title)}" loading="lazy">`:'<div class="news-list-thumb" style="background:linear-gradient(135deg,var(--violet-deep),var(--black-4))"></div>'}
+      <div class="news-list-info">
+        <div class="news-list-category">${a.category}</div>
+        <div class="news-list-title">${escapeHtml(a.title)}</div>
+        <div class="news-list-time">${a.time} · ${a.readTime}</div>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+function filterNews(cat,btn){
+  currentFilter=cat;
+  document.querySelectorAll('.cat-pill').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered=cat==='all'?NEWS_ARTICLES:NEWS_ARTICLES.filter(a=>a.category===cat);
+  if(filtered.length){renderHero(filtered);renderNewsGrid(filtered);renderNewsList(filtered)}
+}
+
+async function loadTrending(){
+  try{
+    const data=await apiFetch('/top/anime?filter=bypopularity&limit=6');
+    document.getElementById('trending-anime').innerHTML=(data.data||[]).slice(0,5).map(a=>`
+      <a href="anime.html?id=${a.mal_id}" class="news-list-item" style="cursor:pointer" aria-label="${escapeHtml(a.title||'')}">
+        <img class="news-list-thumb" src="${a.images?.jpg?.image_url||''}" alt="${escapeHtml(a.title||'')}" loading="lazy">
+        <div class="news-list-info">
+          <div class="news-list-category">Trending</div>
+          <div class="news-list-title">${escapeHtml(a.title||'')}</div>
+          <div class="news-list-time">★ ${a.score||'N/A'} · ${a.type||'TV'}</div>
+        </div>
+      </a>
+    `).join('');
+  }catch{}
+}
+
+async function loadUpcoming(){
+  try{
+    const data=await apiFetch('/top/anime?filter=upcoming&limit=5');
+    document.getElementById('upcoming-list').innerHTML=(data.data||[]).slice(0,5).map(a=>`
+      <a href="anime.html?id=${a.mal_id}" class="news-list-item" style="cursor:pointer" aria-label="${escapeHtml(a.title||'')}">
+        <img class="news-list-thumb" src="${a.images?.jpg?.image_url||''}" alt="${escapeHtml(a.title||'')}" loading="lazy">
+        <div class="news-list-info">
+          <div class="news-list-category" style="color:#fcd34d">Upcoming</div>
+          <div class="news-list-title">${escapeHtml(a.title||'')}</div>
+          <div class="news-list-time">${a.type||'TV'} · Coming Soon</div>
+        </div>
+      </a>
+    `).join('');
+  }catch{}
+}
+
+function bookmarkPage(){
+  try{window.sidebar?.addPanel?.(document.title,window.location.href,'');showToast('Use Ctrl+D to bookmark this page','info')}
+  catch{showToast('Press Ctrl+D to bookmark this page','info')}
+}
+
+async function init(){
+  renderHero(NEWS_ARTICLES);
+  renderNewsGrid(NEWS_ARTICLES);
+  renderNewsList(NEWS_ARTICLES);
+  await loadAnimeImages();
+  renderHero(NEWS_ARTICLES);
+  renderNewsGrid(NEWS_ARTICLES);
+  renderNewsList(NEWS_ARTICLES);
+  loadTrending();
+  loadUpcoming();
+}
+
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
